@@ -9,21 +9,43 @@
 /* Begin PBXBuildFile section */
 		7457BB4824EC52D3004693A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB4724EC52D3004693A5 /* AppDelegate.swift */; };
 		7457BB4A24EC52D3004693A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB4924EC52D3004693A5 /* SceneDelegate.swift */; };
-		7457BB4C24EC52D3004693A5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB4B24EC52D3004693A5 /* ViewController.swift */; };
-		7457BB4F24EC52D3004693A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7457BB4D24EC52D3004693A5 /* Main.storyboard */; };
+		7457BB4C24EC52D3004693A5 /* DayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB4B24EC52D3004693A5 /* DayList.swift */; };
+		7457BB4F24EC52D3004693A5 /* DayList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7457BB4D24EC52D3004693A5 /* DayList.storyboard */; };
 		7457BB5124EC52D6004693A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7457BB5024EC52D6004693A5 /* Assets.xcassets */; };
 		7457BB5424EC52D6004693A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7457BB5224EC52D6004693A5 /* LaunchScreen.storyboard */; };
+		7457BB5D24EC5596004693A5 /* DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB5B24EC5596004693A5 /* DayCell.swift */; };
+		7457BB5E24EC5596004693A5 /* DayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7457BB5C24EC5596004693A5 /* DayCell.xib */; };
+		7457BB6424ED3CE1004693A5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6324ED3CE1004693A5 /* NetworkService.swift */; };
+		7457BB6624ED3D41004693A5 /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6524ED3D41004693A5 /* NetworkServiceError.swift */; };
+		7457BB6824ED428E004693A5 /* DecodeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6724ED428E004693A5 /* DecodeService.swift */; };
+		7457BB6A24ED42D7004693A5 /* ErrorAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6924ED42D7004693A5 /* ErrorAlertService.swift */; };
+		7457BB6D24ED4FA2004693A5 /* WeekForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6C24ED4FA2004693A5 /* WeekForecast.swift */; };
+		7457BB6F24ED5C00004693A5 /* WeekForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6E24ED5C00004693A5 /* WeekForecastService.swift */; };
+		74A53E4C24EEAC7F00D27942 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */; };
+		74A53E4E24EEAFF800D27942 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E4D24EEAFF800D27942 /* AppConstants.swift */; };
+		74A53E5224EFBD6100D27942 /* LocationErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E5124EFBD6100D27942 /* LocationErrorService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		7457BB4424EC52D3004693A5 /* WeekWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeekWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7457BB4724EC52D3004693A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7457BB4924EC52D3004693A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7457BB4B24EC52D3004693A5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7457BB4E24EC52D3004693A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		7457BB4B24EC52D3004693A5 /* DayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayList.swift; sourceTree = "<group>"; };
+		7457BB4E24EC52D3004693A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DayList.storyboard; sourceTree = "<group>"; };
 		7457BB5024EC52D6004693A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7457BB5324EC52D6004693A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7457BB5524EC52D6004693A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7457BB5B24EC5596004693A5 /* DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCell.swift; sourceTree = "<group>"; };
+		7457BB5C24EC5596004693A5 /* DayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DayCell.xib; sourceTree = "<group>"; };
+		7457BB6324ED3CE1004693A5 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		7457BB6524ED3D41004693A5 /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
+		7457BB6724ED428E004693A5 /* DecodeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecodeService.swift; sourceTree = "<group>"; };
+		7457BB6924ED42D7004693A5 /* ErrorAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertService.swift; sourceTree = "<group>"; };
+		7457BB6C24ED4FA2004693A5 /* WeekForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekForecast.swift; sourceTree = "<group>"; };
+		7457BB6E24ED5C00004693A5 /* WeekForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekForecastService.swift; sourceTree = "<group>"; };
+		74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
+		74A53E4D24EEAFF800D27942 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		74A53E5124EFBD6100D27942 /* LocationErrorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationErrorService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +80,72 @@
 			children = (
 				7457BB4724EC52D3004693A5 /* AppDelegate.swift */,
 				7457BB4924EC52D3004693A5 /* SceneDelegate.swift */,
-				7457BB4B24EC52D3004693A5 /* ViewController.swift */,
-				7457BB4D24EC52D3004693A5 /* Main.storyboard */,
+				7457BB5F24ED33DA004693A5 /* Scene */,
+				7457BB6224ED365A004693A5 /* Services */,
+				7457BB6B24ED4F62004693A5 /* Model */,
+				74A53E4A24EEAC5000D27942 /* Constants */,
 				7457BB5024EC52D6004693A5 /* Assets.xcassets */,
 				7457BB5224EC52D6004693A5 /* LaunchScreen.storyboard */,
 				7457BB5524EC52D6004693A5 /* Info.plist */,
 			);
 			path = WeekWeather;
+			sourceTree = "<group>";
+		};
+		7457BB5F24ED33DA004693A5 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				7457BB6124ED3421004693A5 /* DayList */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		7457BB6024ED33E3004693A5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7457BB5B24EC5596004693A5 /* DayCell.swift */,
+				7457BB5C24EC5596004693A5 /* DayCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7457BB6124ED3421004693A5 /* DayList */ = {
+			isa = PBXGroup;
+			children = (
+				7457BB4B24EC52D3004693A5 /* DayList.swift */,
+				7457BB4D24EC52D3004693A5 /* DayList.storyboard */,
+				7457BB6024ED33E3004693A5 /* View */,
+			);
+			path = DayList;
+			sourceTree = "<group>";
+		};
+		7457BB6224ED365A004693A5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7457BB6324ED3CE1004693A5 /* NetworkService.swift */,
+				7457BB6E24ED5C00004693A5 /* WeekForecastService.swift */,
+				7457BB6724ED428E004693A5 /* DecodeService.swift */,
+				7457BB6524ED3D41004693A5 /* NetworkServiceError.swift */,
+				7457BB6924ED42D7004693A5 /* ErrorAlertService.swift */,
+				74A53E5124EFBD6100D27942 /* LocationErrorService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		7457BB6B24ED4F62004693A5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7457BB6C24ED4FA2004693A5 /* WeekForecast.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		74A53E4A24EEAC5000D27942 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */,
+				74A53E4D24EEAFF800D27942 /* AppConstants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +208,8 @@
 			files = (
 				7457BB5424EC52D6004693A5 /* LaunchScreen.storyboard in Resources */,
 				7457BB5124EC52D6004693A5 /* Assets.xcassets in Resources */,
-				7457BB4F24EC52D3004693A5 /* Main.storyboard in Resources */,
+				7457BB5E24EC5596004693A5 /* DayCell.xib in Resources */,
+				7457BB4F24EC52D3004693A5 /* DayList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,21 +220,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7457BB4C24EC52D3004693A5 /* ViewController.swift in Sources */,
+				7457BB6424ED3CE1004693A5 /* NetworkService.swift in Sources */,
+				74A53E5224EFBD6100D27942 /* LocationErrorService.swift in Sources */,
+				7457BB6624ED3D41004693A5 /* NetworkServiceError.swift in Sources */,
+				7457BB4C24EC52D3004693A5 /* DayList.swift in Sources */,
 				7457BB4824EC52D3004693A5 /* AppDelegate.swift in Sources */,
+				7457BB5D24EC5596004693A5 /* DayCell.swift in Sources */,
+				7457BB6A24ED42D7004693A5 /* ErrorAlertService.swift in Sources */,
+				7457BB6D24ED4FA2004693A5 /* WeekForecast.swift in Sources */,
+				7457BB6824ED428E004693A5 /* DecodeService.swift in Sources */,
+				7457BB6F24ED5C00004693A5 /* WeekForecastService.swift in Sources */,
+				74A53E4C24EEAC7F00D27942 /* LocalizedStrings.swift in Sources */,
 				7457BB4A24EC52D3004693A5 /* SceneDelegate.swift in Sources */,
+				74A53E4E24EEAFF800D27942 /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		7457BB4D24EC52D3004693A5 /* Main.storyboard */ = {
+		7457BB4D24EC52D3004693A5 /* DayList.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				7457BB4E24EC52D3004693A5 /* Base */,
 			);
-			name = Main.storyboard;
+			name = DayList.storyboard;
 			sourceTree = "<group>";
 		};
 		7457BB5224EC52D6004693A5 /* LaunchScreen.storyboard */ = {
