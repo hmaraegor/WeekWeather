@@ -27,8 +27,6 @@ class ErrorAlertService {
             errorMessage = "Network error"
         case .badResponse:
             errorMessage = "Response returned an error"
-        case .badLocation:
-            errorMessage = "Issue with define of location"
         @unknown default:
             errorMessage = "Network Service error"
         }
@@ -45,7 +43,7 @@ class ErrorAlertService {
         var errorMessage = String()
         switch error{
         case .badLocation:
-            errorMessage = "Error of define your location"
+            errorMessage = "Error of define your location" //"Issue with define of location"
         }
         
         DispatchQueue.main.async {

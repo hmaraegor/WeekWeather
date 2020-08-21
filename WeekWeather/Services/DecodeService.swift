@@ -14,12 +14,12 @@ class DecodeService {
         @escaping (Result<T, NetworkServiceError>) -> ()) {
         
         
-                    do {
-                        let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        print("json\n", json)
-                    } catch {
-                        print("json error")
-                    }
+//                    do {
+//                        let json = try JSONSerialization.jsonObject(with: data, options: [])
+//                        print("json\n", json)
+//                    } catch {
+//                        print("json error")
+//                    }
         
         
             do {

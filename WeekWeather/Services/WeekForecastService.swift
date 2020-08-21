@@ -17,15 +17,15 @@ class WeekForecastService {
         let url = "https://api.openweathermap.org/data/2.5/onecall"
         let locale = Locale.current.languageCode!
         
-        var parameters = ["exclude":"current,minutely,hourly", "units":"metric", "appid":"2ff71b60a20dc621c22b68a665801ccf", "lang":locale] as [String : Any]
+        var parameters = ["exclude":"minutely,hourly", "units":"metric", "appid":"2ff71b60a20dc621c22b68a665801ccf", "lang":locale] as [String : Any]
         guard let inputParams = params else {
             completionHandler(nil, LocationServiceError.badLocation)
             return
         }
         
-        parameters.merge(dict: inputParams ?? [:])
+        parameters.merge(dict: inputParams)
         
-        var completion = { (result: Result<WeekForecast, NetworkServiceError>) in
+        let completion = { (result: Result<WeekForecast, NetworkServiceError>) in
             switch result {
             case .success(let returnedContentList):
                 completionHandler(returnedContentList, nil)

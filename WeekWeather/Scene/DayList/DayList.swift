@@ -12,9 +12,9 @@ import CoreLocation
 class DayList: UIViewController {
     
     @IBOutlet var tableView: UITableView!
-    var weekForecastService = WeekForecastService()
-    var daylyForecast = [DayForecast]()
-    let locationManager = CLLocationManager()
+     private var weekForecastService = WeekForecastService()
+     private var daylyForecast = WeekForecast() //[DayForecast]()
+     private let locationManager = CLLocationManager()
 
     
     override func viewDidAppear(_ animated: Bool) {
@@ -25,6 +25,27 @@ class DayList: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let date = NSDate(timeIntervalSince1970: NSDate().timeIntervalSince1970)
+        print(date)
+        print(NSDate().timeIntervalSince1970)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.none //Set time style
+        dateFormatter.dateStyle = DateFormatter.Style.long //Set date style
+        dateFormatter.timeZone = .current
+        dateFormatter.dateFormat = "EEEE, dd MMM"
+        dateFormatter.locale = .current
+        
+        print(NSLocale.current.languageCode!)
+        print(NSLocale.current.identifier)
+        print(NSLocale.current)
+        print(NSLocale.preferredLanguages.first)
+        let locale = NSLocale(localeIdentifier: NSLocale.preferredLanguages.first!)//NSLocale.current.identifier)
+        dateFormatter.locale = locale as Locale?
+        let localDate = dateFormatter.string(from: date as Date)
+        print(localDate)
+        
         
         let nib = UINib(nibName: "DayCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
@@ -54,7 +75,9 @@ class DayList: UIViewController {
         
     }
     
-    func requestLocalePermission() {
+    
+    
+     private func requestLocalePermission() {
         let alert = UIAlertController(title: "Allow Location Access", message: "WeekWeather needs access to your location. Turn on Location Services in your device settings.", preferredStyle: UIAlertController.Style.alert)
         
         // Button to Open Settings
@@ -77,13 +100,13 @@ class DayList: UIViewController {
         }
     }
     
-    func getWeatherForecast(params: [String : Any]) {
+     private func getWeatherForecast(params: [String : Any]) {
         
         weekForecastService.getForecast(params: params) { (result, error) in
             
             if result != nil {
                 DispatchQueue.main.async {
-                    self.daylyForecast = result!.daily
+                    self.daylyForecast = result! //result!.daily
                     self.tableView.reloadData()
                 }
             }
@@ -102,58 +125,10 @@ class DayList: UIViewController {
 
 extension DayList: CLLocationManagerDelegate {
     
-    func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
-        print("didVisit")
-    }
-    
-    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-        print("locationManagerDidPauseLocationUpdates")
-    }
-    
-    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
-        print("locationManagerDidResumeLocationUpdates")
-    }
-    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError")
-        self.title = "San Francisco"
-        self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        print("didExitRegion")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-        print("didEnterRegion")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
-        print("didStartMonitoringFor")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-        print("didUpdateHeading")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
-        print("didFinishDeferredUpdatesWithError")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
-        print("didDetermineState")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        print("monitoringDidFailFor")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailRangingFor beaconConstraint: CLBeaconIdentityConstraint, error: Error) {
-        print("didFailRangingFor")
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
-        print("didRange")
+//        self.title = "San Francisco"
+//        self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -185,6 +160,23 @@ extension DayList: CLLocationManagerDelegate {
                 }
             }
         }
+        
+        switch status {
+        case .authorizedAlways:
+            print("authorizedAlways")
+        case .authorizedWhenInUse:
+            print("authorizedAlways")
+        case .denied:
+            print("denied")
+            self.title = "San Francisco"
+            self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
+        case .notDetermined:
+            print("notDetermined")
+        case .restricted:
+            print("restricted")
+        default:
+            print()
+        }
     }
 }
 
@@ -193,7 +185,7 @@ extension DayList: CLLocationManagerDelegate {
 extension DayList: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return daylyForecast.count
+        return daylyForecast.daily.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -201,8 +193,13 @@ extension DayList: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let dayForecast = daylyForecast[indexPath.row]
-        cell.configure(with: dayForecast)
+        if indexPath.row == 0 {
+            cell.configureFirstCell(with: daylyForecast)
+        }
+        else {
+            let dayForecast = daylyForecast.daily[indexPath.row]
+            cell.configure(with: dayForecast)
+        }
         
         return cell
     }

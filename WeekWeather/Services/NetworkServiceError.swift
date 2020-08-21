@@ -13,8 +13,6 @@ enum NetworkServiceError: Error {
     case noResponse
     case noData
     case jsonDecoding
-    case modelEncoding
     case networkError
     case badResponse
-    case badLocation
 }
