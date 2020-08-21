@@ -29,9 +29,6 @@ class DayList: UIViewController {
         let nib = UINib(nibName: "DayCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
         
-        locationManager.requestAlwaysAuthorization()
-        locationManager.requestWhenInUseAuthorization()
-        
         guard CLLocationManager.locationServicesEnabled() else {
             print("Location services are not enabled")
             return
@@ -39,6 +36,9 @@ class DayList: UIViewController {
         
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+            
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
@@ -50,7 +50,6 @@ class DayList: UIViewController {
         @unknown default:
             break
         }
-        
         
         
     }
@@ -102,6 +101,60 @@ class DayList: UIViewController {
 // MARK: - Location manager delegate
 
 extension DayList: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
+        print("didVisit")
+    }
+    
+    func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
+        print("locationManagerDidPauseLocationUpdates")
+    }
+    
+    func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
+        print("locationManagerDidResumeLocationUpdates")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("didFailWithError")
+        self.title = "San Francisco"
+        self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        print("didExitRegion")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        print("didEnterRegion")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didStartMonitoringFor region: CLRegion) {
+        print("didStartMonitoringFor")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        print("didUpdateHeading")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
+        print("didFinishDeferredUpdatesWithError")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        print("didDetermineState")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        print("monitoringDidFailFor")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailRangingFor beaconConstraint: CLBeaconIdentityConstraint, error: Error) {
+        print("didFailRangingFor")
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didRange beacons: [CLBeacon], satisfying beaconConstraint: CLBeaconIdentityConstraint) {
+        print("didRange")
+    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
@@ -159,10 +212,6 @@ extension DayList: UITableViewDataSource {
 // MARK: - Table view delegate
 
 extension DayList: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 115

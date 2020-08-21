@@ -34,7 +34,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tonight 17°C・today 23°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t7A-nN-sYA" userLabel="day/night">
-                        <rect key="frame" x="20" y="6.5" width="144" height="15"/>
+                        <rect key="frame" x="20" y="7" width="144" height="14.5"/>
                         <color key="backgroundColor" red="0.9887863248409472" green="0.0" blue="1" alpha="0.1541630993150685" colorSpace="custom" customColorSpace="sRGB"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                         <nil key="textColor"/>
