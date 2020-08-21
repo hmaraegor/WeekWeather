@@ -26,27 +26,6 @@ class DayList: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let date = NSDate(timeIntervalSince1970: NSDate().timeIntervalSince1970)
-        print(date)
-        print(NSDate().timeIntervalSince1970)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.none //Set time style
-        dateFormatter.dateStyle = DateFormatter.Style.long //Set date style
-        dateFormatter.timeZone = .current
-        dateFormatter.dateFormat = "EEEE, dd MMM"
-        dateFormatter.locale = .current
-        
-        print(NSLocale.current.languageCode!)
-        print(NSLocale.current.identifier)
-        print(NSLocale.current)
-        print(NSLocale.preferredLanguages.first)
-        let locale = NSLocale(localeIdentifier: NSLocale.preferredLanguages.first!)//NSLocale.current.identifier)
-        dateFormatter.locale = locale as Locale?
-        let localDate = dateFormatter.string(from: date as Date)
-        print(localDate)
-        
-        
         let nib = UINib(nibName: "DayCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "Cell")
         
@@ -80,7 +59,6 @@ class DayList: UIViewController {
      private func requestLocalePermission() {
         let alert = UIAlertController(title: "Allow Location Access", message: "WeekWeather needs access to your location. Turn on Location Services in your device settings.", preferredStyle: UIAlertController.Style.alert)
         
-        // Button to Open Settings
         alert.addAction(UIAlertAction(title: "Settings", style: UIAlertAction.Style.default, handler: { action in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                 return
@@ -91,10 +69,12 @@ class DayList: UIViewController {
                 })
             }
         }))
+        
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { action in
             self.title = "San Francisco"
             self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
         })
+        
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
@@ -106,7 +86,7 @@ class DayList: UIViewController {
             
             if result != nil {
                 DispatchQueue.main.async {
-                    self.daylyForecast = result! //result!.daily
+                    self.daylyForecast = result!
                     self.tableView.reloadData()
                 }
             }
@@ -127,8 +107,6 @@ extension DayList: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError")
-//        self.title = "San Francisco"
-//        self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

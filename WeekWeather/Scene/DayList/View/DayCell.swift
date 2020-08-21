@@ -36,11 +36,11 @@ class DayCell: UITableViewCell {
     }
     
     func configure(with dayForecast: DayForecast){
-        currentTempLabel.text = String(format: "%.0f", dayForecast.temp.day) + AppConstants.Celsius
-        let dayTemp = LocString.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.Celsius
-        let nigthTemp = LocString.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.Celsius
+        currentTempLabel.text = String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
+        let dayTemp = LocString.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
+        let nigthTemp = LocString.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
-        feelsTempLabel.text = LocString.feelsLike + String(dayForecast.feelsLike.day) + AppConstants.Celsius
+        feelsTempLabel.text = LocString.feelsLike + String(dayForecast.feelsLike.day) + AppConstants.celsius
         weatherDescriptLabel.text = dayForecast.weather.first?.description
         windLabel.text = LocString.wind + String(format: "%.1f", dayForecast.windSpeed) + LocString.metersInSec
         weekDay.text = getDate(unixTime: dayForecast.dt)
@@ -60,11 +60,11 @@ class DayCell: UITableViewCell {
         let dayForecast = weekForecast.daily.first!
         let currentWeather = weekForecast.current
         
-        currentTempLabel.text = String(format: "%.0f", currentWeather.temp) + AppConstants.Celsius
-        let dayTemp = LocString.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.Celsius
-        let nigthTemp = LocString.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.Celsius
+        currentTempLabel.text = String(format: "%.0f", currentWeather.temp) + AppConstants.celsius
+        let dayTemp = LocString.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
+        let nigthTemp = LocString.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
-        feelsTempLabel.text = LocString.feelsLike + String(currentWeather.feelsLike) + AppConstants.Celsius
+        feelsTempLabel.text = LocString.feelsLike + String(currentWeather.feelsLike) + AppConstants.celsius
         weatherDescriptLabel.text = currentWeather.weather.first?.description
         windLabel.text = LocString.wind + String(format: "%.1f", currentWeather.windSpeed) + LocString.metersInSec
         weekDay.text = getDate(unixTime: currentWeather.dt)
