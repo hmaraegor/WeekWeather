@@ -179,6 +179,7 @@ extension DayList: UITableViewDataSource {
             cell.configure(with: dayForecast)
         }
         
+        cell.isUserInteractionEnabled = false
         return cell
     }
     
@@ -189,7 +190,10 @@ extension DayList: UITableViewDataSource {
 extension DayList: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 115
+//        self.tableView.rowHeight = UITableViewAutomaticDimension;
+//        self.tableView.estimatedRowHeight = 44.0; // set to whatever your "average" cell height is
+        return UITableView.automaticDimension
+//        return 115
     }
     
 }
