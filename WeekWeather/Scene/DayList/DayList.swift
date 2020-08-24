@@ -9,7 +9,9 @@
 import UIKit
 import CoreLocation
 
-class DayList: UIViewController {
+class DayList: UIViewController, DayCellDelegate {
+    
+    var imageArray = [String : UIImage]()
     
     @IBOutlet var tableView: UITableView!
      private var weekForecastService = WeekForecastService()
@@ -36,22 +38,27 @@ class DayList: UIViewController {
         
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
+            print("Not determined")
             locationManager.requestAlwaysAuthorization()
             locationManager.requestWhenInUseAuthorization()
-            
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
+            startLocate()
         case .restricted, .denied:
             print("No access")
             requestLocalePermission()
         case .authorizedAlways, .authorizedWhenInUse:
             print("Access")
+            startLocate()
         @unknown default:
             break
         }
         
         
+    }
+    
+    private func startLocate() {
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        locationManager.startUpdatingLocation()
     }
     
     
@@ -71,8 +78,8 @@ class DayList: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { action in
-            self.title = "San Francisco"
-            self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
+            self.title = "Test"//"San Francisco"
+            self.getWeatherForecast(params: ["lat":35.1, "lon":-120.1])  //   ["lat":37.785834, "lon":-122.406417])
         })
         
         DispatchQueue.main.async {
@@ -106,7 +113,7 @@ class DayList: UIViewController {
 extension DayList: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("didFailWithError")
+        print("didFailWithError", error.localizedDescription)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -121,7 +128,7 @@ extension DayList: CLLocationManagerDelegate {
                 if error == nil {
                     if let firstLocation = placemarks?[0],
                         let cityName = firstLocation.locality { // get the city name
-                        self?.locationManager.stopUpdatingLocation()
+                        //self?.locationManager.stopUpdatingLocation()
                         self?.title = cityName
                         print(cityName)
                     }
@@ -143,7 +150,7 @@ extension DayList: CLLocationManagerDelegate {
         case .authorizedAlways:
             print("authorizedAlways")
         case .authorizedWhenInUse:
-            print("authorizedAlways")
+            print("authorizedWhenInUse")
         case .denied:
             print("denied")
             self.title = "San Francisco"
@@ -171,12 +178,15 @@ extension DayList: UITableViewDataSource {
             return UITableViewCell()
         }
         
+        cell.delegate = self
+        
         if indexPath.row == 0 {
             cell.configureFirstCell(with: daylyForecast)
         }
         else {
             let dayForecast = daylyForecast.daily[indexPath.row]
             cell.configure(with: dayForecast)
+//            cell.configure(with: daylyForecast)
         }
         
         cell.isUserInteractionEnabled = false
@@ -190,8 +200,6 @@ extension DayList: UITableViewDataSource {
 extension DayList: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        self.tableView.rowHeight = UITableViewAutomaticDimension;
-//        self.tableView.estimatedRowHeight = 44.0; // set to whatever your "average" cell height is
         return UITableView.automaticDimension
 //        return 115
     }

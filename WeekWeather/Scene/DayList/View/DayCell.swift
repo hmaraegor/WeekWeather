@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol DayCellDelegate {
+    var imageArray: [String : UIImage] { get set }
+}
+
 class DayCell: UITableViewCell {
 
     @IBOutlet private var currentTempLabel: UILabel!
@@ -23,6 +27,8 @@ class DayCell: UITableViewCell {
     @IBOutlet private var weekDay: UILabel!
     
     @IBOutlet private var weatherIconImage: UIImageView!
+    
+    var delegate: DayCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,21 +46,14 @@ class DayCell: UITableViewCell {
         let dayTemp = LocString.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
         let nigthTemp = LocString.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
-        feelsTempLabel.text = LocString.feelsLike + String(dayForecast.feelsLike.day) + AppConstants.celsius
+        feelsTempLabel.text = LocString.feelsLike + String(format: "%.0f", dayForecast.feelsLike.day) + AppConstants.celsius
         weatherDescriptLabel.text = dayForecast.weather.first?.description
         windLabel.text = LocString.wind + String(format: "%.1f", dayForecast.windSpeed) + LocString.metersInSec
         weekDay.text = getDate(unixTime: dayForecast.dt)
         
-        guard let ico = dayForecast.weather.first?.icon else { return }
-        let stringURL = "https://openweathermap.org/img/wn/" + ico + "@2x.png"
-        ImageDownloader.downloadImage(stringURL: stringURL) { (imageData) in
-
-            DispatchQueue.main.async {
-                self.weatherIconImage.image = UIImage(data: imageData)
-            }
-
-        }
+        setImage(weather: dayForecast.weather)
     }
+    
     
     func configureFirstCell(with weekForecast: WeekForecast){
         let dayForecast = weekForecast.daily.first!
@@ -64,22 +63,33 @@ class DayCell: UITableViewCell {
         let dayTemp = LocString.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
         let nigthTemp = LocString.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
-        feelsTempLabel.text = LocString.feelsLike + String(currentWeather.feelsLike) + AppConstants.celsius
-        weatherDescriptLabel.text = currentWeather.weather.first?.description
+        feelsTempLabel.text = LocString.feelsLike + String(format: "%.0f", currentWeather.feelsLike) + AppConstants.celsius
+        weatherDescriptLabel.text = dayForecast.weather.first?.description //currentWeather.weather.first?.description
         windLabel.text = LocString.wind + String(format: "%.1f", currentWeather.windSpeed) + LocString.metersInSec
         weekDay.text = getDate(unixTime: currentWeather.dt)
         
-        guard let ico = dayForecast.weather.first?.icon else { return }
-        let stringURL = "https://openweathermap.org/img/wn/" + ico + "@2x.png"
-        ImageDownloader.downloadImage(stringURL: stringURL) { (imageData) in
-
-            DispatchQueue.main.async {
-                self.weatherIconImage.image = UIImage(data: imageData)
-            }
-
-        }
+        setImage(weather: dayForecast.weather)
     }
     
+    private func setImage(weather: [Weather]) {
+        if let image = delegate?.imageArray[weather.first!.description] {
+            weatherIconImage.image = image
+            return
+        }
+        
+        guard let ico = weather.first?.icon else { return }
+        let stringURL = "https://openweathermap.org/img/wn/" + ico + "@2x.png"
+        ImageDownloader.downloadImage(stringURL: stringURL) { (imageData) in
+            
+            let image = UIImage(data: imageData) ?? UIImage()
+            self.delegate?.imageArray[weather.first!.description] = image
+            
+            DispatchQueue.main.async {
+                self.weatherIconImage.image = image
+            }
+            
+        }
+    }
     private func getDate(unixTime: Double) -> String {
         let date = NSDate(timeIntervalSince1970: unixTime)
         
