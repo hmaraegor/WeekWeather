@@ -13,6 +13,7 @@ class DecodeService {
     func decodeData<T: Codable>(data: Data, completionHandler:
         @escaping (Result<T, NetworkServiceError>) -> ()) {
         
+        // TODO: delete after debugging
         
 //                    do {
 //                        let json = try JSONSerialization.jsonObject(with: data, options: [])

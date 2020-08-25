@@ -85,7 +85,7 @@ class DayList: UIViewController, DayCellDelegate {
             
             if result != nil {
                 DispatchQueue.main.async {
-                    self.daylyForecast = result! // ?? WeekForecast()
+                    self.daylyForecast = result!
                     self.tableView.reloadData()
                 }
             }
