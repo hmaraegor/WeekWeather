@@ -25,7 +25,6 @@
 		74A53E4C24EEAC7F00D27942 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */; };
 		74A53E4E24EEAFF800D27942 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E4D24EEAFF800D27942 /* AppConstants.swift */; };
 		74A53E5224EFBD6100D27942 /* LocationErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E5124EFBD6100D27942 /* LocationErrorService.swift */; };
-		74A53E5424EFDBF400D27942 /* TimesOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E5324EFDBF300D27942 /* TimesOfDay.swift */; };
 		74A53E5624F005D800D27942 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E5524F005D700D27942 /* ImageDownloader.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +50,6 @@
 		74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		74A53E4D24EEAFF800D27942 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		74A53E5124EFBD6100D27942 /* LocationErrorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationErrorService.swift; sourceTree = "<group>"; };
-		74A53E5324EFDBF300D27942 /* TimesOfDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimesOfDay.swift; sourceTree = "<group>"; };
 		74A53E5524F005D700D27942 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -135,7 +133,6 @@
 				7457BB6524ED3D41004693A5 /* NetworkServiceError.swift */,
 				7457BB6924ED42D7004693A5 /* ErrorAlertService.swift */,
 				74A53E5124EFBD6100D27942 /* LocationErrorService.swift */,
-				74A53E5324EFDBF300D27942 /* TimesOfDay.swift */,
 				74A53E5524F005D700D27942 /* ImageDownloader.swift */,
 			);
 			path = Services;
@@ -239,7 +236,6 @@
 				7457BB4C24EC52D3004693A5 /* DayList.swift in Sources */,
 				7457BB4824EC52D3004693A5 /* AppDelegate.swift in Sources */,
 				7457BB5D24EC5596004693A5 /* DayCell.swift in Sources */,
-				74A53E5424EFDBF400D27942 /* TimesOfDay.swift in Sources */,
 				7457BB6A24ED42D7004693A5 /* ErrorAlertService.swift in Sources */,
 				7457BB6D24ED4FA2004693A5 /* WeekForecast.swift in Sources */,
 				7457BB6824ED428E004693A5 /* DecodeService.swift in Sources */,

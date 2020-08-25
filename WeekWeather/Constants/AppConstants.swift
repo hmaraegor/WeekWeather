@@ -9,8 +9,6 @@
 import Foundation
 
 struct AppConstants {
-    
     static let dot = "・"
     static let celsius = "°C"
-    
 }

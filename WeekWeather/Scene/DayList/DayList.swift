@@ -14,16 +14,9 @@ class DayList: UIViewController, DayCellDelegate {
     var imageArray = [String : UIImage]()
     
     @IBOutlet var tableView: UITableView!
-     private var weekForecastService = WeekForecastService()
-     private var daylyForecast = WeekForecast() //[DayForecast]()
-     private let locationManager = CLLocationManager()
-
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        
-    }
+    private var weekForecastService = WeekForecastService()
+    private var daylyForecast = WeekForecast()
+    private let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,12 +54,10 @@ class DayList: UIViewController, DayCellDelegate {
         locationManager.startUpdatingLocation()
     }
     
-    
-    
      private func requestLocalePermission() {
-        let alert = UIAlertController(title: "Allow Location Access", message: "WeekWeather needs access to your location. Turn on Location Services in your device settings.", preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: LocString.Alert.locationAccessTitle, message: LocString.Alert.locationAccessMessage, preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Settings", style: UIAlertAction.Style.default, handler: { action in
+        alert.addAction(UIAlertAction(title: LocString.Alert.settings, style: UIAlertAction.Style.default, handler: { action in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                 return
             }
@@ -78,8 +69,9 @@ class DayList: UIViewController, DayCellDelegate {
         }))
         
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { action in
-            self.title = "Test"//"San Francisco"
-            self.getWeatherForecast(params: ["lat":35.1, "lon":-120.1])  //   ["lat":37.785834, "lon":-122.406417])
+            ErrorAlertService.showErrorAlert(errorMessage: LocString.Alert.locationError, viewController: self)
+            self.title = "San Francisco"
+            self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
         })
         
         DispatchQueue.main.async {
@@ -93,7 +85,7 @@ class DayList: UIViewController, DayCellDelegate {
             
             if result != nil {
                 DispatchQueue.main.async {
-                    self.daylyForecast = result!
+                    self.daylyForecast = result! // ?? WeekForecast()
                     self.tableView.reloadData()
                 }
             }
@@ -121,20 +113,24 @@ extension DayList: CLLocationManagerDelegate {
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         getWeatherForecast(params: ["lat":locValue.latitude, "lon":locValue.longitude])
         
-        if let lastLocation = locations.last {
-            let geocoder = CLGeocoder()
-            
-            geocoder.reverseGeocodeLocation(lastLocation) { [weak self] (placemarks, error) in
-                if error == nil {
-                    if let firstLocation = placemarks?[0],
-                        let cityName = firstLocation.locality { // get the city name
-                        //self?.locationManager.stopUpdatingLocation()
-                        self?.title = cityName
-                        print(cityName)
-                    }
+        guard let lastLocation = locations.last else {
+            self.title = "Undefine Place"
+            return
+        }
+        
+        let geocoder = CLGeocoder()
+        
+        geocoder.reverseGeocodeLocation(lastLocation) { [weak self] (placemarks, error) in
+            if error == nil {
+                if let firstLocation = placemarks?[0],
+                    let cityName = firstLocation.locality { // get the city name
+                    self?.locationManager.stopUpdatingLocation()
+                    self?.title = cityName
+                    print(cityName)
                 }
             }
         }
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -153,6 +149,7 @@ extension DayList: CLLocationManagerDelegate {
             print("authorizedWhenInUse")
         case .denied:
             print("denied")
+            requestLocalePermission()
             self.title = "San Francisco"
             self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
         case .notDetermined:
@@ -186,7 +183,6 @@ extension DayList: UITableViewDataSource {
         else {
             let dayForecast = daylyForecast.daily[indexPath.row]
             cell.configure(with: dayForecast)
-//            cell.configure(with: daylyForecast)
         }
         
         cell.isUserInteractionEnabled = false
@@ -201,7 +197,6 @@ extension DayList: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
-//        return 115
     }
     
 }

@@ -32,14 +32,6 @@ struct Current: Codable {
         windSpeed = 0
         weather = [Weather]()
     }
-    
-    enum CodingKeys: String, CodingKey {
-        case dt
-        case temp
-        case feelsLike = "feels_like"
-        case windSpeed = "wind_speed"
-        case weather
-    }
 }
 
 struct DayForecast: Codable {
@@ -56,15 +48,6 @@ struct DayForecast: Codable {
         windSpeed = 0
         weather = [Weather]()
     }
-    
-    enum CodingKeys: String, CodingKey {
-        case dt
-        case temp
-        case feelsLike = "feels_like"
-        case windSpeed = "wind_speed"
-        case weather
-    }
-    
 }
 
 struct Temp: Codable {

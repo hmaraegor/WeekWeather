@@ -21,10 +21,12 @@ class DecodeService {
 //                        print("json error")
 //                    }
         
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         
             do {
-                let gistList = try JSONDecoder().decode(T.self, from: data)
-                completionHandler(.success(gistList))
+                let daylyWeather = try decoder.decode(T.self, from: data)
+                completionHandler(.success(daylyWeather))
             } catch {
                 completionHandler(.failure(.jsonDecoding))
             }

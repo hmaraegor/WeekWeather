@@ -13,19 +13,13 @@ protocol DayCellDelegate {
 }
 
 class DayCell: UITableViewCell {
-
+    
     @IBOutlet private var currentTempLabel: UILabel!
-    
     @IBOutlet private var dayNightTempLabel: UILabel!
-    
     @IBOutlet private var feelsTempLabel: UILabel!
-    
     @IBOutlet private var weatherDescriptLabel: UILabel!
-    
     @IBOutlet private var windLabel: UILabel!
-    
     @IBOutlet private var weekDay: UILabel!
-    
     @IBOutlet private var weatherIconImage: UIImageView!
     
     var delegate: DayCellDelegate?
@@ -34,21 +28,21 @@ class DayCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
     func configure(with dayForecast: DayForecast){
         currentTempLabel.text = String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
-        let dayTemp = LocString.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
-        let nigthTemp = LocString.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
+        let dayTemp = LocString.Cell.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
+        let nigthTemp = LocString.Cell.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
-        feelsTempLabel.text = LocString.feelsLike + String(format: "%.0f", dayForecast.feelsLike.day) + AppConstants.celsius
+        feelsTempLabel.text = LocString.Cell.feelsLike + String(format: "%.0f", dayForecast.feelsLike.day) + AppConstants.celsius
         weatherDescriptLabel.text = dayForecast.weather.first?.description
-        windLabel.text = LocString.wind + String(format: "%.1f", dayForecast.windSpeed) + LocString.metersInSec
+        windLabel.text = LocString.Cell.wind + String(format: "%.1f", dayForecast.windSpeed) + LocString.Cell.metersInSec
         weekDay.text = getDate(unixTime: dayForecast.dt)
         
         setImage(weather: dayForecast.weather)
@@ -56,23 +50,24 @@ class DayCell: UITableViewCell {
     
     
     func configureFirstCell(with weekForecast: WeekForecast){
-        let dayForecast = weekForecast.daily.first!
+        guard let dayForecast = weekForecast.daily.first else { return }
         let currentWeather = weekForecast.current
         
         currentTempLabel.text = String(format: "%.0f", currentWeather.temp) + AppConstants.celsius
-        let dayTemp = LocString.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
-        let nigthTemp = LocString.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
+        let dayTemp = LocString.Cell.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
+        let nigthTemp = LocString.Cell.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
-        feelsTempLabel.text = LocString.feelsLike + String(format: "%.0f", currentWeather.feelsLike) + AppConstants.celsius
+        feelsTempLabel.text = LocString.Cell.feelsLike + String(format: "%.0f", currentWeather.feelsLike) + AppConstants.celsius
         weatherDescriptLabel.text = dayForecast.weather.first?.description //currentWeather.weather.first?.description
-        windLabel.text = LocString.wind + String(format: "%.1f", currentWeather.windSpeed) + LocString.metersInSec
+        windLabel.text = LocString.Cell.wind + String(format: "%.1f", currentWeather.windSpeed) + LocString.Cell.metersInSec
         weekDay.text = getDate(unixTime: currentWeather.dt)
         
         setImage(weather: dayForecast.weather)
     }
     
     private func setImage(weather: [Weather]) {
-        if let image = delegate?.imageArray[weather.first!.description] {
+        
+        if let weather = weather.first, let image = delegate?.imageArray[weather.description] {
             weatherIconImage.image = image
             return
         }
