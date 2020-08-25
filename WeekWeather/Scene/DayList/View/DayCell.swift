@@ -35,7 +35,9 @@ class DayCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func configure(with dayForecast: DayForecast){
+    func configure(with dayForecast: DayForecast?){
+        guard let dayForecast = dayForecast else { return }
+        
         currentTempLabel.text = String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
         let dayTemp = LocString.Cell.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
         let nigthTemp = LocString.Cell.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
@@ -49,7 +51,9 @@ class DayCell: UITableViewCell {
     }
     
     
-    func configureFirstCell(with weekForecast: WeekForecast){
+    func configureFirstCell(with weekForecast: WeekForecast?){
+        guard let weekForecast = weekForecast else { return }
+        
         guard let dayForecast = weekForecast.daily.first else { return }
         let currentWeather = weekForecast.current
         

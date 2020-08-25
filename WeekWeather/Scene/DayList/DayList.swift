@@ -15,7 +15,7 @@ class DayList: UIViewController, DayCellDelegate {
     
     @IBOutlet var tableView: UITableView!
     private var weekForecastService = WeekForecastService()
-    private var daylyForecast = WeekForecast()
+    private var daylyForecast: WeekForecast?
     private let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
@@ -83,13 +83,13 @@ class DayList: UIViewController, DayCellDelegate {
         
         weekForecastService.getForecast(params: params) { (result, error) in
             
-            if result != nil {
+            if let result = result {
                 DispatchQueue.main.async {
-                    self.daylyForecast = result!
+                    self.daylyForecast = result
                     self.tableView.reloadData()
                 }
             }
-            else if error != nil {
+            else if let error = error {
                 DispatchQueue.main.async {
                     ErrorAlertService.showErrorAlert(error: error as! NetworkServiceError, viewController: self)
                 }
@@ -167,7 +167,7 @@ extension DayList: CLLocationManagerDelegate {
 extension DayList: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return daylyForecast.daily.count
+        return daylyForecast?.daily.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -181,7 +181,7 @@ extension DayList: UITableViewDataSource {
             cell.configureFirstCell(with: daylyForecast)
         }
         else {
-            let dayForecast = daylyForecast.daily[indexPath.row]
+            let dayForecast = daylyForecast?.daily[indexPath.row]
             cell.configure(with: dayForecast)
         }
         
