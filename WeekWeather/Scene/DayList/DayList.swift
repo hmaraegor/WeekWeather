@@ -9,9 +9,122 @@
 import UIKit
 import CoreLocation
 
+struct Icons: Codable {
+    var useNewIcons: Bool
+    var folder: String
+    var dayIcons: [String : String]
+    var nightIcons: [String : String]
+}
+
+extension DayList {
+    private func setNewIcons() {
+        downloadJSON(url: "https://hmaraegor.ml/Swift/WeekWeather/")
+    }
+    
+    private func downloadJSON(url: String) {
+        DownloadService().getForecast(url: url + "icons.json", params: nil) { (result: Icons?, error) in
+            
+            if let result = result {
+                var json: Icons = result
+                json.useNewIcons = false
+                if json.useNewIcons {
+                    self.useNewIcons = json.useNewIcons
+                    self.downloadIcons(url: url, icons: json)
+                }
+            }
+            else if let error = error {
+                DispatchQueue.main.async {
+                    ErrorAlertService.showErrorAlert(error: error as! NetworkServiceError, viewController: self)
+                }
+            }
+        }
+    }
+    
+    private func downloadIcons(url: String, icons: Icons) {
+        let url = url + icons.folder
+        
+        for (key, value) in icons.dayIcons {
+            ImageDownloader.downloadImage(stringURL: url + "/" + value + ".png") { (imageData) in
+                DispatchQueue.main.async {
+                    let image = UIImage(data: imageData)
+                    self.newIconsArray[key] = image
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func printLocale() {
+        print(Locale.current.languageCode!)
+        print(Locale.preferredLanguages[0])
+        //print(Locale.preferredLanguages[0] as String)
+        print(Locale.current.identifier)
+        print(Locale.autoupdatingCurrent.languageCode)
+
+        print(String(Locale.preferredLanguages[0].prefix(2)))
+        print(Locale.preferredLanguages.first!)
+        print(Bundle.main.preferredLocalizations.first!)
+        print(Bundle.main.preferredLocalizations.first?.prefix(2))
+        
+        print(String(Locale.preferredLanguages[0].prefix(5)))
+        print(Locale.preferredLanguages)
+    }
+    
+    func createMockDaylyForecast() {
+        
+        let newDayIcons = ["0":"cloudSnowflake", "1":"rainClounsSun", "2":"happyCloud", "3":"cloudsBroken", "4":"clouds", "5":"stars", "6":"star", "7":"moon", "8":"sun", "9":"heatCloud", "10":"happyRainCloud", "11":"sadRainCloud", "12":"lightningCloud", "13":"rainCloud", "14":"rainbow", "15":"sunClouds", "16":"umbrella", "17":"drops", "18":"sadDrop", "19":"happyDrop"]
+        var newNightIcons = newDayIcons
+        var newIcons = Icons(useNewIcons: true, folder: "newIcons", dayIcons: newDayIcons, nightIcons: newNightIcons)
+
+        var weather = Weather(main: "yo", description: "norm norm norm nor", icon: "\(newDayIcons.count - 1)")
+        var temp = Temp(day: 22, night: 17)
+        var current = CurrentWeather(dt: 1598284319, temp: 22, feelsLike: 21, weather: [weather], windSpeed: 1.2)
+        var dayForecast = DayForecast(dt: 1598284319, temp: temp, feelsLike: temp, windSpeed: 1.1, weather: [weather])
+        var dayly = Array(repeating: dayForecast, count: newDayIcons.count)
+        
+        for x in 0...dayly.count - 1 {
+            dayly[x].weather[0].icon = "\(x)"
+        }
+        
+        daylyForecast = WeekForecast(daily: dayly, current: current)
+        
+        downloadIcons(url: "https://hmaraegor.ml/Swift/WeekWeather/", icons: newIcons)
+    }
+    
+    //MARK: For use mock object
+    /*
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let nib = UINib(nibName: cellXib, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: cell)
+        //setNewIcons()
+        createMockDaylyForecast()
+        //location()
+    }
+    */
+    
+    //MARK: For use custon icons
+    /*
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let nib = UINib(nibName: cellXib, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: cell)
+        setNewIcons()
+        location()
+    }
+    */
+    
+    
+}
+
 class DayList: UIViewController, DayCellDelegate {
     
+    let cellXib = AppConstants.Storyboard.newCellXib
+    let cell = AppConstants.Storyboard.Cell.newCell
+    
     var imageArray = [String : UIImage]()
+    var newIconsArray = [String : UIImage]()
+    var useNewIcons = false
     
     @IBOutlet var tableView: UITableView!
     private var weekForecastService = WeekForecastService()
@@ -21,9 +134,12 @@ class DayList: UIViewController, DayCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib(nibName: "DayCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "Cell")
-        
+        let nib = UINib(nibName: cellXib, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: cell)
+        location()
+    }
+    
+    private func location() {
         guard CLLocationManager.locationServicesEnabled() else {
             print("Location services are not enabled")
             return
@@ -32,20 +148,18 @@ class DayList: UIViewController, DayCellDelegate {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             print("Not determined")
-            locationManager.requestAlwaysAuthorization()
-            locationManager.requestWhenInUseAuthorization()
-            startLocate()
+            self.locationManager.requestAlwaysAuthorization()
+            self.locationManager.requestWhenInUseAuthorization()
+            self.startLocate()
         case .restricted, .denied:
             print("No access")
-            requestLocalePermission()
+            self.requestLocalePermission()
         case .authorizedAlways, .authorizedWhenInUse:
             print("Access")
-            startLocate()
+            self.startLocate()
         @unknown default:
             break
         }
-        
-        
     }
     
     private func startLocate() {
@@ -114,7 +228,7 @@ extension DayList: CLLocationManagerDelegate {
         getWeatherForecast(params: ["lat":locValue.latitude, "lon":locValue.longitude])
         
         guard let lastLocation = locations.last else {
-            self.title = "Undefine Place"
+            self.title = LocString.Title.undefinedLocalion
             return
         }
         
@@ -124,9 +238,12 @@ extension DayList: CLLocationManagerDelegate {
             if error == nil {
                 if let firstLocation = placemarks?[0],
                     let cityName = firstLocation.locality { // get the city name
-                    self?.locationManager.stopUpdatingLocation()
+                    //self?.locationManager.stopUpdatingLocation()
                     self?.title = cityName
                     print(cityName)
+                }
+                else {
+                    self?.title = LocString.Title.undefinedLocalion
                 }
             }
         }
@@ -171,7 +288,7 @@ extension DayList: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? DayCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cell, for: indexPath) as? DayCell else {
             return UITableViewCell()
         }
         

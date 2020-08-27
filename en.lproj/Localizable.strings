@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  WeekWeather
+
+  Created by Egor on 21/08/2020.
+  Copyright © 2020 Egor. All rights reserved.
+*/
+
+"today " = "today ";
+"tonight " = "tonight ";
+"wind: " = "wind: ";
+"m/s" = "m/s";
+"feels like " = "feels like ";
+
+"day " = "day ";
+"night " = "night ";
