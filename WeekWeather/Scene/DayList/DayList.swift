@@ -31,18 +31,8 @@ class DayList: UIViewController, DayCellDelegate {
         let nib = UINib(nibName: cellXib, bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: cell)
         
-        //dateConverter()
-        
-        isActualDate(dt: 1598918300)
-        
         loadWeatherFromCoreData()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.location()
-        }
-        
-        
-        
+        location()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -111,25 +101,19 @@ class DayList: UIViewController, DayCellDelegate {
                 let group = DispatchGroup()
                 group.enter()
                 DispatchQueue.main.async {
-                    if self.log { print("4:Start fill daylyForecast from API") }
                     self.daylyForecast = result
                     self.tableView.reloadData()
                     group.leave()
-                    if self.log { print("5:End fill daylyForecast from API") }
                 }
                 self.isActualDate(dt: self.daylyForecast?.current.dt)
                 group.notify(queue: .main) {
-                    if self.log { print("6:Start delete all data from CoreData") }
                     self.deleteAllCoreDataStores()
-                    if self.log { print("7:End delete.\n8:Start copy all data TO CoreData") }
                     self.copyWeatherToCoreData()
-                    if self.log { print("10:End copy all data TO CoreData") }
                 }
             }
             else if let error = error {
                 DispatchQueue.main.async {
                     ErrorAlertService.showErrorAlert(error: error as! NetworkServiceError, viewController: self)
-                    //self.tableView.reloadData()
                 }
             }
             
@@ -156,41 +140,15 @@ class DayList: UIViewController, DayCellDelegate {
         let beginOfdayDate = dateFormatter.date(from: dayDateYYYYMMDD)!
         
         let maxTimeOfDayDate = beginOfdayDate + 86400 - 1
-        //print("Date: ", dayDate)
         if maxTimeOfDayDate.compare(currentDate) == .orderedDescending {
-            //print("ACTUAL")
             return true
-        }
-        else {
-            //print("NOT ACTUAL")
         }
 
         return false
     }
     
-    private func dateConverter(dt: Double = 1415639000) {
-        let currentDate = NSDate()
-        
-        let dayDate = NSDate(timeIntervalSince1970: dt)
-        //let unixDate = dayDate.timeIntervalSince1970
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy MM dd" //'T'HH:mm:ss.SSS'Z'"
-        
-        let shortCurrentDate = dateFormatter.string(from: currentDate as Date)
-        let shortDayDate = dateFormatter.string(from: dayDate as Date)
-        
-        
-        print("cur. date: ", shortCurrentDate, " | day date: ", shortDayDate)
-        print("compare: ", currentDate.compare(dayDate as Date).rawValue)
-        let dateDiff = currentDate.timeIntervalSince1970 - dt
-        print("different: ", Date(timeIntervalSince1970: NSTimeIntervalSince1970 - dateDiff) )
-        
-    }
-    
     //MARK: For Core Data debugging
     private func loadWeatherFromCoreData() {
-        if self.log { print("1:Start load data from CoreData") }
         var dayForecastArray: [DayForecastMO] = []
         
         let context = CoreDataManager.shared.persistentContainer.viewContext
@@ -201,16 +159,10 @@ class DayList: UIViewController, DayCellDelegate {
         
         do {
             dayForecastArray = try context.fetch(fetchRequest)
-            if self.log { print("Dowloaded.") }
         } catch {
             print(error.localizedDescription)
         }
         
-//        for day in dayForecastArray {
-//            print("day wind: ", day.windSpeed, " | dayWeather descr.: ", day.weather.main)
-//        }
-        
-        if self.log { print("2:End load data from CoreData.\n2.5:Start to fill daylyForecast from CoreData.") }
         for day in dayForecastArray {
         
             let temp = Temp(day: day.temp.day, night: day.temp.night)
@@ -226,13 +178,7 @@ class DayList: UIViewController, DayCellDelegate {
                 daylyForecast?.daily.append( DayForecast(dt: day.dt, temp: temp, feelsLike: feelsLike, windSpeed: day.windSpeed, weather: [weather]) )
             }
             
-            //TODO: Set Temterature depend from time of day
-//            if day == dayForecastArray.first {
-//                daylyForecast?.current = CurrentWeather(dt: day.dt, temp: day.temp.day, feelsLike: day.feelsLike.day, weather: [weather], windSpeed: day.windSpeed)
-//            }
-            
         }
-        if self.log { print("3:End to fill daylyForecast from CoreData.") }
         tableView.reloadData()
     }
     
@@ -257,7 +203,6 @@ class DayList: UIViewController, DayCellDelegate {
             dayForecastMO.weather.icon = dayWeather.icon
             CoreDataManager.shared.saveContext()
         }
-        print("9:All data was copy to CoreData.")
     }
     
     func deleteAllCoreDataStores() {
@@ -269,7 +214,7 @@ class DayList: UIViewController, DayCellDelegate {
         do {
             try persistentStoreCoordinator.execute(deleteRequest, with: context)
         } catch let error as NSError {
-            print("ERROR\nERROR\nERROR\ndeleteAllCoreDataStores:\n", error.localizedDescription)
+            print(error.localizedDescription)
         }
     }
 }
