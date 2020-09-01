@@ -11,7 +11,7 @@ import Foundation
 struct WeekForecast: Codable {
     //let
     var daily: [DayForecast]
-    let current: CurrentWeather
+    var current: CurrentWeather
 }
 
 struct CurrentWeather: Codable {

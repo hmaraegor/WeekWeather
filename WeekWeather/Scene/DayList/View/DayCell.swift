@@ -23,6 +23,7 @@ class DayCell: UITableViewCell {
     @IBOutlet private var windLabel: UILabel!
     @IBOutlet private var weekDay: UILabel!
     @IBOutlet private var weatherIconImage: UIImageView!
+    let log = false
     
     var delegate: DayCellDelegate?
     
@@ -55,7 +56,15 @@ class DayCell: UITableViewCell {
         feelsTempLabel.text = LocString.Cell.feelsLike + String(format: "%.0f", dayForecast.feelsLike.day) + AppConstants.celsius
         weatherDescriptLabel.text = dayForecast.weather.first?.description
         windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", dayForecast.windSpeed) + LocString.Cell.metersInSec
-        weekDay.text = getDate(unixTime: dayForecast.dt)
+        
+        let time12oclock = dayForecast.dt - 28800
+        let secondsUTCoffset = Double(TimeZone.current.secondsFromGMT())
+        weekDay.text = getDate(unixTime: time12oclock)// + secondsUTCoffset)
+        
+        let locTime = NSDate(timeIntervalSince1970: time12oclock + secondsUTCoffset)
+        if self.log { print("time UTC: ", NSDate(timeIntervalSince1970: time12oclock), "  local time: ", locTime) }
+        if self.log { print("time UTC: ", getDate(unixTime: time12oclock), "  local time: ", getDate(unixTime: time12oclock + secondsUTCoffset)) }
+//        print("local time: ",  NSDate(timeIntervalSince1970: dayForecast.dt + Double(secondsUTCoffset)) )
         
         setImage(weather: dayForecast.weather)
     }
@@ -75,7 +84,16 @@ class DayCell: UITableViewCell {
         feelsTempLabel.text = LocString.Cell.feelsLike + String(format: "%.0f", currentWeather.feelsLike) + AppConstants.celsius
         weatherDescriptLabel.text = dayForecast.weather.first?.description //currentWeather.weather.first?.description
         windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", currentWeather.windSpeed) + LocString.Cell.metersInSec
-        weekDay.text = getDate(unixTime: currentWeather.dt)
+        
+        let time12oclock = currentWeather.dt - 28800
+        let secondsUTCoffset = Double(TimeZone.current.secondsFromGMT())
+        weekDay.text = getDate(unixTime: currentWeather.dt)// + secondsUTCoffset)
+        
+        if self.log { print("FirstCell") }
+        let locTime = NSDate(timeIntervalSince1970: currentWeather.dt + secondsUTCoffset)
+        if self.log { print("time UTC: ", NSDate(timeIntervalSince1970: currentWeather.dt), "  local time: ", locTime ) }
+        if self.log { print("time UTC: ", getDate(unixTime: currentWeather.dt), "  local time: ", getDate(unixTime: currentWeather.dt + secondsUTCoffset)) }
+//        print("local time: ",  NSDate(timeIntervalSince1970: currentWeather.dt + Double(secondsUTCoffset)) )
         
         setImage(weather: dayForecast.weather)
     }
@@ -105,12 +123,18 @@ class DayCell: UITableViewCell {
     private func getDate(unixTime: Double) -> String {
         let date = NSDate(timeIntervalSince1970: unixTime)
         
+        if self.log { print("input time: ", Date(timeIntervalSince1970: unixTime)) }
+        
         let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.none //Set time style
-        dateFormatter.dateStyle = DateFormatter.Style.long //Set date style
+        dateFormatter.timeStyle = DateFormatter.Style.full //Set time style
+        dateFormatter.dateStyle = DateFormatter.Style.full //Set date style
         dateFormatter.timeZone = .current
-        dateFormatter.dateFormat = "EEEE, dd MMM"
         dateFormatter.locale = .current
+        
+        if self.log { print("current timeZone time: ", dateFormatter.string(from: date as Date)) }
+        
+        dateFormatter.dateFormat = "EEEE, dd MMM"
+        
         
         let locale = NSLocale(localeIdentifier: NSLocale.preferredLanguages.first!)
         dateFormatter.locale = locale as Locale?

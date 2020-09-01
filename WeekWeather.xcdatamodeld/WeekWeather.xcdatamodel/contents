@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="18G103" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DayForecastMO" representedClassName=".DayForecastMO" syncable="YES">
+        <attribute name="dt" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="windSpeed" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <relationship name="feelsLike" maxCount="1" deletionRule="Cascade" destinationEntity="TempMO"/>
+        <relationship name="temp" maxCount="1" deletionRule="Cascade" destinationEntity="TempMO"/>
+        <relationship name="weather" maxCount="1" deletionRule="Cascade" destinationEntity="WeatherMO"/>
+    </entity>
+    <entity name="TempMO" representedClassName=".TempMO" syncable="YES">
+        <attribute name="day" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="night" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="WeatherMO" representedClassName=".WeatherMO" syncable="YES">
+        <attribute name="descript" attributeType="String"/>
+        <attribute name="icon" attributeType="String"/>
+        <attribute name="main" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="TempMO" positionX="-27" positionY="18" width="128" height="73"/>
+        <element name="WeatherMO" positionX="18" positionY="81" width="128" height="88"/>
+        <element name="DayForecastMO" positionX="54" positionY="126" width="128" height="118"/>
+    </elements>
+</model>
