@@ -60,9 +60,9 @@ class DayCell: UITableViewCell {
         let dayTemp = LocString.Cell.day + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
         let nigthTemp = LocString.Cell.night + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
-        feelsTempLabel.text = LocString.Cell.feelsLike + String(format: "%.0f", dayForecast.feelsLike.day) + AppConstants.celsius
+        feelsTempLabel.text = LocString.Cell.feels_like + String(format: "%.0f", dayForecast.feelsLike.day) + AppConstants.celsius
         weatherDescriptLabel.text = dayForecast.weather.first?.description
-        windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", dayForecast.windSpeed) + LocString.Cell.metersInSec
+        windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", dayForecast.windSpeed) + LocString.Cell.meters_in_sec
         
         let time12oclock = dayForecast.dt - AppConstants.twelveHoursInSeconds
         weekDay.text = getDate(unixTime: time12oclock)
@@ -82,9 +82,9 @@ class DayCell: UITableViewCell {
         let dayTemp = LocString.Cell.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
         let nigthTemp = LocString.Cell.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
-        feelsTempLabel.text = LocString.Cell.feelsLike + String(format: "%.0f", currentWeather.feelsLike) + AppConstants.celsius
+        feelsTempLabel.text = LocString.Cell.feels_like + String(format: "%.0f", currentWeather.feelsLike) + AppConstants.celsius
         weatherDescriptLabel.text = dayForecast.weather.first?.description //currentWeather.weather.first?.description
-        windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", currentWeather.windSpeed) + LocString.Cell.metersInSec
+        windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", currentWeather.windSpeed) + LocString.Cell.meters_in_sec
         
         weekDay.text = getDate(unixTime: currentWeather.dt)
         

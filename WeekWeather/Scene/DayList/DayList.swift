@@ -61,7 +61,7 @@ class DayList: UIViewController, DayCellDelegate {
     }
     
     private func requestLocalePermission() {
-        let alert = UIAlertController(title: LocString.Alert.locationAccessTitle, message: LocString.Alert.locationAccessMessage, preferredStyle: UIAlertController.Style.alert)
+        let alert = UIAlertController(title: LocString.Alert.location_access_title, message: LocString.Alert.location_access_message, preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: LocString.Alert.settings, style: UIAlertAction.Style.default, handler: { action in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
@@ -75,7 +75,7 @@ class DayList: UIViewController, DayCellDelegate {
         }))
         
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { action in
-            ErrorAlertService.showErrorAlert(errorMessage: LocString.Alert.locationError, viewController: self)
+            ErrorAlertService.showErrorAlert(errorMessage: LocString.Alert.location_error, viewController: self)
             self.title = "San Francisco"
             self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
         })
@@ -224,7 +224,7 @@ extension DayList: CLLocationManagerDelegate {
         getWeatherForecast(params: ["lat":locValue.latitude, "lon":locValue.longitude])
         
         guard let lastLocation = locations.last else {
-            self.title = LocString.Title.undefinedLocalion
+            self.title = LocString.Title.undefined_localion
             return
         }
         
@@ -239,7 +239,7 @@ extension DayList: CLLocationManagerDelegate {
                     print(cityName)
                 }
                 else {
-                    self?.title = LocString.Title.undefinedLocalion
+                    self?.title = LocString.Title.undefined_localion
                 }
             }
         }
