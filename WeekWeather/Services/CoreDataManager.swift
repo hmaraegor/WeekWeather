@@ -17,8 +17,8 @@ class CoreDataManager {
     private init() {}
     
     // Entity for Name
-    func entityForName(entityName: String) -> NSEntityDescription? {
-        return NSEntityDescription.entity(forEntityName: entityName, in: self.persistentContainer.viewContext)
+    func entityForName(entityName: String) -> NSEntityDescription {
+        return NSEntityDescription.entity(forEntityName: entityName, in: self.persistentContainer.viewContext) ?? NSEntityDescription()
     }
     
     // MARK: - Core Data stack

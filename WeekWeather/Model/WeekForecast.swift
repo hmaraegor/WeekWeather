@@ -9,7 +9,6 @@
 import Foundation
 
 struct WeekForecast: Codable {
-    //let
     var daily: [DayForecast]
     var current: CurrentWeather
 }
@@ -27,7 +26,6 @@ struct DayForecast: Codable {
     let temp: Temp
     let feelsLike: Temp
     let windSpeed: Double
-    //let
     var weather: [Weather]
 }
 
@@ -39,6 +37,5 @@ struct Temp: Codable {
 struct Weather: Codable {
     let main: String
     let description: String
-    //let
     var icon: String
 }

@@ -13,11 +13,7 @@ import CoreData
 public class WeatherMO: NSManagedObject {
     
     convenience init() {
-         // Описание сущности
         let entity = CoreDataManager.shared.entityForName(entityName: "WeatherMO")
-        //let entity = NSEntityDescription.entity(forEntityName: "Temperature", in: CoreDataManager.shared.persistentContainer.viewContext)
-    
-         // Создание нового объекта
-        self.init(entity: entity!, insertInto: CoreDataManager.shared.persistentContainer.viewContext)
+        self.init(entity: entity, insertInto: CoreDataManager.shared.persistentContainer.viewContext)
      }
 }

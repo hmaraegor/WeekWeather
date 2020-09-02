@@ -25,6 +25,9 @@ class DayCell: UITableViewCell {
     @IBOutlet private var weatherIconImage: UIImageView!
     let log = false
     
+    static let cellXib = "NewDayCell"   //"DayCell"
+    static let cell = "NewCell"         //"Cell"
+    
     var delegate: DayCellDelegate?
     
     override func awakeFromNib() {
@@ -45,6 +48,10 @@ class DayCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    static func getNib(nibName: String = DayCell.cellXib) -> UINib {
+        return UINib(nibName: nibName, bundle: nil)
+    }
+    
     func configure(with dayForecast: DayForecast?){
         guard let dayForecast = dayForecast else { return }
         self.backgroundColor = #colorLiteral(red: 1, green: 0.9764705882, blue: 0.9411764706, alpha: 1)
@@ -57,7 +64,7 @@ class DayCell: UITableViewCell {
         weatherDescriptLabel.text = dayForecast.weather.first?.description
         windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", dayForecast.windSpeed) + LocString.Cell.metersInSec
         
-        let time12oclock = dayForecast.dt - 28800   // -12 hours
+        let time12oclock = dayForecast.dt - AppConstants.twelveHoursInSeconds
         weekDay.text = getDate(unixTime: time12oclock)
         
         setImage(weather: dayForecast.weather)
@@ -86,6 +93,7 @@ class DayCell: UITableViewCell {
     
     private func setImage(weather: [Weather]) {
         
+        
         if let weather = weather.first, let image = delegate?.imageArray[weather.description] {
             DispatchQueue.main.async {
                 self.weatherIconImage.image = image
@@ -99,7 +107,9 @@ class DayCell: UITableViewCell {
             
             DispatchQueue.main.async {
                 let image = UIImage(data: imageData)// ?? UIImage()
-                self.delegate?.imageArray[weather.first!.description] = image
+                if let weather = weather.first {
+                    self.delegate?.imageArray[weather.description] = image
+                }
                 self.weatherIconImage.image = image
             }
             

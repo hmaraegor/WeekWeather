@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension TempMO {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<TempMO> {

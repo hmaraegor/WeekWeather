@@ -12,9 +12,6 @@ import CoreData
 
 class DayList: UIViewController, DayCellDelegate {
     
-    let cellXib = AppConstants.Storyboard.newCellXib
-    let cell = AppConstants.Storyboard.Cell.newCell
-    
     var imageArray = [String : UIImage]()
     var newIconsArray = [String : UIImage]()
     var useNewIcons = false
@@ -28,15 +25,10 @@ class DayList: UIViewController, DayCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib(nibName: cellXib, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: cell)
+        tableView.register(DayCell.getNib(), forCellReuseIdentifier: DayCell.cell)
         
         loadWeatherFromCoreData()
         location()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        tableView.reloadData()
     }
     
     private func location() {
@@ -48,15 +40,15 @@ class DayList: UIViewController, DayCellDelegate {
         switch CLLocationManager.authorizationStatus() {
         case .notDetermined:
             print("Not determined")
-            self.locationManager.requestAlwaysAuthorization()
-            self.locationManager.requestWhenInUseAuthorization()
-            self.startLocate()
+            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+            startLocate()
         case .restricted, .denied:
             print("No access")
-            self.requestLocalePermission()
+            requestLocalePermission()
         case .authorizedAlways, .authorizedWhenInUse:
             print("Access")
-            self.startLocate()
+            startLocate()
         @unknown default:
             break
         }
@@ -133,11 +125,9 @@ class DayList: UIViewController, DayCellDelegate {
         
         dateFormatter.timeZone = .current
         dateFormatter.locale = .current
-        let currrentDateYYYYMMDD = dateFormatter.string(from: currentDate as Date)
         let dayDateYYYYMMDD = dateFormatter.string(from: dayDate as Date)
         
-        let beginOfCurrentDate = dateFormatter.date(from: currrentDateYYYYMMDD)!
-        let beginOfdayDate = dateFormatter.date(from: dayDateYYYYMMDD)!
+        guard let beginOfdayDate = dateFormatter.date(from: dayDateYYYYMMDD) else { return false }
         
         let maxTimeOfDayDate = beginOfdayDate + 86400 - 1
         if maxTimeOfDayDate.compare(currentDate) == .orderedDescending {
@@ -294,7 +284,7 @@ extension DayList: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cell, for: indexPath) as? DayCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DayCell.cell, for: indexPath) as? DayCell else {
             return UITableViewCell()
         }
         
