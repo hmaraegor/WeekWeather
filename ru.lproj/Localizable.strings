@@ -2,7 +2,7 @@
   Localizable.strings
   WeekWeather
 
-  Created by Egor on 21/08/2020.
+  Created by Egor on 26/08/2020.
   Copyright © 2020 Egor. All rights reserved.
 */
 
@@ -10,4 +10,14 @@
 "tonight " = "ночью ";
 "wind: " = "ветер: ";
 "m/s" = "м/с";
-"Feels like " = "Ощущается как ";
+"feels like " = "ощущается как ";
+
+"day " = "днём ";
+"night " = "ночью ";
+
+"The current location cannot be displayed" = "Текущее местоположение не может быть отображено";
+"Allow Location Access" = "Разрешение доступа к местоположению";
+"WeekWeather needs access to your location. Turn on Location Services in your device settings." = "WeekWeather нужен доступ к вашему местоположению. Включите службы геолокации в настройках вашего устройства.";
+"settings" = "настройки";
+
+"Undefine Place" = "Неизвестное место";

@@ -8,10 +8,14 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class DayList: UIViewController, DayCellDelegate {
     
     var imageArray = [String : UIImage]()
+    var newIconsArray = [String : UIImage]()
+    var useNewIcons = false
+    let log = false
     
     @IBOutlet var tableView: UITableView!
     private var weekForecastService = WeekForecastService()
@@ -21,9 +25,13 @@ class DayList: UIViewController, DayCellDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let nib = UINib(nibName: "DayCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "Cell")
+        tableView.register(DayCell.getNib(), forCellReuseIdentifier: DayCell.cell)
         
+        loadWeatherFromCoreData()
+        location()
+    }
+    
+    private func location() {
         guard CLLocationManager.locationServicesEnabled() else {
             print("Location services are not enabled")
             return
@@ -44,8 +52,6 @@ class DayList: UIViewController, DayCellDelegate {
         @unknown default:
             break
         }
-        
-        
     }
     
     private func startLocate() {
@@ -54,8 +60,8 @@ class DayList: UIViewController, DayCellDelegate {
         locationManager.startUpdatingLocation()
     }
     
-     private func requestLocalePermission() {
-        let alert = UIAlertController(title: LocString.Alert.locationAccessTitle, message: LocString.Alert.locationAccessMessage, preferredStyle: UIAlertController.Style.alert)
+    private func requestLocalePermission() {
+        let alert = UIAlertController(title: LocString.Alert.location_access_title, message: LocString.Alert.location_access_message, preferredStyle: UIAlertController.Style.alert)
         
         alert.addAction(UIAlertAction(title: LocString.Alert.settings, style: UIAlertAction.Style.default, handler: { action in
             guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
@@ -69,7 +75,7 @@ class DayList: UIViewController, DayCellDelegate {
         }))
         
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { action in
-            ErrorAlertService.showErrorAlert(errorMessage: LocString.Alert.locationError, viewController: self)
+            ErrorAlertService.showErrorAlert(errorMessage: LocString.Alert.location_error, viewController: self)
             self.title = "San Francisco"
             self.getWeatherForecast(params: ["lat":37.785834, "lon":-122.406417])
         })
@@ -79,14 +85,22 @@ class DayList: UIViewController, DayCellDelegate {
         }
     }
     
-     private func getWeatherForecast(params: [String : Any]) {
+    private func getWeatherForecast(params: [String : Any]) {
         
         weekForecastService.getForecast(params: params) { (result, error) in
             
             if let result = result {
+                let group = DispatchGroup()
+                group.enter()
                 DispatchQueue.main.async {
                     self.daylyForecast = result
                     self.tableView.reloadData()
+                    group.leave()
+                }
+                self.isActualDate(dt: self.daylyForecast?.current.dt)
+                group.notify(queue: .main) {
+                    self.deleteAllCoreDataStores()
+                    self.copyWeatherToCoreData()
                 }
             }
             else if let error = error {
@@ -98,6 +112,101 @@ class DayList: UIViewController, DayCellDelegate {
         }
         
     }
+    
+    
+    
+    private func isActualDate(dt: Double?) -> Bool {
+        guard let dt = dt else { return false }
+        let currentDate = Date()
+        let dayDate = Date(timeIntervalSince1970: dt)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy MM dd'T'HH:mm:ss"
+        
+        dateFormatter.timeZone = .current
+        dateFormatter.locale = .current
+        let dayDateYYYYMMDD = dateFormatter.string(from: dayDate as Date)
+        
+        guard let beginOfdayDate = dateFormatter.date(from: dayDateYYYYMMDD) else { return false }
+        
+        let maxTimeOfDayDate = beginOfdayDate + 86400 - 1
+        if maxTimeOfDayDate.compare(currentDate) == .orderedDescending {
+            return true
+        }
+
+        return false
+    }
+    
+    //MARK: For Core Data debugging
+    private func loadWeatherFromCoreData() {
+        var dayForecastArray: [DayForecastMO] = []
+        
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<DayForecastMO> = DayForecastMO.fetchRequest()
+        
+        let sortDescriptor = NSSortDescriptor(key: "dt", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        do {
+            dayForecastArray = try context.fetch(fetchRequest)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        for day in dayForecastArray {
+        
+            let temp = Temp(day: day.temp.day, night: day.temp.night)
+            let feelsLike = Temp(day: day.feelsLike.day, night: day.feelsLike.night)
+            let weather = Weather(main: day.weather.main, description: day.weather.descript, icon: day.weather.icon)
+            
+            if daylyForecast == nil && day == dayForecastArray.first && isActualDate(dt: day.dt){
+                let currentWeather = CurrentWeather(dt: day.dt - 28800, temp: day.temp.day, feelsLike: day.feelsLike.day, weather: [weather], windSpeed: day.windSpeed)
+                daylyForecast = WeekForecast(daily: [], current: currentWeather)
+            }
+            
+            if isActualDate(dt: day.dt) {
+                daylyForecast?.daily.append( DayForecast(dt: day.dt, temp: temp, feelsLike: feelsLike, windSpeed: day.windSpeed, weather: [weather]) )
+            }
+            
+        }
+        tableView.reloadData()
+    }
+    
+    private func copyWeatherToCoreData() {
+        guard let week = daylyForecast?.daily else { return }
+        for day in week {
+            let dayForecastMO = DayForecastMO()
+            dayForecastMO.feelsLike = TempMO()
+            dayForecastMO.temp = TempMO()
+            dayForecastMO.weather = WeatherMO()
+            
+            dayForecastMO.dt = day.dt
+            dayForecastMO.windSpeed = day.windSpeed
+            dayForecastMO.feelsLike.day = day.feelsLike.day
+            dayForecastMO.feelsLike.night = day.feelsLike.night
+            dayForecastMO.temp.day = day.temp.day
+            dayForecastMO.temp.night = day.temp.night
+            
+            guard let dayWeather = day.weather.first else { return }
+            dayForecastMO.weather.main = dayWeather.main
+            dayForecastMO.weather.descript = dayWeather.description
+            dayForecastMO.weather.icon = dayWeather.icon
+            CoreDataManager.shared.saveContext()
+        }
+    }
+    
+    func deleteAllCoreDataStores() {
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = DayForecastMO.fetchRequest()
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        let persistentStoreCoordinator = CoreDataManager.shared.persistentContainer.persistentStoreCoordinator
+        
+        do {
+            try persistentStoreCoordinator.execute(deleteRequest, with: context)
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
+    }
 }
 
 // MARK: - Location manager delegate
@@ -106,6 +215,7 @@ extension DayList: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("didFailWithError", error.localizedDescription)
+        print("location manager fails to get the current location")
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -114,7 +224,7 @@ extension DayList: CLLocationManagerDelegate {
         getWeatherForecast(params: ["lat":locValue.latitude, "lon":locValue.longitude])
         
         guard let lastLocation = locations.last else {
-            self.title = "Undefine Place"
+            self.title = LocString.Title.undefined_localion
             return
         }
         
@@ -127,6 +237,9 @@ extension DayList: CLLocationManagerDelegate {
                     self?.locationManager.stopUpdatingLocation()
                     self?.title = cityName
                     print(cityName)
+                }
+                else {
+                    self?.title = LocString.Title.undefined_localion
                 }
             }
         }
@@ -171,7 +284,7 @@ extension DayList: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as? DayCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DayCell.cell, for: indexPath) as? DayCell else {
             return UITableViewCell()
         }
         
@@ -200,3 +313,4 @@ extension DayList: UITableViewDelegate {
     }
     
 }
+
