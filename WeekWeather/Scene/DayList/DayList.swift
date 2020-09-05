@@ -24,11 +24,17 @@ class DayList: UIViewController, DayCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.register(DayCell.getNib(), forCellReuseIdentifier: DayCell.cell)
         
         loadWeatherFromCoreData()
         location()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if let index = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: index, animated: true)
+        }
     }
     
     private func location() {
@@ -160,7 +166,7 @@ class DayList: UIViewController, DayCellDelegate {
             let weather = Weather(main: day.weather.main, description: day.weather.descript, icon: day.weather.icon)
             
             if daylyForecast == nil && day == dayForecastArray.first && isActualDate(dt: day.dt){
-                let currentWeather = CurrentWeather(dt: day.dt - 28800, temp: day.temp.day, feelsLike: day.feelsLike.day, weather: [weather], windSpeed: day.windSpeed)
+                let currentWeather = CurrentWeather(dt: day.dt - 28800, temp: day.temp.day, feelsLike: day.feelsLike.day, windSpeed: day.windSpeed, weather: [weather])
                 daylyForecast = WeekForecast(daily: [], current: currentWeather)
             }
             
@@ -298,8 +304,15 @@ extension DayList: UITableViewDataSource {
             cell.configure(with: dayForecast)
         }
         
-        cell.isUserInteractionEnabled = false
+        //cell.selectionStyle = .none
+        //cell.isUserInteractionEnabled = false
         return cell
+    }
+    
+    private func presentWeatherController(with dayForecast: DayForecast?) {
+        let vc = WeatherViewController()
+        vc.dayForecast = dayForecast
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
@@ -312,5 +325,17 @@ extension DayList: UITableViewDelegate {
         return UITableView.automaticDimension
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presentWeatherController(with: daylyForecast?.daily[indexPath.row])
+    }
+    
 }
 
+//TODO: Add saving images
+// if let restaurantImage = photoImageView.image {
+//        if let imageData = UIImagePNGRepresentation(restaurantImage) {
+//            restaurant.image = NSData(data: imageData)
+//        }
+//}
+
+//restaurantImageView.image = UIImage(data: restaurant.image as! Data)

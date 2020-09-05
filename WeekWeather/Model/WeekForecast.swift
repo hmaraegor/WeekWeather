@@ -17,8 +17,8 @@ struct CurrentWeather: Codable {
     let dt: Double
     let temp: Double
     let feelsLike: Double
-    let weather: [Weather]
     let windSpeed: Double
+    let weather: [Weather]
 }
 
 struct DayForecast: Codable {

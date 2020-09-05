@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		74383C6F24F0289B00F29908 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 74383C7124F0289B00F29908 /* Localizable.strings */; };
+		744F49F42502232100B051D6 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744F49F32502232100B051D6 /* Constraints.swift */; };
+		744F49F62502242400B051D6 /* WeatherViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 744F49F52502242400B051D6 /* WeatherViewController.storyboard */; };
 		7457BB4824EC52D3004693A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB4724EC52D3004693A5 /* AppDelegate.swift */; };
 		7457BB4A24EC52D3004693A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB4924EC52D3004693A5 /* SceneDelegate.swift */; };
 		7457BB4C24EC52D3004693A5 /* DayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB4B24EC52D3004693A5 /* DayList.swift */; };
@@ -38,10 +40,13 @@
 		74B2FD8924FD3008005BA215 /* WeatherMO+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B2FD8824FD3008005BA215 /* WeatherMO+CoreDataClass.swift */; };
 		74B2FD8B24FD302F005BA215 /* WeatherMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B2FD8A24FD302F005BA215 /* WeatherMO+CoreDataProperties.swift */; };
 		74B2FD8E24FD30B6005BA215 /* WeekWeather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74B2FD8C24FD30B6005BA215 /* WeekWeather.xcdatamodeld */; };
+		74B2FDB9250135A8005BA215 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B2FDB8250135A8005BA215 /* WeatherViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		74383C6C24F0281000F29908 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DayList.strings; sourceTree = "<group>"; };
+		744F49F32502232100B051D6 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
+		744F49F52502242400B051D6 /* WeatherViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WeatherViewController.storyboard; sourceTree = "<group>"; };
 		7457BB4424EC52D3004693A5 /* WeekWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeekWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7457BB4724EC52D3004693A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7457BB4924EC52D3004693A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +81,7 @@
 		74B2FD8824FD3008005BA215 /* WeatherMO+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherMO+CoreDataClass.swift"; sourceTree = "<group>"; };
 		74B2FD8A24FD302F005BA215 /* WeatherMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		74B2FD8D24FD30B6005BA215 /* WeekWeather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeekWeather.xcdatamodel; sourceTree = "<group>"; };
+		74B2FDB8250135A8005BA215 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +95,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		744F49F22502230600B051D6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				744F49F32502232100B051D6 /* Constraints.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		7457BB3B24EC52D3004693A5 = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +126,7 @@
 		7457BB4624EC52D3004693A5 /* WeekWeather */ = {
 			isa = PBXGroup;
 			children = (
+				744F49F22502230600B051D6 /* Helpers */,
 				7457BB4724EC52D3004693A5 /* AppDelegate.swift */,
 				7457BB4924EC52D3004693A5 /* SceneDelegate.swift */,
 				7457BB5F24ED33DA004693A5 /* Scene */,
@@ -128,6 +143,7 @@
 		7457BB5F24ED33DA004693A5 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				74B2FDB725013534005BA215 /* WeatherVC */,
 				7457BB6124ED3421004693A5 /* DayList */,
 			);
 			path = Scene;
@@ -200,6 +216,15 @@
 			path = ManagedObjects;
 			sourceTree = "<group>";
 		};
+		74B2FDB725013534005BA215 /* WeatherVC */ = {
+			isa = PBXGroup;
+			children = (
+				74B2FDB8250135A8005BA215 /* WeatherViewController.swift */,
+				744F49F52502242400B051D6 /* WeatherViewController.storyboard */,
+			);
+			path = WeatherVC;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -264,6 +289,7 @@
 				7457BB5424EC52D6004693A5 /* LaunchScreen.storyboard in Resources */,
 				7457BB5124EC52D6004693A5 /* Assets.xcassets in Resources */,
 				745D592D24F675C700B75C46 /* Localizable.strings in Resources */,
+				744F49F62502242400B051D6 /* WeatherViewController.storyboard in Resources */,
 				745D592724F5531C00B75C46 /* NewDayCell.xib in Resources */,
 				745D593324F6D76A00B75C46 /* Localizable.strings in Resources */,
 				7457BB5E24EC5596004693A5 /* DayCell.xib in Resources */,
@@ -280,6 +306,7 @@
 			files = (
 				7457BB6424ED3CE1004693A5 /* NetworkService.swift in Sources */,
 				74A53E5624F005D800D27942 /* ImageDownloader.swift in Sources */,
+				744F49F42502232100B051D6 /* Constraints.swift in Sources */,
 				74B2FD8E24FD30B6005BA215 /* WeekWeather.xcdatamodeld in Sources */,
 				74A53E5224EFBD6100D27942 /* LocationErrorService.swift in Sources */,
 				7457BB6624ED3D41004693A5 /* NetworkServiceError.swift in Sources */,
@@ -297,6 +324,7 @@
 				74A53E4C24EEAC7F00D27942 /* LocalizedStrings.swift in Sources */,
 				7457BB4A24EC52D3004693A5 /* SceneDelegate.swift in Sources */,
 				74B2FD8524FD2F81005BA215 /* TempMO+CoreDataClass.swift in Sources */,
+				74B2FDB9250135A8005BA215 /* WeatherViewController.swift in Sources */,
 				74B2FD7E24FD2D64005BA215 /* CoreDataManager.swift in Sources */,
 				74A53E4E24EEAFF800D27942 /* AppConstants.swift in Sources */,
 				74B2FD8124FD2EC6005BA215 /* DayForecastMO+CoreDataClass.swift in Sources */,

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="iK4-1Z-D81">
+            <objects>
+                <viewController id="6Ai-rD-QVl" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ot0-PY-AbD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mZA-zY-ICV">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Monday 21.01" id="CXr-NJ-fHQ"/>
+                                </items>
+                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22°C" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="NQf-Mp-Ult" userLabel="tempC">
+                                <rect key="frame" x="10" y="108" width="195" height="107.5"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.14433013759999999" alpha="0.25264875860000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="90"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=compact-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="60"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="180"/>
+                                </variation>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2qs-ec-A3E" userLabel="sunrise">
+                                <rect key="frame" x="35" y="495" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DAi-HZ-85A" userLabel="sunset">
+                                <rect key="frame" x="177" y="495" width="60" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZS-D2-GW8" userLabel="discr">
+                                <rect key="frame" x="359" y="195" width="45" height="24"/>
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.92293074870000003" alpha="0.14412992290000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=compact-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="40"/>
+                                </variation>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="424-cm-Yjt" userLabel="icon">
+                                <rect key="frame" x="291" y="108" width="113" height="87"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="87" id="8e0-sy-pDa"/>
+                                    <constraint firstAttribute="width" secondItem="424-cm-Yjt" secondAttribute="height" multiplier="1.3:1" id="8kd-xj-shc"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="zBa-XG-kQj">
+                                <rect key="frame" x="10" y="239" width="394" height="96"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cxd-AI-u1u">
+                                        <rect key="frame" x="0.0" y="0.0" width="121" height="96"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="morning" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUU-hy-HNh">
+                                                <rect key="frame" x="29.5" y="0.0" width="62.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Morning" translatesAutoresizingMaskIntoConstraints="NO" id="N33-Hw-mQL" userLabel="morn">
+                                                <rect key="frame" x="21" y="20.5" width="79" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="4hy-vQ-awl"/>
+                                                    <constraint firstAttribute="width" constant="79" id="MYV-lp-3t8"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="18°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rge-g4-Qj2" userLabel="mor°C">
+                                                <rect key="frame" x="42.5" y="75.5" width="36.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eqE-9G-ZV2">
+                                        <rect key="frame" x="133" y="0.0" width="79" height="96"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yAF-Ky-AWF">
+                                                <rect key="frame" x="26" y="0.0" width="27.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Day" translatesAutoresizingMaskIntoConstraints="NO" id="1uL-8q-d32" userLabel="morn">
+                                                <rect key="frame" x="0.0" y="20.5" width="79" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="79" id="HAH-bE-fzZ"/>
+                                                    <constraint firstAttribute="height" constant="55" id="SD5-EP-3xe"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="18°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFs-0F-xGz" userLabel="day°C">
+                                                <rect key="frame" x="21.5" y="75.5" width="36.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Ext-4U-GXO">
+                                        <rect key="frame" x="224" y="0.0" width="79" height="96"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="evening" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PFF-mf-iao">
+                                                <rect key="frame" x="10" y="0.0" width="59.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Evening" translatesAutoresizingMaskIntoConstraints="NO" id="KXp-zz-eOU" userLabel="eve">
+                                                <rect key="frame" x="0.0" y="20.5" width="79" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="BH0-12-6KG"/>
+                                                    <constraint firstAttribute="width" constant="79" id="aus-8b-1BA"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="18°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMe-S4-9Q5" userLabel="eve°C">
+                                                <rect key="frame" x="21.5" y="75.5" width="36.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="eAe-oW-nkY">
+                                        <rect key="frame" x="315" y="0.0" width="79" height="96"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PH8-BM-y6N">
+                                                <rect key="frame" x="20.5" y="0.0" width="38" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="Night" translatesAutoresizingMaskIntoConstraints="NO" id="9hE-lO-51U" userLabel="night">
+                                                <rect key="frame" x="0.0" y="20.5" width="79" height="55"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="55" id="BKO-XR-dKC"/>
+                                                    <constraint firstAttribute="width" constant="79" id="h84-Kb-a3z"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="18°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNM-xW-aYa" userLabel="night°C">
+                                                <rect key="frame" x="21.5" y="75.5" width="36.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="NQf-Mp-Ult" firstAttribute="top" secondItem="mZA-zY-ICV" secondAttribute="bottom" constant="20" id="6xF-WX-V8v"/>
+                            <constraint firstItem="Oa4-pd-495" firstAttribute="trailing" secondItem="mZA-zY-ICV" secondAttribute="trailing" id="AAo-jt-Hbs"/>
+                            <constraint firstItem="424-cm-Yjt" firstAttribute="width" secondItem="424-cm-Yjt" secondAttribute="height" multiplier="1.3:1" id="DoZ-jv-s5L"/>
+                            <constraint firstItem="CZS-D2-GW8" firstAttribute="trailing" secondItem="424-cm-Yjt" secondAttribute="trailing" id="JS5-gH-OeH"/>
+                            <constraint firstItem="mZA-zY-ICV" firstAttribute="leading" secondItem="Oa4-pd-495" secondAttribute="leading" id="KVl-lG-faa"/>
+                            <constraint firstItem="Oa4-pd-495" firstAttribute="top" secondItem="mZA-zY-ICV" secondAttribute="top" id="SRz-S8-fw2"/>
+                            <constraint firstItem="CZS-D2-GW8" firstAttribute="top" secondItem="424-cm-Yjt" secondAttribute="bottom" id="YDK-Jz-WCE"/>
+                            <constraint firstItem="NQf-Mp-Ult" firstAttribute="leading" secondItem="Oa4-pd-495" secondAttribute="leading" constant="10" id="Yud-Zf-5f8"/>
+                            <constraint firstItem="zBa-XG-kQj" firstAttribute="top" secondItem="CZS-D2-GW8" secondAttribute="bottom" constant="20" id="Zam-dB-s23"/>
+                            <constraint firstItem="Oa4-pd-495" firstAttribute="trailing" secondItem="424-cm-Yjt" secondAttribute="trailing" constant="10" id="cFl-nP-rS8"/>
+                            <constraint firstItem="424-cm-Yjt" firstAttribute="top" secondItem="mZA-zY-ICV" secondAttribute="bottom" constant="20" id="eNL-cy-9PW"/>
+                            <constraint firstItem="Oa4-pd-495" firstAttribute="trailing" secondItem="zBa-XG-kQj" secondAttribute="trailing" constant="10" id="hlJ-mj-zes"/>
+                            <constraint firstItem="zBa-XG-kQj" firstAttribute="leading" secondItem="Oa4-pd-495" secondAttribute="leading" constant="10" id="w0h-PG-0GB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Oa4-pd-495"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hlM-7S-Dym" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="73.913043478260875" y="97.767857142857139"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Day" width="130" height="90"/>
+        <image name="Evening" width="130" height="90"/>
+        <image name="Morning" width="130" height="90"/>
+        <image name="Night" width="130" height="90"/>
+    </resources>
+</document>
