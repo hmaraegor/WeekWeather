@@ -26,9 +26,9 @@ extension DayList {
             
             if let result = result {
                 var json: Icons = result
-                json.useNewIcons = false
+                //json.useNewIcons = false
                 if json.useNewIcons {
-                    self.useNewIcons = json.useNewIcons
+                    //self.useNewIcons = json.useNewIcons
                     self.downloadIcons(url: url, icons: json)
                 }
             }
@@ -104,7 +104,7 @@ extension DayList {
     */
     
     //MARK: For use custon icons
-    /*
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let nib = UINib(nibName: cellXib, bundle: nil)
@@ -112,7 +112,7 @@ extension DayList {
         setNewIcons()
         location()
     }
-    */
+    
     
     
 }
@@ -124,20 +124,20 @@ class DayList: UIViewController, DayCellDelegate {
     
     var imageArray = [String : UIImage]()
     var newIconsArray = [String : UIImage]()
-    var useNewIcons = false
+    var useNewIcons = true
     
     @IBOutlet var tableView: UITableView!
     private var weekForecastService = WeekForecastService()
     private var daylyForecast: WeekForecast?
     private let locationManager = CLLocationManager()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        let nib = UINib(nibName: cellXib, bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: cell)
-        location()
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        let nib = UINib(nibName: cellXib, bundle: nil)
+//        tableView.register(nib, forCellReuseIdentifier: cell)
+//        location()
+//    }
     
     private func location() {
         guard CLLocationManager.locationServicesEnabled() else {
@@ -238,7 +238,7 @@ extension DayList: CLLocationManagerDelegate {
             if error == nil {
                 if let firstLocation = placemarks?[0],
                     let cityName = firstLocation.locality { // get the city name
-                    //self?.locationManager.stopUpdatingLocation()
+                    self?.locationManager.stopUpdatingLocation()
                     self?.title = cityName
                     print(cityName)
                 }

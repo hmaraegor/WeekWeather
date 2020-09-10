@@ -80,27 +80,27 @@ class DayCell: UITableViewCell {
         setImage(weather: dayForecast.weather)
     }
     
-    private func setImage(weather: [Weather]) {
-        
-        if let weather = weather.first, let image = delegate?.imageArray[weather.description] {
-            DispatchQueue.main.async {
-                self.weatherIconImage.image = image
-            }
-            return
-        }
-        
-        guard let ico = weather.first?.icon else { return }
-        let stringURL = "https://openweathermap.org/img/wn/" + ico + "@2x.png"
-        ImageDownloader.downloadImage(stringURL: stringURL) { (imageData) in
-            
-            DispatchQueue.main.async {
-                let image = UIImage(data: imageData)// ?? UIImage()
-                self.delegate?.imageArray[weather.first!.description] = image
-                self.weatherIconImage.image = image
-            }
-            
-        }
-    }
+//    private func setImage(weather: [Weather]) {
+//        
+//        if let weather = weather.first, let image = delegate?.imageArray[weather.description] {
+//            DispatchQueue.main.async {
+//                self.weatherIconImage.image = image
+//            }
+//            return
+//        }
+//        
+//        guard let ico = weather.first?.icon else { return }
+//        let stringURL = "https://openweathermap.org/img/wn/" + ico + "@2x.png"
+//        ImageDownloader.downloadImage(stringURL: stringURL) { (imageData) in
+//            
+//            DispatchQueue.main.async {
+//                let image = UIImage(data: imageData)// ?? UIImage()
+//                self.delegate?.imageArray[weather.first!.description] = image
+//                self.weatherIconImage.image = image
+//            }
+//            
+//        }
+//    }
     
     private func getDate(unixTime: Double) -> String {
         let date = NSDate(timeIntervalSince1970: unixTime)
@@ -129,7 +129,7 @@ extension DayCell {
     }
     
     //MARK: For use new icons
-    /*
+    
     private func setImage(weather: [Weather]) {
         
         if (delegate?.useNewIcons)! {
@@ -156,5 +156,5 @@ extension DayCell {
             
         }
     }
-    */
+    
 }
