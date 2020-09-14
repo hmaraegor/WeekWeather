@@ -23,7 +23,6 @@ class DayCell: UITableViewCell {
     @IBOutlet private var windLabel: UILabel!
     @IBOutlet private var weekDay: UILabel!
     @IBOutlet private var weatherIconImage: UIImageView!
-    let log = false
     
     static let cellXib = "NewDayCell"   //"DayCell"
     static let cell = "NewCell"         //"Cell"
@@ -32,7 +31,6 @@ class DayCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         currentTempLabel.backgroundColor = .clear
         dayNightTempLabel.backgroundColor = .clear
         feelsTempLabel.backgroundColor = .clear

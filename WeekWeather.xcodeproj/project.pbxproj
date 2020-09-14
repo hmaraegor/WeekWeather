@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		741918D0250F3029002C09BA /* TimeOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741918CF250F3029002C09BA /* TimeOfDay.swift */; };
 		74383C6F24F0289B00F29908 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 74383C7124F0289B00F29908 /* Localizable.strings */; };
 		744F49F42502232100B051D6 /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744F49F32502232100B051D6 /* Constraints.swift */; };
 		744F49F62502242400B051D6 /* WeatherViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 744F49F52502242400B051D6 /* WeatherViewController.storyboard */; };
+		744F4A18250B510000B051D6 /* IBExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744F4A17250B510000B051D6 /* IBExtension.swift */; };
 		7457BB4824EC52D3004693A5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB4724EC52D3004693A5 /* AppDelegate.swift */; };
 		7457BB4A24EC52D3004693A5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB4924EC52D3004693A5 /* SceneDelegate.swift */; };
 		7457BB4C24EC52D3004693A5 /* DayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB4B24EC52D3004693A5 /* DayList.swift */; };
@@ -44,9 +46,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		741918CF250F3029002C09BA /* TimeOfDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOfDay.swift; sourceTree = "<group>"; };
 		74383C6C24F0281000F29908 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/DayList.strings; sourceTree = "<group>"; };
 		744F49F32502232100B051D6 /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
 		744F49F52502242400B051D6 /* WeatherViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WeatherViewController.storyboard; sourceTree = "<group>"; };
+		744F4A17250B510000B051D6 /* IBExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBExtension.swift; sourceTree = "<group>"; };
 		7457BB4424EC52D3004693A5 /* WeekWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeekWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7457BB4724EC52D3004693A5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7457BB4924EC52D3004693A5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				744F49F32502232100B051D6 /* Constraints.swift */,
+				744F4A17250B510000B051D6 /* IBExtension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -181,6 +186,7 @@
 				74A53E5524F005D700D27942 /* ImageDownloader.swift */,
 				745D592824F5A6CF00B75C46 /* DownloadService.swift */,
 				74B2FD7D24FD2D64005BA215 /* CoreDataManager.swift */,
+				741918CF250F3029002C09BA /* TimeOfDay.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -308,10 +314,12 @@
 				74A53E5624F005D800D27942 /* ImageDownloader.swift in Sources */,
 				744F49F42502232100B051D6 /* Constraints.swift in Sources */,
 				74B2FD8E24FD30B6005BA215 /* WeekWeather.xcdatamodeld in Sources */,
+				744F4A18250B510000B051D6 /* IBExtension.swift in Sources */,
 				74A53E5224EFBD6100D27942 /* LocationErrorService.swift in Sources */,
 				7457BB6624ED3D41004693A5 /* NetworkServiceError.swift in Sources */,
 				7457BB4C24EC52D3004693A5 /* DayList.swift in Sources */,
 				745D592924F5A6CF00B75C46 /* DownloadService.swift in Sources */,
+				741918D0250F3029002C09BA /* TimeOfDay.swift in Sources */,
 				7457BB4824EC52D3004693A5 /* AppDelegate.swift in Sources */,
 				7457BB5D24EC5596004693A5 /* DayCell.swift in Sources */,
 				74B2FD8924FD3008005BA215 /* WeatherMO+CoreDataClass.swift in Sources */,

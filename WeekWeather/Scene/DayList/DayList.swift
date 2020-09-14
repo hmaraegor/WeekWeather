@@ -15,7 +15,6 @@ class DayList: UIViewController, DayCellDelegate {
     var imageArray = [String : UIImage]()
     var newIconsArray = [String : UIImage]()
     var useNewIcons = false
-    let log = false
     
     @IBOutlet var tableView: UITableView!
     private var weekForecastService = WeekForecastService()
@@ -103,7 +102,7 @@ class DayList: UIViewController, DayCellDelegate {
                     self.tableView.reloadData()
                     group.leave()
                 }
-                self.isActualDate(dt: self.daylyForecast?.current.dt)
+                //self.isActualDate(dt: self.daylyForecast?.current.dt)
                 group.notify(queue: .main) {
                     self.deleteAllCoreDataStores()
                     self.copyWeatherToCoreData()
@@ -161,17 +160,17 @@ class DayList: UIViewController, DayCellDelegate {
         
         for day in dayForecastArray {
         
-            let temp = Temp(day: day.temp.day, night: day.temp.night)
-            let feelsLike = Temp(day: day.feelsLike.day, night: day.feelsLike.night)
+            let temp = Temp(day: day.temp.day, night: day.temp.night, eve: day.temp.eve, morn: day.temp.morn)
+            let feelsLike = Temp(day: day.feelsLike.day, night: day.feelsLike.night, eve: day.temp.eve, morn: day.temp.morn)
             let weather = Weather(main: day.weather.main, description: day.weather.descript, icon: day.weather.icon)
             
             if daylyForecast == nil && day == dayForecastArray.first && isActualDate(dt: day.dt){
-                let currentWeather = CurrentWeather(dt: day.dt - 28800, temp: day.temp.day, feelsLike: day.feelsLike.day, windSpeed: day.windSpeed, weather: [weather])
+                let currentWeather = CurrentWeather(dt: day.dt - 28800, temp: day.temp.day, feelsLike: day.feelsLike.day, windSpeed: day.windSpeed, weather: [weather], sunrise: day.sunrise, sunset: day.sunset, pressure: day.pressure, humidity: day.humidity)
                 daylyForecast = WeekForecast(daily: [], current: currentWeather)
             }
             
             if isActualDate(dt: day.dt) {
-                daylyForecast?.daily.append( DayForecast(dt: day.dt, temp: temp, feelsLike: feelsLike, windSpeed: day.windSpeed, weather: [weather]) )
+                daylyForecast?.daily.append( DayForecast(dt: day.dt, temp: temp, feelsLike: feelsLike, windSpeed: day.windSpeed, weather: [weather], sunrise: day.sunrise, sunset: day.sunset, pressure: day.pressure, humidity: day.humidity))
             }
             
         }
@@ -192,6 +191,8 @@ class DayList: UIViewController, DayCellDelegate {
             dayForecastMO.feelsLike.night = day.feelsLike.night
             dayForecastMO.temp.day = day.temp.day
             dayForecastMO.temp.night = day.temp.night
+            dayForecastMO.temp.eve = day.temp.eve
+            dayForecastMO.temp.morn = day.temp.morn
             
             guard let dayWeather = day.weather.first else { return }
             dayForecastMO.weather.main = dayWeather.main
@@ -309,9 +310,18 @@ extension DayList: UITableViewDataSource {
         return cell
     }
     
-    private func presentWeatherController(with dayForecast: DayForecast?) {
+    private func presentWeatherController(with dayForecast: DayForecast?, index: Int) {
+        let currentTemp: Double?
+        if index == 0 { currentTemp = daylyForecast?.current.temp }
+        else { currentTemp = dayForecast?.temp.day }
         let vc = WeatherViewController()
         vc.dayForecast = dayForecast
+        //vc.currentTemp = TimeOfDay.getCurrentTemp(temp: dayForecast?.temp)
+        vc.currentTemp = currentTemp
+        if let weather = dayForecast?.weather.first,
+            let image = imageArray[weather.description]  {
+            vc.icon = image
+        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -326,7 +336,7 @@ extension DayList: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentWeatherController(with: daylyForecast?.daily[indexPath.row])
+        presentWeatherController(with: daylyForecast?.daily[indexPath.row], index: indexPath.row)
     }
     
 }

@@ -20,5 +20,9 @@ extension DayForecastMO {
     @NSManaged public var feelsLike: TempMO
     @NSManaged public var windSpeed: Double
     @NSManaged public var weather: WeatherMO
+    @NSManaged public var sunrise: Double
+    @NSManaged public var sunset: Double
+    @NSManaged public var pressure: Double
+    @NSManaged public var humidity: Double
 
 }
