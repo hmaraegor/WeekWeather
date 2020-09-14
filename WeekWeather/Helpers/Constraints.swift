@@ -20,11 +20,33 @@ extension UIView {
     }
     
     func anchorSize(to view: UIView) {
+        self.translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
     }
     
+    func anchorSize(size: CGSize) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        widthAnchor.constraint(equalToConstant: size.width).isActive = true
+        heightAnchor.constraint(equalToConstant: size.height).isActive = true
+    }
+    
+    func centerAnchor(centerX: NSLayoutXAxisAnchor?, centerY: NSLayoutYAxisAnchor?, constantX:  CGFloat, constantY:  CGFloat) {
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
+        if let centerX = centerX {
+            centerXAnchor.constraint(equalTo: centerX, constant: constantX).isActive = true
+        }
+        
+        if let centerY = centerY {
+            centerYAnchor.constraint(equalTo: centerY, constant: constantY).isActive = true
+        }
+    }
+    
     func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, padding: UIEdgeInsets = .zero, size: CGSize = .zero) {
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
         
         if let top = top {
             topAnchor.constraint(equalTo: top, constant: padding.top).isActive = true
