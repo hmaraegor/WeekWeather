@@ -17,5 +17,7 @@ extension TempMO {
     
     @NSManaged public var day: Double
     @NSManaged public var night: Double
+    @NSManaged public var eve: Double
+    @NSManaged public var morn: Double
 
 }

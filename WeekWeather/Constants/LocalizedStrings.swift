@@ -13,8 +13,8 @@ struct LocString {
     struct Cell {
         static let day = NSLocalizedString("day ", comment: "day")
         static let today = NSLocalizedString("today ", comment: "today")
-        static let tonight = NSLocalizedString("night ", comment: "night")
-        static let night = NSLocalizedString("tonight ", comment: "tonight")
+        static let tonight = NSLocalizedString("tonight ", comment: "tonight")
+        static let night = NSLocalizedString("night ", comment: "night")
         static let wind = NSLocalizedString("wind: ", comment: "wind")
         static let meters_in_sec = NSLocalizedString("m/s", comment: "m/s")
         static let feels_like = NSLocalizedString("feels like ", comment: "feels like")

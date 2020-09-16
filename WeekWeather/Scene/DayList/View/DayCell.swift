@@ -23,7 +23,6 @@ class DayCell: UITableViewCell {
     @IBOutlet private var windLabel: UILabel!
     @IBOutlet private var weekDay: UILabel!
     @IBOutlet private var weatherIconImage: UIImageView!
-    let log = false
     
     static let cellXib = "NewDayCell"   //"DayCell"
     static let cell = "NewCell"         //"Cell"
@@ -32,7 +31,6 @@ class DayCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         currentTempLabel.backgroundColor = .clear
         dayNightTempLabel.backgroundColor = .clear
         feelsTempLabel.backgroundColor = .clear
@@ -65,7 +63,7 @@ class DayCell: UITableViewCell {
         windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", dayForecast.windSpeed) + LocString.Cell.meters_in_sec
         
         let time12oclock = dayForecast.dt - AppConstants.twelveHoursInSeconds
-        weekDay.text = getDate(unixTime: time12oclock)
+        weekDay.text = DateService.getDate(unixTime: time12oclock, dateFormat: "EEEE, dd MMM")
         
         setImage(weather: dayForecast.weather)
     }
@@ -86,7 +84,7 @@ class DayCell: UITableViewCell {
         weatherDescriptLabel.text = dayForecast.weather.first?.description //currentWeather.weather.first?.description
         windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", currentWeather.windSpeed) + LocString.Cell.meters_in_sec
         
-        weekDay.text = getDate(unixTime: currentWeather.dt)
+        weekDay.text = DateService.getDate(unixTime: currentWeather.dt, dateFormat: "EEEE, dd MMM")
         
         setImage(weather: dayForecast.weather)
     }
