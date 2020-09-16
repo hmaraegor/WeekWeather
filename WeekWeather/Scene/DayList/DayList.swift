@@ -316,12 +316,14 @@ extension DayList: UITableViewDataSource {
         else { currentTemp = dayForecast?.temp.day }
         let vc = WeatherViewController()
         vc.dayForecast = dayForecast
-        //vc.currentTemp = TimeOfDay.getCurrentTemp(temp: dayForecast?.temp)
         vc.currentTemp = currentTemp
         if let weather = dayForecast?.weather.first,
             let image = imageArray[weather.description]  {
             vc.icon = image
         }
+        let backItem = UIBarButtonItem()
+        backItem.title = "Back"
+        navigationItem.backBarButtonItem = backItem
         navigationController?.pushViewController(vc, animated: true)
     }
     

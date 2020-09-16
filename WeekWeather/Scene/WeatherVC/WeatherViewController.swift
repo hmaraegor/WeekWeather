@@ -22,6 +22,17 @@ class WeatherViewController: UIViewController {
         return imageView
     }()
     
+    func setWeatherImage(){
+        view.addSubview(weatherImageView)
+        
+        weatherImageView.centerAnchor(centerX: view.centerXAnchor,
+                                      centerY: view.safeAreaLayoutGuide.centerYAnchor,
+                                      constantX: 0,
+                                      constantY: -weatherImageView.bounds.height)
+        
+        weatherImageView.image = icon
+    }
+    
     func createMainBottomStackView() {
         guard let dayForecast = dayForecast else { return }
         
@@ -68,20 +79,10 @@ class WeatherViewController: UIViewController {
         
     }
     
-    func setWeatherImage(){
-        view.addSubview(weatherImageView)
-        
-        weatherImageView.centerAnchor(centerX: view.centerXAnchor,
-                                      centerY: view.safeAreaLayoutGuide.centerYAnchor,
-                                      constantX: 0,
-                                      constantY: -weatherImageView.bounds.height)
-        
-        weatherImageView.image = icon
-    }
-    
-    func setTempLabel() -> UILabel {
+    func createTempLabel() -> UILabel {
         let label = UILabel(text: String(format: "%.0f", currentTemp) + AppConstants.celsius,
-                        height: 100, size: 81)
+                            color: .darkGray,
+                            height: 100, size: 81)
         
         view.addSubview(label)
         
@@ -96,33 +97,133 @@ class WeatherViewController: UIViewController {
         return label
     }
     
-    func setLabel(text: String, color: UIColor = .black, font: String =  "HelveticaNeue-Light", height: CGFloat = 21, size: CGFloat = 17) -> UILabel {
-        let label = UILabel()
-        label.text = String(format: "%.0f", currentTemp) + AppConstants.celsius
-        label.numberOfLines = 0
-        label.sizeToFit()
-        label.heightAnchor.constraint(equalToConstant: 100.0).isActive = true
-        label.textColor = .black
-        label.textAlignment = .center
-        label.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
-        label.font = UIFont(name: "HelveticaNeue-Light", size: 81)
-        label.translatesAutoresizingMaskIntoConstraints = false
+    func createDescrLabel(view: UIView) {
+        guard let dayForecast = dayForecast, let weather = dayForecast.weather.first else { return }
+        let label = UILabel(text: weather.description,
+                            color: .darkGray,
+                            height: 24, size: 20)
+        
         view.addSubview(label)
         
-        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
-        label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        label.anchor(top: view.bottomAnchor,
+                     leading: nil,
+                     bottom: nil,
+                     trailing: view.trailingAnchor,
+                     padding: UIEdgeInsets(top: 0, left: 777,
+                                           bottom: 777, right: 0),
+                     size: CGSize(width: label.bounds.size.width, height: 24))
+    }
+    
+    func createSunPhases(){
+        guard let dayForecast = dayForecast else { return }
+        let sunriseImageView = UIImageView(iconName: "sunrise", tintColor:  #colorLiteral(red: 1, green: 0.8431372549, blue: 0, alpha: 1), image: nil)
+        let sunriseLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunrise, dateFormat: "HH:mm"), color: #colorLiteral(red: 0.231372549, green: 0.1882352941, blue: 0.003921568627, alpha: 1))
+        view.addSubview(sunriseImageView)
+        view.addSubview(sunriseLabel)
         
-        return label
+        
+        let sunsetImageView = UIImageView(iconName: "sunset", tintColor:  #colorLiteral(red: 1, green: 0.4352941176, blue: 0, alpha: 1), image: nil)
+        let sunsetLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunset, dateFormat: "HH:mm"), color: #colorLiteral(red: 0.2235294118, green: 0.09803921569, blue: 0.003921568627, alpha: 1))
+        view.addSubview(sunsetImageView)
+        view.addSubview(sunsetLabel)
+        
+        sunriseImageView.bounds.size = CGSize(width: 60, height: 60)
+        
+        sunriseImageView.anchor(top: nil,
+                                leading: view.safeAreaLayoutGuide.leadingAnchor,
+                                bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                                trailing: nil,
+                                padding: UIEdgeInsets(top: 777,
+                                                      left: 20,
+                                                      bottom: (view.center.y / 1.5) - sunriseImageView.bounds.height,
+                                                      right: 777),
+                                size: .zero)
+        
+        sunriseLabel.anchor(top: sunriseImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 0, left: 777, bottom: 777, right: 777), size: .zero)
+        
+        sunriseLabel.centerAnchor(centerX: sunriseImageView.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
+        
+        
+        sunsetImageView.bounds.size = CGSize(width: 60, height: 60)
+        
+        sunsetImageView.anchor(top: nil,
+                               leading: nil,
+                               bottom: view.safeAreaLayoutGuide.bottomAnchor,
+                               trailing: view.safeAreaLayoutGuide.trailingAnchor,
+                               padding: UIEdgeInsets(top: 777,
+                                                     left: 777,
+                                                     bottom: (view.center.y / 1.5) - sunriseImageView.bounds.height,
+                                                     right: 20),
+                               size: .zero)
+        
+        sunsetLabel.anchor(top: sunsetImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 0, left: 777, bottom: 777, right: 777), size: .zero)
+        
+        sunsetLabel.centerAnchor(centerX: sunsetImageView.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
+    }
+    
+    func createPreasureAndHumidity() {
+        guard let dayForecast = dayForecast else { return }
+        let humidityImageView = UIImageView(iconName: "drop.triangle", tintColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.5), image: nil, size: CGSize(width: 90, height: 90))
+        let humidityLabel = UILabel(text: "\(Int(dayForecast.humidity))" + "%", color: .darkGray)
+        view.addSubview(humidityImageView)
+        view.addSubview(humidityLabel)
+        
+        
+        let preasureImageView = UIImageView(iconName: "gauge", tintColor: .gray, image: nil, size: CGSize(width: 40, height: 40))
+        let preasureLabel = UILabel(text: String(format: "%.0f", dayForecast.pressure * 0.750062) + "mm", color: .darkGray)
+        view.addSubview(preasureImageView)
+        view.addSubview(preasureLabel)
+        
+        //humidityImageView.bounds.size = CGSize(width: 90, height: 90)
+        
+        humidityImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                                leading: view.safeAreaLayoutGuide.leadingAnchor,
+                                bottom: nil,
+                                trailing: nil,
+                                padding: UIEdgeInsets(top:  -20,
+                                                      left: -10,
+                                                      bottom: 777,
+                                                      right: 777),
+                                size: .zero)
+        
+        humidityLabel.anchor(top: humidityImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: -11, left: 777, bottom: 777, right: 777), size: .zero)
+        
+        humidityLabel.centerAnchor(centerX: humidityImageView.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
+        
+        
+        //preasureImageView.bounds.size = CGSize(width: 60, height: 60)
+        
+        preasureImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                                 leading: humidityImageView.trailingAnchor,
+                               bottom: nil,
+                               trailing: nil,
+                               padding: UIEdgeInsets(top: 12,
+                                                     left: 11,
+                                                     bottom: 777,
+                                                     right: 777),
+                               size: .zero)
+
+        preasureLabel.anchor(top: preasureImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 7, left: 777, bottom: 777, right: 777), size: .zero)
+
+        preasureLabel.centerAnchor(centerX: preasureImageView.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: 46, y: 50), radius: 18, startAngle: 0, endAngle: 2 * .pi, clockwise: true).cgPath
+        
+        humidityImageView.layer.mask = shapeLayer
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = #colorLiteral(red: 0.8301728751, green: 0.9081035013, blue: 0.9764705896, alpha: 1)
+        self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.title = DateService.getDate(unixTime: dayForecast.dt, dateFormat: "EEEE, dd MMM")
         
-        setTempLabel()
+        let tempLabel = createTempLabel()
+        createDescrLabel(view: tempLabel)
         setWeatherImage()
         createMainBottomStackView()
-        
+        createSunPhases()
+        createPreasureAndHumidity()
     }
     
 }
@@ -148,7 +249,7 @@ extension UILabel {
         
         self.text = text
         self.textColor = color
-        self.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+        //self.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         self.font = UIFont(name: font, size: size)
     }
 }
@@ -164,6 +265,7 @@ extension UIImageView {
             self.image = UIImage(systemName: iconName)
         }
         
+        self.contentMode = .scaleAspectFit
         if let tintColor = tintColor { self.tintColor = tintColor }
         
         self.anchorSize(size: size)
