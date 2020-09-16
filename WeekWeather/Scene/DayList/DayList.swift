@@ -29,7 +29,7 @@ extension DayList {
                 var json: Icons = result
                 //json.useNewIcons = false
                 if json.useNewIcons {
-                    //self.useNewIcons = json.useNewIcons
+                    self.useNewIcons = json.useNewIcons
                     self.downloadIcons(url: url, icons: json)
                 }
             }
@@ -122,7 +122,7 @@ class DayList: UIViewController, DayCellDelegate {
     
     var imageArray = [String : UIImage]()
     var newIconsArray = [String : UIImage]()
-    var useNewIcons = false
+    var useNewIcons = true
     
     @IBOutlet var tableView: UITableView!
     private var weekForecastService = WeekForecastService()
@@ -420,15 +420,22 @@ extension DayList: UITableViewDataSource {
     
     private func presentWeatherController(with dayForecast: DayForecast?, index: Int) {
         let currentTemp: Double?
+        
         if index == 0 { currentTemp = daylyForecast?.current.temp }
         else { currentTemp = dayForecast?.temp.day }
+        
         let vc = WeatherViewController()
         vc.dayForecast = dayForecast
         vc.currentTemp = currentTemp
-        if let weather = dayForecast?.weather.first,
-            let image = imageArray[weather.description]  {
+        
+        if useNewIcons, let weather = dayForecast?.weather.first  {
+            let key = weather.icon
+            vc.icon = newIconsArray[key]
+        }
+        else if let weather = dayForecast?.weather.first, let image = imageArray[weather.description]  {
             vc.icon = image
         }
+        
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
         navigationItem.backBarButtonItem = backItem

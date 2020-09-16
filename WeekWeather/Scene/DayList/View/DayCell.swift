@@ -14,6 +14,44 @@ protocol DayCellDelegate {
     var useNewIcons: Bool { get set }
 }
 
+extension DayCell {
+    private func setNewIcons(weather: [Weather]) {
+        DispatchQueue.main.async {
+            self.weatherIconImage.image = self.delegate?.newIconsArray[weather.first!.icon]
+        }
+    }
+    
+    //MARK: For use new icons
+    
+    private func setImage(weather: [Weather]) {
+        
+        if (delegate?.useNewIcons)! {
+            setNewIcons(weather: weather)
+            return
+        }
+        
+        if let weather = weather.first, let image = delegate?.imageArray[weather.description] {
+            DispatchQueue.main.async {
+                self.weatherIconImage.image = image
+            }
+            return
+        }
+        
+        guard let ico = weather.first?.icon else { return }
+        let stringURL = "https://openweathermap.org/img/wn/" + ico + "@2x.png"
+        ImageDownloader.downloadImage(stringURL: stringURL) { (imageData) in
+            
+            DispatchQueue.main.async {
+                let image = UIImage(data: imageData)// ?? UIImage()
+                self.delegate?.imageArray[weather.first!.description] = image
+                self.weatherIconImage.image = image
+            }
+            
+        }
+    }
+    
+}
+
 class DayCell: UITableViewCell {
     
     @IBOutlet private var currentTempLabel: UILabel!
@@ -89,30 +127,30 @@ class DayCell: UITableViewCell {
         setImage(weather: dayForecast.weather)
     }
     
-    private func setImage(weather: [Weather]) {
-        
-        
-        if let weather = weather.first, let image = delegate?.imageArray[weather.description] {
-            DispatchQueue.main.async {
-                self.weatherIconImage.image = image
-            }
-            return
-        }
-        
-        guard let ico = weather.first?.icon else { return }
-        let stringURL = "https://openweathermap.org/img/wn/" + ico + "@2x.png"
-        ImageDownloader.downloadImage(stringURL: stringURL) { (imageData) in
-            
-            DispatchQueue.main.async {
-                let image = UIImage(data: imageData)// ?? UIImage()
-                if let weather = weather.first {
-                    self.delegate?.imageArray[weather.description] = image
-                }
-                self.weatherIconImage.image = image
-            }
-            
-        }
-    }
+//    private func setImage(weather: [Weather]) {
+//        
+//        
+//        if let weather = weather.first, let image = delegate?.imageArray[weather.description] {
+//            DispatchQueue.main.async {
+//                self.weatherIconImage.image = image
+//            }
+//            return
+//        }
+//        
+//        guard let ico = weather.first?.icon else { return }
+//        let stringURL = "https://openweathermap.org/img/wn/" + ico + "@2x.png"
+//        ImageDownloader.downloadImage(stringURL: stringURL) { (imageData) in
+//            
+//            DispatchQueue.main.async {
+//                let image = UIImage(data: imageData)// ?? UIImage()
+//                if let weather = weather.first {
+//                    self.delegate?.imageArray[weather.description] = image
+//                }
+//                self.weatherIconImage.image = image
+//            }
+//            
+//        }
+//    }
     
     private func getDate(unixTime: Double) -> String {
         let date = NSDate(timeIntervalSince1970: unixTime)

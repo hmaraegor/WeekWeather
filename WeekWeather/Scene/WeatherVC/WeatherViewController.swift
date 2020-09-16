@@ -15,10 +15,11 @@ class WeatherViewController: UIViewController {
     var currentTemp: Double!
     
     let weatherImageView: UIImageView = {
-       let imageView = UIImageView()
+       let imageView = UIImageView(iconName: nil, tintColor: nil, image: nil, size: CGSize(width: 200, height: 150))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.bounds.size = CGSize(width: 200, height: 150)
-        imageView.backgroundColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
+        imageView.contentMode = .scaleAspectFit
+//        imageView.backgroundColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
         return imageView
     }()
     
@@ -28,7 +29,7 @@ class WeatherViewController: UIViewController {
         weatherImageView.centerAnchor(centerX: view.centerXAnchor,
                                       centerY: view.safeAreaLayoutGuide.centerYAnchor,
                                       constantX: 0,
-                                      constantY: -weatherImageView.bounds.height)
+                                      constantY: -weatherImageView.bounds.height/2)
         
         weatherImageView.image = icon
     }
@@ -139,7 +140,7 @@ class WeatherViewController: UIViewController {
                                                       right: 777),
                                 size: .zero)
         
-        sunriseLabel.anchor(top: sunriseImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 0, left: 777, bottom: 777, right: 777), size: .zero)
+        sunriseLabel.anchor(top: sunriseImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: -8, left: 777, bottom: 777, right: 777), size: .zero)
         
         sunriseLabel.centerAnchor(centerX: sunriseImageView.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
         
@@ -156,7 +157,7 @@ class WeatherViewController: UIViewController {
                                                      right: 20),
                                size: .zero)
         
-        sunsetLabel.anchor(top: sunsetImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 0, left: 777, bottom: 777, right: 777), size: .zero)
+        sunsetLabel.anchor(top: sunsetImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: -8, left: 777, bottom: 777, right: 777), size: .zero)
         
         sunsetLabel.centerAnchor(centerX: sunsetImageView.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
     }
@@ -266,6 +267,7 @@ extension UIImageView {
         }
         
         self.contentMode = .scaleAspectFit
+        
         if let tintColor = tintColor { self.tintColor = tintColor }
         
         self.anchorSize(size: size)
