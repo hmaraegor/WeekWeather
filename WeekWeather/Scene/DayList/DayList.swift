@@ -10,8 +10,174 @@ import UIKit
 import CoreLocation
 import CoreData
 
-class DayList: UIViewController, DayCellDelegate {
+struct Icons: Codable {
+    var useNewIcons: Bool
+    var folder: String
+    var dayIcons: [String : String]
+    var nightIcons: [String : String]
+}
+
+class IconsV2: Codable {
+    var useNewIcons: Bool!
+    var folder: String!
+    var dayIcons: [String : String]!
+    var nightIcons: [String : String]!
+    var showPreasureHumidity: Bool!
+    var showSunPhases: Bool!
     
+    init(useNewIcons: Bool, folder: String, dayIcons: [String : String], nightIcons: [String : String],
+         showPreasureHumidity: Bool = true, showSunPhases: Bool = true) {
+        self.useNewIcons = useNewIcons
+        self.folder = folder
+        self.dayIcons = dayIcons
+        self.nightIcons = nightIcons
+        self.showPreasureHumidity = showPreasureHumidity
+        self.showSunPhases = showSunPhases
+    }
+}
+
+extension DayList {
+    private func setNewIcons() {
+        guard useNewIcons else { return }
+        downloadJSON(url: "https://hmaraegor.ml/Swift/WeekWeather/")
+    }
+    
+    private func downloadJSON(url: String) {
+        DownloadService().getForecast(url: url + "icons.json", params: nil) { (result: IconsV2?, error) in
+            
+            if let result = result {
+                var json: IconsV2 = result
+                //json.useNewIcons = false
+                if json.useNewIcons {
+                    self.useNewIcons = json.useNewIcons
+                    self.showSunPhases = json.showSunPhases
+                    self.showPreasureHumidity = json.showPreasureHumidity
+                    self.downloadIcons(url: url, icons: json)
+                }
+            }
+            else if let error = error {
+                DispatchQueue.main.async {
+                    ErrorAlertService.showErrorAlert(error: error as! NetworkServiceError, viewController: self)
+                }
+            }
+        }
+    }
+    
+    private func downloadIcons(url: String, icons: IconsV2) {
+        let url = url + icons.folder
+        
+        
+        let iconsList = makeIconsList()
+        
+        for (key, value) in icons.dayIcons {
+            guard iconsList.contains(key) else { continue }
+            ImageDownloader.downloadImage(stringURL: url + "/" + value + ".png") { (imageData) in
+                DispatchQueue.main.async {
+                    let image = UIImage(data: imageData)
+                    self.newIconsArray[key] = image
+                    self.imageArray = self.newIconsArray
+                    //print("for \(key) image downloaded")
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+        for (key, value) in icons.nightIcons {
+            guard iconsList.contains(key) else { continue }
+            ImageDownloader.downloadImage(stringURL: url + "/" + value + ".png") { (imageData) in
+                DispatchQueue.main.async {
+                    let image = UIImage(data: imageData)
+                    self.newIconsArray[key] = image
+                    self.imageArray = self.newIconsArray
+                    //print("for \(key) image downloaded")
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+        
+        
+        /*for (key, value) in icons.dayIcons {
+            ImageDownloader.downloadImage(stringURL: url + "/" + value + ".png") { (imageData) in
+                DispatchQueue.main.async {
+                    let image = UIImage(data: imageData)
+                    self.newIconsArray[key] = image
+                    //print("for \(key) did set image")
+                    self.tableView.reloadData()
+                }
+            }
+        }*/
+    }
+    
+    func printLocale() {
+        print(Locale.current.languageCode!)
+        print(Locale.preferredLanguages[0])
+        //print(Locale.preferredLanguages[0] as String)
+        print(Locale.current.identifier)
+        print(Locale.autoupdatingCurrent.languageCode)
+
+        print(String(Locale.preferredLanguages[0].prefix(2)))
+        print(Locale.preferredLanguages.first!)
+        print(Bundle.main.preferredLocalizations.first!)
+        print(Bundle.main.preferredLocalizations.first?.prefix(2))
+        
+        print(String(Locale.preferredLanguages[0].prefix(5)))
+        print(Locale.preferredLanguages)
+    }
+    
+    func createMockDaylyForecast() {
+        
+        let newDayIcons = ["0":"cloudSnowflake", "1":"rainClounsSun", "2":"happyCloud", "3":"cloudsBroken", "4":"clouds", "5":"stars", "6":"star", "7":"moon", "8":"sun", "9":"heatCloud", "10":"happyRainCloud", "11":"sadRainCloud", "12":"lightningCloud", "13":"rainCloud", "14":"rainbow", "15":"sunClouds", "16":"umbrella", "17":"drops", "18":"sadDrop", "19":"happyDrop"]
+        var newNightIcons = newDayIcons
+        var newIcons = IconsV2(useNewIcons: true, folder: "newIcons", dayIcons: newDayIcons, nightIcons: newNightIcons)
+
+        var weather = Weather(main: "yo", description: "norm norm norm nor", icon: "\(newDayIcons.count - 1)")
+        var temp = Temp(day: 22, night: 17, eve: 18, morn: 15)
+        var current = CurrentWeather(dt: 1598284319, temp: 22, feelsLike: 22, windSpeed: 1.2, weather: [weather], sunrise: 1598280000, sunset: 1598288319, pressure: 1015, humidity: 77)
+        var dayForecast = DayForecast(dt: 1598284319, temp: temp, feelsLike: temp, windSpeed: 1.2, weather: [weather], sunrise: 1598281230, sunset: 1598283219, pressure: 1013, humidity: 60)
+        var dayly = Array(repeating: dayForecast, count: newDayIcons.count)
+        
+        for x in 0...dayly.count - 1 {
+            dayly[x].weather[0].icon = "\(x)"
+        }
+        
+        daylyForecast = WeekForecast(daily: dayly, current: current)
+        
+        downloadIcons(url: "https://hmaraegor.ml/Swift/WeekWeather/", icons: newIcons)
+    }
+    
+    //MARK: For use mock object
+    /*
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let nib = UINib(nibName: cellXib, bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: cell)
+        //setNewIcons()
+        createMockDaylyForecast()
+        //location()
+    }
+    */
+    
+    //MARK: For use custon icons
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(DayCell.getNib(), forCellReuseIdentifier: DayCell.cell)
+        loadWeatherFromCoreData()
+        setNewIcons()
+        location()
+    }
+    
+    
+    
+}
+
+class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
+    
+    var showPreasureHumidity: Bool!
+    var showSunPhases: Bool!
+    
+    var usingOldData = true
     var imageArray = [String : UIImage]()
     var newIconsArray = [String : UIImage]()
     var useNewIcons = false
@@ -21,14 +187,14 @@ class DayList: UIViewController, DayCellDelegate {
     private var daylyForecast: WeekForecast?
     private let locationManager = CLLocationManager()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        tableView.register(DayCell.getNib(), forCellReuseIdentifier: DayCell.cell)
-        
-        loadWeatherFromCoreData()
-        location()
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        tableView.register(DayCell.getNib(), forCellReuseIdentifier: DayCell.cell)
+//        
+//        loadWeatherFromCoreData()
+//        location()
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         if let index = self.tableView.indexPathForSelectedRow {
@@ -99,6 +265,8 @@ class DayList: UIViewController, DayCellDelegate {
                 group.enter()
                 DispatchQueue.main.async {
                     self.daylyForecast = result
+                    if self.usingOldData == false { self.usingOldData = true }
+                    self.setNewIcons()
                     self.tableView.reloadData()
                     group.leave()
                 }
@@ -116,6 +284,21 @@ class DayList: UIViewController, DayCellDelegate {
             
         }
         
+    }
+    
+    private func makeIconsList() -> [String] {
+        var iconsNames = [String]()
+        guard let currentIcon = daylyForecast?.current.weather.first?.icon else { return [] }
+        iconsNames.append(currentIcon)
+        guard let days = daylyForecast?.daily else { return [] }
+         
+        for day in days {
+            if let icon = day.weather.first?.icon {
+                iconsNames.append(icon)
+            }
+        }
+        
+        return iconsNames
     }
     
     
@@ -164,8 +347,9 @@ class DayList: UIViewController, DayCellDelegate {
             let feelsLike = Temp(day: day.feelsLike.day, night: day.feelsLike.night, eve: day.temp.eve, morn: day.temp.morn)
             let weather = Weather(main: day.weather.main, description: day.weather.descript, icon: day.weather.icon)
             
-            if daylyForecast == nil && day == dayForecastArray.first && isActualDate(dt: day.dt){
-                let currentWeather = CurrentWeather(dt: day.dt - 28800, temp: day.temp.day, feelsLike: day.feelsLike.day, windSpeed: day.windSpeed, weather: [weather], sunrise: day.sunrise, sunset: day.sunset, pressure: day.pressure, humidity: day.humidity)
+            if daylyForecast == nil && /*day == dayForecastArray.first &&*/ isActualDate(dt: day.dt){
+                let currentTemp = TimeOfDay.getCurrentTemp(temp: temp)
+                let currentWeather = CurrentWeather(dt: day.dt - 28800, temp: currentTemp, feelsLike: day.feelsLike.day, windSpeed: day.windSpeed, weather: [weather], sunrise: day.sunrise, sunset: day.sunset, pressure: day.pressure, humidity: day.humidity)
                 daylyForecast = WeekForecast(daily: [], current: currentWeather)
             }
             
@@ -193,6 +377,10 @@ class DayList: UIViewController, DayCellDelegate {
             dayForecastMO.temp.night = day.temp.night
             dayForecastMO.temp.eve = day.temp.eve
             dayForecastMO.temp.morn = day.temp.morn
+            dayForecastMO.sunrise = day.sunrise
+            dayForecastMO.sunset = day.sunset
+            dayForecastMO.pressure = day.pressure
+            dayForecastMO.humidity = day.humidity
             
             guard let dayWeather = day.weather.first else { return }
             dayForecastMO.weather.main = dayWeather.main
@@ -312,15 +500,42 @@ extension DayList: UITableViewDataSource {
     
     private func presentWeatherController(with dayForecast: DayForecast?, index: Int) {
         let currentTemp: Double?
-        if index == 0 { currentTemp = daylyForecast?.current.temp }
-        else { currentTemp = dayForecast?.temp.day }
+        var image: UIImage?
+        var imageName: String = ""
+        
+        if index == 0 {
+            currentTemp = daylyForecast?.current.temp
+            if let currentW = daylyForecast?.current, let weather = currentW.weather.first {
+                image = imageArray[weather.icon/*weather.description*/]
+                imageName = weather.icon
+            }
+        }
+        else {
+            currentTemp = dayForecast?.temp.day
+            if let weather = dayForecast?.weather.first {
+                image = imageArray[weather.icon/*weather.description*/]
+                imageName = weather.icon
+            }
+        }
+        
+//        if let weather = daylyForecast?.daily[index].weather.first {
+//            imageName = weather.icon
+//        }
+        
         let vc = WeatherViewController()
         vc.dayForecast = dayForecast
         vc.currentTemp = currentTemp
-        if let weather = dayForecast?.weather.first,
-            let image = imageArray[weather.description]  {
+        vc.imageKey = imageName
+        vc.delegate = self
+        
+        if useNewIcons, let weather = dayForecast?.weather.first  {
+            let key = weather.icon
+            vc.icon = newIconsArray[key]
+        }
+        else /*if let weather = dayForecast?.weather.first, let image = imageArray[weather.icon/*weather.description*/]*/  {
             vc.icon = image
         }
+        
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
         navigationItem.backBarButtonItem = backItem

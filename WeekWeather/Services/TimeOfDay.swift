@@ -18,6 +18,7 @@ enum TimeOfDay {
         let date = Date()
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: date)
+        //print("Hour: ", hour)
         
         if (6..<12).contains(hour){
             return .morning
@@ -28,13 +29,15 @@ enum TimeOfDay {
         else if (17..<22).contains(hour) {
             return .evening
         }
-        else if (22..<6).contains(hour) {
+        else if (22...23).contains(hour) || (0..<6).contains(hour) {
             return .night
         }
+        return .day
     }
     
     static func getCurrentTemp(temp: Temp?) -> Double {
         guard let temp = temp else { return 0 }
+        //print("timeOfDay: ", timeOfDay)
         switch timeOfDay {
         case .morning:
             return temp.morn
