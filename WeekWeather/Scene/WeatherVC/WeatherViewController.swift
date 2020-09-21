@@ -8,22 +8,80 @@
 
 import UIKit
 
+protocol WeatherVCDelegate {
+    var newIconsArray: [String : UIImage] { get set }
+    var imageArray: [String : UIImage] { get set }
+    var showPreasureHumidity: Bool! { get set }
+    var showSunPhases: Bool! { get set }
+}
+
 class WeatherViewController: UIViewController {
 
+    var showPreasureHumidity: Bool!
+    var showSunPhases: Bool!
+    var imageKey: String!
     var dayForecast: DayForecast!
     var icon: UIImage!
     var currentTemp: Double!
+    var delegate: WeatherVCDelegate!
     
-    let weatherImageView: UIImageView = {
-       let imageView = UIImageView(iconName: nil, tintColor: nil, image: nil, size: CGSize(width: 200, height: 150))
+    let backgroundImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(imageLiteralResourceName: "clouds"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.bounds.size = CGSize(width: 200, height: 150)
-        imageView.contentMode = .scaleAspectFit
-//        imageView.backgroundColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.opacity = 0.3
         return imageView
     }()
     
-    func setWeatherImage(){
+    func setBackgroundImage() {
+        view.addSubview(backgroundImageView)
+        view.sendSubviewToBack(backgroundImageView)
+        backgroundImageView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = UIBezierPath(rect: CGRect(x: view.frame.origin.x, y: view.frame.origin.y, width: view.frame.width, height: view.frame.height)).cgPath
+        
+        backgroundImageView.layer.mask = shapeLayer
+    }
+    
+    let weatherImageView: UIImageView = {
+           let imageView = UIImageView(iconName: nil, tintColor: nil, image: nil, size: CGSize(width: 200, height: 150))
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.bounds.size = CGSize(width: 200, height: 150)
+            imageView.contentMode = .scaleAspectFit
+    //        imageView.backgroundColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
+            return imageView
+        }()
+    
+    func timerForSettingImage(interval: Double, rerun: Bool, closure: @escaping () -> (), condition: @escaping () -> (Bool)) {
+        
+        var runCount = 0
+        
+        let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { timer in
+            closure()
+            runCount += 1
+            print("runCount: ", runCount)
+
+            if condition() || runCount == 20 {
+                if condition() {
+                    timer.invalidate()
+                }
+                else if rerun {
+                    timer.invalidate()
+                    self.timerForSettingImage(interval: 0.2, rerun: false, closure: closure, condition: condition)
+                }
+                else {
+                    timer.invalidate()
+                }
+            }
+        }
+//        timer.tolerance = 0.2
+//        RunLoop.current.add(timer, forMode: .RunLoop.Mode.common)
+//        RunLoop.current.add(timer, forMode: .common)
+//        timer.fire()
+    }
+    
+    func setWeatherImage() {
         view.addSubview(weatherImageView)
         
         weatherImageView.centerAnchor(centerX: view.centerXAnchor,
@@ -31,11 +89,21 @@ class WeatherViewController: UIViewController {
                                       constantX: 0,
                                       constantY: -weatherImageView.bounds.height/2)
         
-        weatherImageView.image = icon
+//        if let icon = icon {
+//            weatherImageView.image = icon
+//        }
+         if let currentImage = delegate.imageArray[imageKey] { //delegate.newIconsArray[imageKey] {
+            weatherImageView.image = currentImage
+        }
+        else {
+            let closure = {() -> () in self.weatherImageView.image = self.delegate.imageArray[self.imageKey] } //self.delegate.newIconsArray[self.imageKey] }
+            let condition = {() -> (Bool) in return self.weatherImageView.image != nil }
+            timerForSettingImage(interval: 0.1, rerun: true, closure: closure, condition: condition)
+        }
     }
     
-    func createMainBottomStackView() {
-        guard let dayForecast = dayForecast else { return }
+    func createMainBottomStackView() -> UIStackView {
+        guard let dayForecast = dayForecast else { return UIStackView() }
         
         let mornTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.morn) + AppConstants.celsius, color: #colorLiteral(red: 0.4980392157, green: 0.4745098039, blue: 0, alpha: 1))
         let mornImageView = UIImageView(iconName: "sun.haze", tintColor:  #colorLiteral(red: 1, green: 0.8156862745, blue: 0, alpha: 0.5), image: nil)
@@ -65,7 +133,7 @@ class WeatherViewController: UIViewController {
                                            distribution: .equalSpacing, alignment: .center,
                                            views: [nightTempLabel, nightImageView, nightDescrLabel])
         
-        let mainBottomStackView = UIStackView(spacing: 30, axis: .horizontal,
+        let mainBottomStackView = UIStackView(spacing: 23, axis: .horizontal,
                                               distribution: .equalSpacing, alignment: .center,
                                               views: [morningStackView, dayStackView, eveningStackView, nightStackView])
         view.addSubview(mainBottomStackView)
@@ -78,12 +146,13 @@ class WeatherViewController: UIViewController {
         
         mainBottomStackView.centerAnchor(centerX: self.view.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
         
+        return mainBottomStackView
     }
     
     func createTempLabel() -> UILabel {
         let label = UILabel(text: String(format: "%.0f", currentTemp) + AppConstants.celsius,
                             color: .darkGray,
-                            height: 100, size: 81)
+                            height: 92, size: 77)
         
         view.addSubview(label)
         
@@ -98,8 +167,8 @@ class WeatherViewController: UIViewController {
         return label
     }
     
-    func createDescrLabel(view: UIView) {
-        guard let dayForecast = dayForecast, let weather = dayForecast.weather.first else { return }
+    func createDescrLabel(view: UIView) -> UILabel {
+        guard let dayForecast = dayForecast, let weather = dayForecast.weather.first else { return UILabel() }
         let label = UILabel(text: weather.description,
                             color: .darkGray,
                             height: 24, size: 20)
@@ -113,18 +182,49 @@ class WeatherViewController: UIViewController {
                      padding: UIEdgeInsets(top: 0, left: 777,
                                            bottom: 777, right: 0),
                      size: CGSize(width: label.bounds.size.width, height: 24))
+        return label
     }
     
-    func createSunPhases(){
-        guard let dayForecast = dayForecast else { return }
-        let sunriseImageView = UIImageView(iconName: "sunrise", tintColor:  #colorLiteral(red: 1, green: 0.8431372549, blue: 0, alpha: 1), image: nil)
-        let sunriseLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunrise, dateFormat: "HH:mm"), color: #colorLiteral(red: 0.231372549, green: 0.1882352941, blue: 0.003921568627, alpha: 1))
+    func createSunPhasesIfNeeded() {
+        let closure = {() -> () in
+            if let showSunPhases = self.delegate.showSunPhases {
+                self.showSunPhases = showSunPhases
+                if showSunPhases { self.createSunPhases() }
+            }
+        }
+        
+        let condition = {() -> (Bool) in
+            return self.showSunPhases != nil
+        }
+        timerForSettingImage(interval: 0.1, rerun: true, closure: closure, condition: condition)
+    }
+    
+    func createPreasureHumidityIfNeeded() {
+        let closure = {() -> () in
+            if let showPreasureHumidity = self.delegate.showPreasureHumidity {
+                self.showPreasureHumidity = showPreasureHumidity
+                if showPreasureHumidity { self.createPreasureAndHumidity() }
+            }
+        }
+        
+        let condition = {() -> (Bool) in
+            return self.showSunPhases != nil
+        }
+        timerForSettingImage(interval: 0.1, rerun: true, closure: closure, condition: condition)
+    }
+    
+    func createSunPhases() -> (UIImageView, UIImageView) {
+        guard let dayForecast = dayForecast else { return (UIImageView(), UIImageView()) }
+        //let sunriseImageView = UIImageView(iconName: "sunrise", tintColor:  #colorLiteral(red: 1, green: 0.8431372549, blue: 0, alpha: 1), image: nil)
+        let sunriseImageView = UIImageView(iconName: "sunrise", tintColor:  #colorLiteral(red: 1, green: 0.7834197891, blue: 0, alpha: 0.6987639127), image: nil)
+        let sunriseLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunrise, dateFormat: "HH:mm"), color: #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
         view.addSubview(sunriseImageView)
         view.addSubview(sunriseLabel)
         
         
-        let sunsetImageView = UIImageView(iconName: "sunset", tintColor:  #colorLiteral(red: 1, green: 0.4352941176, blue: 0, alpha: 1), image: nil)
-        let sunsetLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunset, dateFormat: "HH:mm"), color: #colorLiteral(red: 0.2235294118, green: 0.09803921569, blue: 0.003921568627, alpha: 1))
+        //let sunsetImageView = UIImageView(iconName: "sunset", tintColor:  #colorLiteral(red: 1, green: 0.4352941176, blue: 0, alpha: 1), image: nil)
+        let sunsetImageView = UIImageView(iconName: "sunset", tintColor:  #colorLiteral(red: 1, green: 0.4352941176, blue: 0, alpha: 0.6951519692), image: nil)
+        let sunsetLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunset, dateFormat: "HH:mm"), color: #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
         view.addSubview(sunsetImageView)
         view.addSubview(sunsetLabel)
         
@@ -136,7 +236,7 @@ class WeatherViewController: UIViewController {
                                 trailing: nil,
                                 padding: UIEdgeInsets(top: 777,
                                                       left: 20,
-                                                      bottom: (view.center.y / 1.5) - sunriseImageView.bounds.height,
+                                                      bottom: (view.bounds.height * 1/4),
                                                       right: 777),
                                 size: .zero)
         
@@ -153,24 +253,26 @@ class WeatherViewController: UIViewController {
                                trailing: view.safeAreaLayoutGuide.trailingAnchor,
                                padding: UIEdgeInsets(top: 777,
                                                      left: 777,
-                                                     bottom: (view.center.y / 1.5) - sunriseImageView.bounds.height,
+                                                     bottom: view.bounds.height * 1/4 /*(view.center.y * 3/2) - sunriseImageView.bounds.height*/,
                                                      right: 20),
                                size: .zero)
         
         sunsetLabel.anchor(top: sunsetImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: -8, left: 777, bottom: 777, right: 777), size: .zero)
         
         sunsetLabel.centerAnchor(centerX: sunsetImageView.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
+        
+        return (sunriseImageView, sunsetImageView)
     }
     
-    func createPreasureAndHumidity() {
-        guard let dayForecast = dayForecast else { return }
-        let humidityImageView = UIImageView(iconName: "drop.triangle", tintColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.5), image: nil, size: CGSize(width: 90, height: 90))
+    func createPreasureAndHumidity() -> (UIImageView, UIImageView, UILabel, UILabel) {
+        guard let dayForecast = dayForecast else { return (UIImageView(), UIImageView(), UILabel(), UILabel()) }
+        let humidityImageView = UIImageView(iconName: "drop.triangle", tintColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.5), image: nil, size: CGSize(width: 80, height: 80))
         let humidityLabel = UILabel(text: "\(Int(dayForecast.humidity))" + "%", color: .darkGray)
         view.addSubview(humidityImageView)
         view.addSubview(humidityLabel)
         
         
-        let preasureImageView = UIImageView(iconName: "gauge", tintColor: .gray, image: nil, size: CGSize(width: 40, height: 40))
+        let preasureImageView = UIImageView(iconName: "gauge", tintColor: .gray, image: nil, size: CGSize(width: 35, height: 35))
         let preasureLabel = UILabel(text: String(format: "%.0f", dayForecast.pressure * 0.750062) + "mm", color: .darkGray)
         view.addSubview(preasureImageView)
         view.addSubview(preasureLabel)
@@ -181,7 +283,7 @@ class WeatherViewController: UIViewController {
                                 leading: view.safeAreaLayoutGuide.leadingAnchor,
                                 bottom: nil,
                                 trailing: nil,
-                                padding: UIEdgeInsets(top:  -20,
+                                padding: UIEdgeInsets(top:  -5,
                                                       left: -10,
                                                       bottom: 777,
                                                       right: 777),
@@ -198,7 +300,7 @@ class WeatherViewController: UIViewController {
                                  leading: humidityImageView.trailingAnchor,
                                bottom: nil,
                                trailing: nil,
-                               padding: UIEdgeInsets(top: 12,
+                               padding: UIEdgeInsets(top: 22,
                                                      left: 11,
                                                      bottom: 777,
                                                      right: 777),
@@ -209,9 +311,24 @@ class WeatherViewController: UIViewController {
         preasureLabel.centerAnchor(centerX: preasureImageView.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
         
         let shapeLayer = CAShapeLayer()
-        shapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: 46, y: 50), radius: 18, startAngle: 0, endAngle: 2 * .pi, clockwise: true).cgPath
+        shapeLayer.path = UIBezierPath(arcCenter: CGPoint(x: 40, y: 45), radius: 15, startAngle: 0, endAngle: 2 * .pi, clockwise: true).cgPath
         
         humidityImageView.layer.mask = shapeLayer
+        
+        return (humidityImageView, preasureImageView, humidityLabel, preasureLabel)
+    }
+    
+    func makeGradient(view: UIView) {
+        view.backgroundColor = .blue
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = view.bounds
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0.5)
+        gradientLayer.colors = [UIColor.clear.cgColor, UIColor.blue.cgColor, UIColor.red.cgColor]
+        gradientLayer.locations = [0, 0.2, 1]
+        view.layer.mask = gradientLayer
+        
     }
     
     override func viewDidLoad() {
@@ -223,8 +340,15 @@ class WeatherViewController: UIViewController {
         createDescrLabel(view: tempLabel)
         setWeatherImage()
         createMainBottomStackView()
+        //createSunPhasesIfNeeded() //-> 👇
         createSunPhases()
-        createPreasureAndHumidity()
+        //createPreasureHumidityIfNeeded() //-> 👇
+        let (imageVHum, imageVPreas, labelHum, labelPreas) = createPreasureAndHumidity()
+        setBackgroundImage()
+        
+        
+        
+        //makeGradient(view: labelPreas)
     }
     
 }

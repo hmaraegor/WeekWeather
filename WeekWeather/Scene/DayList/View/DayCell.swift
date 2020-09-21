@@ -12,6 +12,7 @@ protocol DayCellDelegate {
     var imageArray: [String : UIImage] { get set }
     var newIconsArray: [String : UIImage]  { get set }
     var useNewIcons: Bool { get set }
+    var usingOldData: Bool { get set }
 }
 
 extension DayCell {
@@ -30,7 +31,7 @@ extension DayCell {
             return
         }
         
-        if let weather = weather.first, let image = delegate?.imageArray[weather.description] {
+        if let weather = weather.first, let image = delegate?.imageArray[weather.icon/*weather.description*/] {
             DispatchQueue.main.async {
                 self.weatherIconImage.image = image
             }
@@ -43,7 +44,10 @@ extension DayCell {
             
             DispatchQueue.main.async {
                 let image = UIImage(data: imageData)// ?? UIImage()
-                self.delegate?.imageArray[weather.first!.description] = image
+                if self.delegate.usingOldData {
+                    self.delegate?.imageArray[weather.first!.icon/*weather.first!.description*/] = image
+                    
+                }
                 self.weatherIconImage.image = image
             }
             
@@ -65,7 +69,7 @@ class DayCell: UITableViewCell {
     static let cellXib = "NewDayCell"   //"DayCell"
     static let cell = "NewCell"         //"Cell"
     
-    var delegate: DayCellDelegate?
+    var delegate: DayCellDelegate!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -119,12 +123,12 @@ class DayCell: UITableViewCell {
         let nigthTemp = LocString.Cell.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
         feelsTempLabel.text = LocString.Cell.feels_like + String(format: "%.0f", currentWeather.feelsLike) + AppConstants.celsius
-        weatherDescriptLabel.text = dayForecast.weather.first?.description //currentWeather.weather.first?.description
+        weatherDescriptLabel.text = currentWeather.weather.first?.description //dayForecast.weather.first?.description
         windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", currentWeather.windSpeed) + LocString.Cell.meters_in_sec
         
         weekDay.text = DateService.getDate(unixTime: currentWeather.dt, dateFormat: "EEEE, dd MMM")
         
-        setImage(weather: dayForecast.weather)
+        setImage(weather: currentWeather.weather) //setImage(weather: dayForecast.weather)
     }
     
 //    private func setImage(weather: [Weather]) {
