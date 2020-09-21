@@ -38,7 +38,7 @@ class NetworkService {
         }
         myURL?.queryItems = items
         let request =  URLRequest(url: (myURL?.url)!)
-        
+        print("Call url: ", (myURL?.url)!)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let response = response else {

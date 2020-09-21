@@ -11,4 +11,5 @@ import Foundation
 struct AppConstants {
     static let dot = "・"
     static let celsius = "°C"
+    static let twelveHoursInSeconds: Double = 28800
 }

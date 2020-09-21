@@ -11,17 +11,23 @@ import Foundation
 struct LocString {
     
     struct Cell {
+        static let day = NSLocalizedString("day ", comment: "day")
         static let today = NSLocalizedString("today ", comment: "today")
         static let tonight = NSLocalizedString("tonight ", comment: "tonight")
+        static let night = NSLocalizedString("night ", comment: "night")
         static let wind = NSLocalizedString("wind: ", comment: "wind")
-        static let metersInSec = NSLocalizedString("m/s", comment: "m/s")
-        static let feelsLike = NSLocalizedString("Feels like ", comment: "Feels like")
+        static let meters_in_sec = NSLocalizedString("m/s", comment: "m/s")
+        static let feels_like = NSLocalizedString("feels like ", comment: "feels like")
     }
     
     struct Alert {
-        static let locationError = NSLocalizedString("The current location cannot be displayed", comment: "Location error")
-        static let locationAccessTitle = NSLocalizedString("Allow Location Access", comment: "Location error")
-        static let locationAccessMessage = NSLocalizedString("WeekWeather needs access to your location. Turn on Location Services in your device settings.", comment: "Needs access")
+        static let location_error = NSLocalizedString("The current location cannot be displayed", comment: "Location error")
+        static let location_access_title = NSLocalizedString("Allow Location Access", comment: "Location error")
+        static let location_access_message = NSLocalizedString("WeekWeather needs access to your location. Turn on Location Services in your device settings.", comment: "Needs access")
         static let settings = NSLocalizedString("settings", comment: "settings")
+    }
+    
+    struct Title {
+        static let undefined_localion = NSLocalizedString("Undefine Place", comment: "Undefine Place")
     }
 }

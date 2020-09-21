@@ -65,7 +65,7 @@
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="120"/>
                         </variation>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K3Z-3y-krn">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="K3Z-3y-krn">
                         <rect key="frame" x="226" y="22" width="74" height="57"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="K3Z-3y-krn" secondAttribute="height" multiplier="1.3:1" id="i4u-2B-Hga"/>

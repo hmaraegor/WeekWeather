@@ -15,7 +15,7 @@ class WeekForecastService {
     func getForecast(params: [String: Any]?, completionHandler:
     @escaping (WeekForecast?, Error?) -> ()) {
         let url = "https://api.openweathermap.org/data/2.5/onecall"
-        let locale = Locale.current.languageCode!
+        let locale = String(Locale.preferredLanguages[0].prefix(2))//Locale.current.languageCode!
         
         var parameters = ["exclude":"minutely,hourly", "units":"metric", "appid":"2ff71b60a20dc621c22b68a665801ccf", "lang":locale] as [String : Any]
         guard let inputParams = params else {
