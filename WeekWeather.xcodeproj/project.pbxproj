@@ -27,10 +27,12 @@
 		7457BB6A24ED42D7004693A5 /* ErrorAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6924ED42D7004693A5 /* ErrorAlertService.swift */; };
 		7457BB6D24ED4FA2004693A5 /* WeekForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6C24ED4FA2004693A5 /* WeekForecast.swift */; };
 		7457BB6F24ED5C00004693A5 /* WeekForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6E24ED5C00004693A5 /* WeekForecastService.swift */; };
+		74591B972521F2BB00AA9158 /* SchemeClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74591B962521F2BB00AA9158 /* SchemeClasses.swift */; };
 		745D592724F5531C00B75C46 /* NewDayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 745D592624F5531C00B75C46 /* NewDayCell.xib */; };
 		745D592924F5A6CF00B75C46 /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745D592824F5A6CF00B75C46 /* DownloadService.swift */; };
 		745D592D24F675C700B75C46 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 745D592F24F675C700B75C46 /* Localizable.strings */; };
 		745D593324F6D76A00B75C46 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 745D593524F6D76A00B75C46 /* Localizable.strings */; };
+		74653DBD251B807E00550A1C /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74653DBC251B807E00550A1C /* ColorSchemes.swift */; };
 		74A53E4C24EEAC7F00D27942 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */; };
 		74A53E4E24EEAFF800D27942 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E4D24EEAFF800D27942 /* AppConstants.swift */; };
 		74A53E5224EFBD6100D27942 /* LocationErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E5124EFBD6100D27942 /* LocationErrorService.swift */; };
@@ -69,12 +71,14 @@
 		7457BB6924ED42D7004693A5 /* ErrorAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertService.swift; sourceTree = "<group>"; };
 		7457BB6C24ED4FA2004693A5 /* WeekForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekForecast.swift; sourceTree = "<group>"; };
 		7457BB6E24ED5C00004693A5 /* WeekForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekForecastService.swift; sourceTree = "<group>"; };
+		74591B962521F2BB00AA9158 /* SchemeClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeClasses.swift; sourceTree = "<group>"; };
 		745D592624F5531C00B75C46 /* NewDayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewDayCell.xib; sourceTree = "<group>"; };
 		745D592824F5A6CF00B75C46 /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
 		745D592A24F6750B00B75C46 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		745D592E24F675C700B75C46 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		745D593024F6D73F00B75C46 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/DayList.strings; sourceTree = "<group>"; };
 		745D593424F6D76A00B75C46 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		74653DBC251B807E00550A1C /* ColorSchemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
 		74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		74A53E4D24EEAFF800D27942 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		74A53E5124EFBD6100D27942 /* LocationErrorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationErrorService.swift; sourceTree = "<group>"; };
@@ -208,6 +212,8 @@
 			children = (
 				74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */,
 				74A53E4D24EEAFF800D27942 /* AppConstants.swift */,
+				74653DBC251B807E00550A1C /* ColorSchemes.swift */,
+				74591B962521F2BB00AA9158 /* SchemeClasses.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -314,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7457BB6424ED3CE1004693A5 /* NetworkService.swift in Sources */,
+				74591B972521F2BB00AA9158 /* SchemeClasses.swift in Sources */,
 				74A53E5624F005D800D27942 /* ImageDownloader.swift in Sources */,
 				744F49F42502232100B051D6 /* Constraints.swift in Sources */,
 				74B2FD8E24FD30B6005BA215 /* WeekWeather.xcdatamodeld in Sources */,
@@ -330,6 +337,7 @@
 				7457BB6D24ED4FA2004693A5 /* WeekForecast.swift in Sources */,
 				7457BB6824ED428E004693A5 /* DecodeService.swift in Sources */,
 				74B2FD8B24FD302F005BA215 /* WeatherMO+CoreDataProperties.swift in Sources */,
+				74653DBD251B807E00550A1C /* ColorSchemes.swift in Sources */,
 				74B2FD8724FD2FA8005BA215 /* TempMO+CoreDataProperties.swift in Sources */,
 				7457BB6F24ED5C00004693A5 /* WeekForecastService.swift in Sources */,
 				741918D2250FA16F002C09BA /* DateService.swift in Sources */,

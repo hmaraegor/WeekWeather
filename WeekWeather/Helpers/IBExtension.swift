@@ -35,19 +35,61 @@ class DesignableImageInCircle: UIImageView {
 }
 
 @IBDesignable
+class DesignableSpecialCorners: UIView {
+
+    @IBInspectable var leftTopCorner: Bool = true
+    @IBInspectable var rightTopCorner: Bool = true
+    @IBInspectable var leftBottomCorner: Bool = true
+    @IBInspectable var rightBottomCorner: Bool = true
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        clipsToBounds = true
+        
+        var layerCorners1 = CACornerMask()
+        var layerCorners2 = CACornerMask()
+        var layerCorners3 = CACornerMask()
+        var layerCorners4 = CACornerMask()
+        
+        if leftTopCorner { layerCorners1 = .layerMinXMinYCorner }
+        if rightTopCorner { layerCorners2 = .layerMaxXMinYCorner }
+        if leftBottomCorner { layerCorners3 = .layerMinXMaxYCorner }
+        if rightBottomCorner { layerCorners4 = .layerMaxXMaxYCorner }
+        
+        layer.maskedCorners = [layerCorners1, layerCorners2, layerCorners3, layerCorners4]
+    }
+    
+    override func prepareForInterfaceBuilder() {
+        setNeedsLayout()
+    }
+}
+
+@IBDesignable
 class DesignableImage: UIImageView {
+    override func prepareForInterfaceBuilder() {
+        setNeedsLayout()
+    }
 }
 
 @IBDesignable
 class DesignableView: UIView {
+    override func prepareForInterfaceBuilder() {
+        setNeedsLayout()
+    }
 }
 
 @IBDesignable
 class DesignableButton: UIButton {
+    override func prepareForInterfaceBuilder() {
+        setNeedsLayout()
+    }
 }
 
 @IBDesignable
 class DesignableLabel: UILabel {
+    override func prepareForInterfaceBuilder() {
+        setNeedsLayout()
+    }
 }
 
 extension UIView {
@@ -55,6 +97,29 @@ extension UIView {
 //    override open func prepareForInterfaceBuilder() {
 //        setNeedsLayout()
 //    }
+    
+
+    
+    @IBInspectable
+    var specialCorners: Bool {
+        get {
+            return true//layer.maskedCorners
+        }
+        set {
+            clipsToBounds = true
+            //layer.maskedCorners = newValue
+        }
+    }
+    
+//    private func setCorner() {
+//        fileNameView.clipsToBounds = true
+//        fileNameView.layer.cornerRadius = 10
+//        fileNameView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+//    }
+//
+//    private func returnCorner() {
+//        fileNameView.layer.cornerRadius = 10
+//        fileNameView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner]
     
     @IBInspectable
     var cornerRadius: CGFloat {

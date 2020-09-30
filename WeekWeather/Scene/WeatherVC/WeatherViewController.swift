@@ -25,8 +25,10 @@ class WeatherViewController: UIViewController {
     var currentTemp: Double!
     var delegate: WeatherVCDelegate!
     
+    var  colorScheme: SchemeProtocol!
+    
     let backgroundImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(imageLiteralResourceName: "clouds"))
+        let imageView = UIImageView(image: UIImage(imageLiteralResourceName: /*"stars"*/"clouds"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.layer.opacity = 0.3
@@ -89,10 +91,7 @@ class WeatherViewController: UIViewController {
                                       constantX: 0,
                                       constantY: -weatherImageView.bounds.height/2)
         
-//        if let icon = icon {
-//            weatherImageView.image = icon
-//        }
-         if let currentImage = delegate.imageArray[imageKey] { //delegate.newIconsArray[imageKey] {
+        if let currentImage = delegate.imageArray[imageKey] { //delegate.newIconsArray[imageKey] {
             weatherImageView.image = currentImage
         }
         else {
@@ -213,7 +212,7 @@ class WeatherViewController: UIViewController {
         timerForSettingImage(interval: 0.1, rerun: true, closure: closure, condition: condition)
     }
     
-    func createSunPhases() -> (UIImageView, UIImageView) {
+    func createSunPhases() -> (sunriseImg: UIImageView, sunsetImg: UIImageView) {
         guard let dayForecast = dayForecast else { return (UIImageView(), UIImageView()) }
         //let sunriseImageView = UIImageView(iconName: "sunrise", tintColor:  #colorLiteral(red: 1, green: 0.8431372549, blue: 0, alpha: 1), image: nil)
         let sunriseImageView = UIImageView(iconName: "sunrise", tintColor:  #colorLiteral(red: 1, green: 0.7834197891, blue: 0, alpha: 0.6987639127), image: nil)
@@ -264,16 +263,16 @@ class WeatherViewController: UIViewController {
         return (sunriseImageView, sunsetImageView)
     }
     
-    func createPreasureAndHumidity() -> (UIImageView, UIImageView, UILabel, UILabel) {
-        guard let dayForecast = dayForecast else { return (UIImageView(), UIImageView(), UILabel(), UILabel()) }
+    func createPreasureAndHumidity() -> (humidityImg: UIImageView, preasureImg: UIImageView) {
+        guard let dayForecast = dayForecast else { return (UIImageView(), UIImageView()) }
         let humidityImageView = UIImageView(iconName: "drop.triangle", tintColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.5), image: nil, size: CGSize(width: 80, height: 80))
-        let humidityLabel = UILabel(text: "\(Int(dayForecast.humidity))" + "%", color: .darkGray)
+        let humidityLabel = UILabel(text: "\(Int(dayForecast.humidity))" + "%", color: .darkGray, size: 16)
         view.addSubview(humidityImageView)
         view.addSubview(humidityLabel)
         
         
         let preasureImageView = UIImageView(iconName: "gauge", tintColor: .gray, image: nil, size: CGSize(width: 35, height: 35))
-        let preasureLabel = UILabel(text: String(format: "%.0f", dayForecast.pressure * 0.750062) + "mm", color: .darkGray)
+        let preasureLabel = UILabel(text: String(format: "%.0f", dayForecast.pressure * 0.750062) + "mm", color: .darkGray, size: 16)
         view.addSubview(preasureImageView)
         view.addSubview(preasureLabel)
         
@@ -289,10 +288,9 @@ class WeatherViewController: UIViewController {
                                                       right: 777),
                                 size: .zero)
         
-        humidityLabel.anchor(top: humidityImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: -11, left: 777, bottom: 777, right: 777), size: .zero)
+        humidityLabel.anchor(top: humidityImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: -13, left: 777, bottom: 777, right: 777), size: .zero)
         
         humidityLabel.centerAnchor(centerX: humidityImageView.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
-        
         
         //preasureImageView.bounds.size = CGSize(width: 60, height: 60)
         
@@ -306,7 +304,7 @@ class WeatherViewController: UIViewController {
                                                      right: 777),
                                size: .zero)
 
-        preasureLabel.anchor(top: preasureImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 7, left: 777, bottom: 777, right: 777), size: .zero)
+        preasureLabel.anchor(top: preasureImageView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: UIEdgeInsets(top: 5, left: 777, bottom: 777, right: 777), size: .zero)
 
         preasureLabel.centerAnchor(centerX: preasureImageView.centerXAnchor, centerY: nil, constantX: 0, constantY: 777)
         
@@ -315,7 +313,79 @@ class WeatherViewController: UIViewController {
         
         humidityImageView.layer.mask = shapeLayer
         
-        return (humidityImageView, preasureImageView, humidityLabel, preasureLabel)
+        //return (humidityImg: humidityImageView, preasureImg: preasureImageView)
+        return (humidityImageView, preasureImageView)
+    }
+    
+    func createPreasureHumidityBackground(imagePreasure: UIImageView) {
+        let backgroundView = UIView(color: #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.4980201199), size: nil, cornerRadius: 40, corners: (leftTop: false, rightTop: true, leftBottom: false, rightBottom: true))
+        
+        view.addSubview(backgroundView)
+        view.sendSubviewToBack(backgroundView)
+        
+        backgroundView.anchor(top: imagePreasure.topAnchor,
+                    leading: view.safeAreaLayoutGuide.leadingAnchor,
+                    bottom: imagePreasure.bottomAnchor,
+                    trailing: imagePreasure.trailingAnchor,
+                    padding: UIEdgeInsets(top: -10,
+                                          left: 0,
+                                          bottom: -35,
+                                          right: -23),
+                    size: .zero)
+        
+    }
+    
+    func createSunriseSunsetBackground(suriseImg: UIImageView, susetImg: UIImageView) {
+        let suriseBackgroundView = UIView(color: #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.4980201199), size: nil, cornerRadius: 40, corners: (leftTop: false, rightTop: true, leftBottom: false, rightBottom: true))
+        
+        view.addSubview(suriseBackgroundView)
+        view.sendSubviewToBack(suriseBackgroundView)
+        
+        suriseBackgroundView.anchor(top: suriseImg.topAnchor,
+                    leading: view.safeAreaLayoutGuide.leadingAnchor,
+                    bottom: suriseImg.bottomAnchor,
+                    trailing: suriseImg.trailingAnchor,
+                    padding: UIEdgeInsets(top: -2,
+                                          left: 0,
+                                          bottom: -18,
+                                          right: -10),
+                    size: .zero)
+        
+        
+        let susetBackgroundView = UIView(color: #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.4980201199), size: nil, cornerRadius: 40, corners: (leftTop: true, rightTop: false, leftBottom: true, rightBottom: false))
+        
+        view.addSubview(susetBackgroundView)
+        view.sendSubviewToBack(susetBackgroundView)
+        
+        susetBackgroundView.anchor(top: susetImg.topAnchor,
+                    leading: susetImg.leadingAnchor,
+                    bottom: susetImg.bottomAnchor,
+                    trailing: view.safeAreaLayoutGuide.trailingAnchor,
+                    padding: UIEdgeInsets(top: -2,
+                                          left: -10,
+                                          bottom: -18,
+                                          right: 0),
+                    size: .zero)
+        
+    }
+    
+    func createBottomStackViewBackground(stackView: UIStackView) -> UIView {
+        let stackViewBackgroundView = UIView(color: #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.4980201199), size: nil, cornerRadius: 30, corners: (leftTop: true, rightTop: true, leftBottom: true, rightBottom: true))
+        
+        view.addSubview(stackViewBackgroundView)
+        view.sendSubviewToBack(stackViewBackgroundView)
+        
+        stackViewBackgroundView.anchor(top: stackView.topAnchor,
+                    leading: stackView.leadingAnchor,
+                    bottom: stackView.bottomAnchor,
+                    trailing: stackView.trailingAnchor,
+                    padding: UIEdgeInsets(top: -10,
+                                          left: -20,
+                                          bottom: -10,
+                                          right: -20),
+                    size: .zero)
+        
+        return stackViewBackgroundView
     }
     
     func makeGradient(view: UIView) {
@@ -329,6 +399,32 @@ class WeatherViewController: UIViewController {
         gradientLayer.locations = [0, 0.2, 1]
         view.layer.mask = gradientLayer
         
+        
+        let gradient = CAGradientLayer()
+            gradient.frame = view.bounds
+
+            let clearColor = UIColor.clear.cgColor
+            let blackColor = UIColor.black.cgColor
+
+            gradient.colors = [clearColor, clearColor, blackColor, blackColor, clearColor, clearColor]
+            gradient.locations = [0.0, 0.15, 0.25, 0.75, 0.85, 1.0]
+            view.layer.mask = gradient
+
+        view.backgroundColor = UIColor.clear
+        
+    }
+    
+    func createGradientLayer() {
+        let gradientLayer = CAGradientLayer()
+     
+        gradientLayer.frame = self.view.bounds
+        
+        let firstColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        let secondColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 0)
+     
+        gradientLayer.colors = [firstColor.cgColor, secondColor.cgColor]
+     
+        self.view.layer.addSublayer(gradientLayer)
     }
     
     override func viewDidLoad() {
@@ -336,19 +432,32 @@ class WeatherViewController: UIViewController {
         self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.title = DateService.getDate(unixTime: dayForecast.dt, dateFormat: "EEEE, dd MMM")
         
+        
         let tempLabel = createTempLabel()
         createDescrLabel(view: tempLabel)
         setWeatherImage()
-        createMainBottomStackView()
+        let bottomStackView = createMainBottomStackView()
         //createSunPhasesIfNeeded() //-> 👇
-        createSunPhases()
+        let suns = createSunPhases()
         //createPreasureHumidityIfNeeded() //-> 👇
-        let (imageVHum, imageVPreas, labelHum, labelPreas) = createPreasureAndHumidity()
+        var preasureHumidity = createPreasureAndHumidity()
+        
+        createPreasureHumidityBackground(imagePreasure: preasureHumidity.preasureImg)
+        createSunriseSunsetBackground(suriseImg: suns.sunriseImg, susetImg: suns.sunsetImg)
+        createBottomStackViewBackground(stackView: bottomStackView)
+        
+        
+        
+        
         setBackgroundImage()
         
-        
-        
         //makeGradient(view: labelPreas)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        createGradientLayer()
     }
     
 }
@@ -392,8 +501,83 @@ extension UIImageView {
         
         self.contentMode = .scaleAspectFit
         
-        if let tintColor = tintColor { self.tintColor = tintColor }
+        if let tintColor = tintColor {
+            self.tintColor = tintColor
+        }
         
         self.anchorSize(size: size)
+    }
+}
+
+extension UIView {
+    convenience init(color: UIColor = .magenta, size: CGSize?, cornerRadius: CGFloat?, corners: (leftTop: Bool, rightTop: Bool, leftBottom: Bool, rightBottom: Bool) = (leftTop: true, rightTop: true, leftBottom: true, rightBottom: true)) {
+        self.init()
+        
+        self.backgroundColor = color
+        if let size = size {
+            self.anchorSize(size: size)
+        }
+        
+        guard let radius = cornerRadius else { return }
+        layer.cornerRadius = radius
+        
+        var layerCorners1 = CACornerMask()
+        var layerCorners2 = CACornerMask()
+        var layerCorners3 = CACornerMask()
+        var layerCorners4 = CACornerMask()
+        
+        if corners.leftTop { layerCorners1 = .layerMinXMinYCorner }
+        if corners.rightTop { layerCorners2 = .layerMaxXMinYCorner }
+        if corners.leftBottom { layerCorners3 = .layerMinXMaxYCorner }
+        if corners.rightBottom { layerCorners4 = .layerMaxXMaxYCorner }
+        
+        layer.maskedCorners = [layerCorners1, layerCorners2, layerCorners3, layerCorners4]
+    }
+}
+
+extension UIStackView {
+    func addBackground(color: UIColor) {
+        let subView = UIView(frame: bounds)
+        subView.backgroundColor = color
+        subView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        insertSubview(subView, at: 0)
+    }
+}
+
+extension UIView {
+    func makeClearViewWithShadow(
+        cornderRadius: CGFloat,
+        shadowColor: CGColor,
+        shadowOpacity: Float,
+        shadowRadius: CGFloat) {
+        
+        self.frame = self.frame.insetBy(dx: -shadowRadius * 2,
+                                        dy: -shadowRadius * 2)
+        self.backgroundColor = .clear
+        let shadowView = UIView(frame: CGRect(
+            x: shadowRadius * 2,
+            y: shadowRadius * 2,
+            width: self.frame.width - shadowRadius * 4,
+            height: self.frame.height - shadowRadius * 4))
+        shadowView.backgroundColor = .black
+        shadowView.layer.cornerRadius = cornderRadius
+        shadowView.layer.borderWidth = 1.0
+        shadowView.layer.borderColor = UIColor.clear.cgColor
+        
+        shadowView.layer.shadowColor = shadowColor
+        shadowView.layer.shadowOpacity = shadowOpacity
+        shadowView.layer.shadowRadius = shadowRadius
+        shadowView.layer.masksToBounds = false
+        self.addSubview(shadowView)
+        
+        let p:CGMutablePath = CGMutablePath()
+        p.addRect(self.bounds)
+        p.addPath(UIBezierPath(roundedRect: shadowView.frame, cornerRadius: shadowView.layer.cornerRadius).cgPath)
+        
+        let s = CAShapeLayer()
+        s.path = p
+        s.fillRule = CAShapeLayerFillRule.evenOdd
+        
+        self.layer.mask = s
     }
 }

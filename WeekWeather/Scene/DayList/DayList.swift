@@ -158,15 +158,6 @@ extension DayList {
     }
     */
     
-    //MARK: For use custon icons
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableView.register(DayCell.getNib(), forCellReuseIdentifier: DayCell.cell)
-        loadWeatherFromCoreData()
-        setNewIcons()
-        location()
-    }
     
     
     
@@ -174,18 +165,34 @@ extension DayList {
 
 class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
     
+    var colorScheme: SchemeProtocol!
+    
     var showPreasureHumidity: Bool!
     var showSunPhases: Bool!
     
-    var usingOldData = true
+    var oldIconsUrlWasPassed = false
     var imageArray = [String : UIImage]()
     var newIconsArray = [String : UIImage]()
-    var useNewIcons = false
+    var useNewIcons = true
     
     @IBOutlet var tableView: UITableView!
     private var weekForecastService = WeekForecastService()
     private var daylyForecast: WeekForecast?
     private let locationManager = CLLocationManager()
+    
+    
+    //MARK: For use custon icons
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setColorScheme()
+        setNavigationBar()
+        tableView.register(DayCell.getNib(), forCellReuseIdentifier: DayCell.cell)
+        loadWeatherFromCoreData()
+        setNewIcons()
+        location()
+    }
     
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
@@ -200,6 +207,25 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
         if let index = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: index, animated: true)
         }
+    }
+    
+    private func setColorScheme() {
+        switch TimeOfDay.timeOfDay {
+        case .day:
+            colorScheme = ColorSchemes.Day()
+        case .night:
+            colorScheme = ColorSchemes.Night()
+        default:
+            colorScheme = ColorSchemes.Day()
+        }
+    }
+    
+    private func setNavigationBar() {
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colorScheme.color.listTitleColor]
     }
     
     private func location() {
@@ -265,7 +291,7 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
                 group.enter()
                 DispatchQueue.main.async {
                     self.daylyForecast = result
-                    if self.usingOldData == false { self.usingOldData = true }
+                    if self.oldIconsUrlWasPassed == false { self.oldIconsUrlWasPassed = true }
                     self.setNewIcons()
                     self.tableView.reloadData()
                     group.leave()
@@ -493,6 +519,9 @@ extension DayList: UITableViewDataSource {
             cell.configure(with: dayForecast)
         }
         
+        cell.separatorInset = .zero
+        
+        cell.selectionStyle = .blue
         //cell.selectionStyle = .none
         //cell.isUserInteractionEnabled = false
         return cell
@@ -539,6 +568,14 @@ extension DayList: UITableViewDataSource {
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
         navigationItem.backBarButtonItem = backItem
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
+        //self.navigationController?.navigationBar.tintColor = .red -- backBarButton
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -549,6 +586,9 @@ extension DayList: UITableViewDataSource {
 extension DayList: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 160
+        }
         return UITableView.automaticDimension
     }
     

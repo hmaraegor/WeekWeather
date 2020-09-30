@@ -22,6 +22,9 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MRh-5g-g2s" userLabel="discr">
                         <rect key="frame" x="263.5" y="109" width="31.5" height="16"/>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.92293074870000003" alpha="0.14412992290000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="5Am-yI-Bmu"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -74,16 +77,19 @@
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="108"/>
                         </variation>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="z5M-yS-5X2">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloudsBroken" translatesAutoresizingMaskIntoConstraints="NO" id="z5M-yS-5X2">
                         <rect key="frame" x="182" y="22" width="113" height="87"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="87" id="4fa-nc-jiW"/>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="87" id="4fa-nc-jiW"/>
                             <constraint firstAttribute="width" secondItem="z5M-yS-5X2" secondAttribute="height" multiplier="1.3:1" id="RA9-De-H98"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Monday 21.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jaT-oY-oRt" userLabel="weekDay">
                         <rect key="frame" x="219" y="7" width="76" height="15"/>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.92293074870000003" alpha="0.14412992290000001" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="9Mw-jx-rSn"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -144,4 +150,7 @@
             <point key="canvasLocation" x="82.608695652173921" y="169.75446428571428"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="cloudsBroken" width="505" height="230"/>
+    </resources>
 </document>

@@ -15,9 +15,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloudsStarsNight" translatesAutoresizingMaskIntoConstraints="NO" id="eDH-Aw-4Nq">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Nfd-b7-0qf">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="9ql-lX-onV"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="rko-bM-DF7"/>
@@ -26,9 +29,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Nfd-b7-0qf" secondAttribute="bottom" id="69j-Q1-ILA"/>
                             <constraint firstItem="Nfd-b7-0qf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="7sp-bO-7k9"/>
                             <constraint firstItem="Nfd-b7-0qf" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Fur-pI-YHD"/>
-                            <constraint firstItem="Nfd-b7-0qf" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="G5y-L4-n5B"/>
+                            <constraint firstItem="Nfd-b7-0qf" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" priority="750" id="G5y-L4-n5B"/>
+                            <constraint firstItem="eDH-Aw-4Nq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="HR3-3z-GoT"/>
+                            <constraint firstItem="eDH-Aw-4Nq" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="jUf-vJ-cx5"/>
+                            <constraint firstAttribute="bottom" secondItem="eDH-Aw-4Nq" secondAttribute="bottom" id="rLf-A2-wpv"/>
+                            <constraint firstItem="eDH-Aw-4Nq" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sel-MP-RUd"/>
                             <constraint firstItem="Nfd-b7-0qf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="tV3-va-uzb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -42,4 +50,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="116.51785714285714"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="cloudsStarsNight" width="1000" height="1000"/>
+    </resources>
 </document>

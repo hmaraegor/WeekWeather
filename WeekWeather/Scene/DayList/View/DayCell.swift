@@ -12,7 +12,7 @@ protocol DayCellDelegate {
     var imageArray: [String : UIImage] { get set }
     var newIconsArray: [String : UIImage]  { get set }
     var useNewIcons: Bool { get set }
-    var usingOldData: Bool { get set }
+    var oldIconsUrlWasPassed: Bool { get set }
 }
 
 extension DayCell {
@@ -44,7 +44,7 @@ extension DayCell {
             
             DispatchQueue.main.async {
                 let image = UIImage(data: imageData)// ?? UIImage()
-                if self.delegate.usingOldData {
+                if self.delegate.oldIconsUrlWasPassed {
                     self.delegate?.imageArray[weather.first!.icon/*weather.first!.description*/] = image
                     
                 }
@@ -94,7 +94,8 @@ class DayCell: UITableViewCell {
     
     func configure(with dayForecast: DayForecast?){
         guard let dayForecast = dayForecast else { return }
-        self.backgroundColor = #colorLiteral(red: 1, green: 0.9764705882, blue: 0.9411764706, alpha: 1)
+        self.backgroundColor = #colorLiteral(red: 0.8765466371, green: 0.8765466371, blue: 0.8765466371, alpha: 0)
+        //self.backgroundColor = #colorLiteral(red: 0.9327142923, green: 0.9359927306, blue: 0.9458280457, alpha: 0)
         
         currentTempLabel.text = String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
         let dayTemp = LocString.Cell.day + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
@@ -116,7 +117,11 @@ class DayCell: UITableViewCell {
         
         guard let dayForecast = weekForecast.daily.first else { return }
         let currentWeather = weekForecast.current
-        self.backgroundColor = #colorLiteral(red: 0.9394798801, green: 0.9772186925, blue: 1, alpha: 1)
+        self.backgroundColor = #colorLiteral(red: 0.9327142923, green: 0.9359927306, blue: 0.9458280457, alpha: 0)
+        currentTempLabel.font = currentTempLabel.font.withSize(65)
+        
+        //self.backgroundColor = #colorLiteral(red: 0.9394798801, green: 0.9772186925, blue: 1, alpha: 1)
+        //self.layer.contents = UIImage(named: "clouds.png")?.cgImage//#imageLiteral(resourceName: "clouds")
         
         currentTempLabel.text = String(format: "%.0f", currentWeather.temp) + AppConstants.celsius
         let dayTemp = LocString.Cell.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
@@ -155,22 +160,5 @@ class DayCell: UITableViewCell {
 //            
 //        }
 //    }
-    
-    private func getDate(unixTime: Double) -> String {
-        let date = NSDate(timeIntervalSince1970: unixTime)
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.full //Set time style
-        dateFormatter.dateStyle = DateFormatter.Style.full //Set date style
-        dateFormatter.timeZone = .current
-        dateFormatter.locale = .current
-        dateFormatter.dateFormat = "EEEE, dd MMM"
-        
-        let locale = NSLocale(localeIdentifier: NSLocale.preferredLanguages.first!)
-        dateFormatter.locale = locale as Locale?
-        let localDate = dateFormatter.string(from: date as Date)
-        
-        return localDate
-    }
     
 }
