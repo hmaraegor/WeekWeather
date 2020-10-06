@@ -555,6 +555,7 @@ extension DayList: UITableViewDataSource {
         vc.dayForecast = dayForecast
         vc.currentTemp = currentTemp
         vc.imageKey = imageName
+        vc.colorScheme = colorScheme
         vc.delegate = self
         
         if useNewIcons, let weather = dayForecast?.weather.first  {
@@ -573,7 +574,7 @@ extension DayList: UITableViewDataSource {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.red]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colorScheme.color.extendInfoTitleColor]
         //self.navigationController?.navigationBar.tintColor = .red -- backBarButton
         
         navigationController?.pushViewController(vc, animated: true)

@@ -10,12 +10,13 @@ import Foundation
 import UIKit
 
 protocol SchemeOpacityProtocol {
-    var backgroundImg: Double { get }
-    var weatherIcon: Double { get }
+    var backgroundImg: Float { get }
+    var weatherIcon: Float { get }
 }
 
 protocol SchemeImagesProtocol {
-    var backgroundImg: UIImage { get }
+    var backgroundListImg: UIImage { get }
+    var backgroundExtInfoImg: UIImage { get }
 }
 
 protocol SchemeProtocol {
@@ -71,7 +72,8 @@ struct ColorSchemes {
         }
         
         struct Image: SchemeImagesProtocol {
-            let backgroundImg = UIImage(imageLiteralResourceName: "clouds")
+            let backgroundListImg = UIImage(imageLiteralResourceName: "clouds")
+            let backgroundExtInfoImg = UIImage(imageLiteralResourceName: "clouds")
         }
         
         struct Color: SchemeColorProtocol {
@@ -105,8 +107,8 @@ struct ColorSchemes {
         }
         
         struct Opacity: SchemeOpacityProtocol {
-            let backgroundImg = 0.3
-            let weatherIcon = 0.95
+            let backgroundImg: Float = 0.3
+            let weatherIcon: Float = 0.95
         }
         
     }
@@ -119,7 +121,8 @@ struct ColorSchemes {
     struct Evening {
         
         struct Image {
-            let backgroundImg = UIImage(imageLiteralResourceName: "cloudsEvening")
+            let backgroundImg = UIImage(imageLiteralResourceName: "clouds")
+            let backgroundExtInfoImg = UIImage(imageLiteralResourceName: "cloudsEvening")
         }
         
         struct Color {
@@ -170,7 +173,8 @@ struct ColorSchemes {
         }
         
         struct Image: SchemeImagesProtocol {
-            let backgroundImg = UIImage(imageLiteralResourceName: "cloudsStarsNight")
+            let backgroundListImg = UIImage(imageLiteralResourceName: "clouds")
+            let backgroundExtInfoImg = UIImage(imageLiteralResourceName: "cloudsStarsNight")
             //let backgroundImg2 = UIImage(imageLiteralResourceName: "stars")
         }
         
@@ -178,7 +182,7 @@ struct ColorSchemes {
             let firstCellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             let cellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             let listTitleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-            let extendInfoTitleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            let extendInfoTitleColor = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.9450980392, alpha: 1)
             let viewColor: UIColor = .darkGray
             let tempLabel: UIColor = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.9450980392, alpha: 1)
             let descrLabel: UIColor = .white
@@ -205,8 +209,8 @@ struct ColorSchemes {
         }
         
         struct Opacity: SchemeOpacityProtocol {
-            let backgroundImg = 0.9
-            let weatherIcon = 0.85
+            let backgroundImg: Float = 0.9
+            let weatherIcon: Float = 0.85
         }
     }
 }

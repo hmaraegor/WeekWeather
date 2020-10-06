@@ -31,13 +31,14 @@ class WeatherViewController: UIViewController {
         let imageView = UIImageView(image: UIImage(imageLiteralResourceName: /*"stars"*/"clouds"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.opacity = 0.3
+        //imageView.layer.opacity = 0.3
         return imageView
     }()
     
     func setBackgroundImage() {
         view.addSubview(backgroundImageView)
         view.sendSubviewToBack(backgroundImageView)
+        backgroundImageView.layer.opacity = colorScheme.opasity.backgroundImg
         backgroundImageView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         
         let shapeLayer = CAShapeLayer()
