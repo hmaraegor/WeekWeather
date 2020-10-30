@@ -27,7 +27,6 @@
 		7457BB6A24ED42D7004693A5 /* ErrorAlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6924ED42D7004693A5 /* ErrorAlertService.swift */; };
 		7457BB6D24ED4FA2004693A5 /* WeekForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6C24ED4FA2004693A5 /* WeekForecast.swift */; };
 		7457BB6F24ED5C00004693A5 /* WeekForecastService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7457BB6E24ED5C00004693A5 /* WeekForecastService.swift */; };
-		74591B972521F2BB00AA9158 /* SchemeClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74591B962521F2BB00AA9158 /* SchemeClasses.swift */; };
 		745D592724F5531C00B75C46 /* NewDayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 745D592624F5531C00B75C46 /* NewDayCell.xib */; };
 		745D592924F5A6CF00B75C46 /* DownloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745D592824F5A6CF00B75C46 /* DownloadService.swift */; };
 		745D592D24F675C700B75C46 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 745D592F24F675C700B75C46 /* Localizable.strings */; };
@@ -71,7 +70,6 @@
 		7457BB6924ED42D7004693A5 /* ErrorAlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertService.swift; sourceTree = "<group>"; };
 		7457BB6C24ED4FA2004693A5 /* WeekForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekForecast.swift; sourceTree = "<group>"; };
 		7457BB6E24ED5C00004693A5 /* WeekForecastService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekForecastService.swift; sourceTree = "<group>"; };
-		74591B962521F2BB00AA9158 /* SchemeClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeClasses.swift; sourceTree = "<group>"; };
 		745D592624F5531C00B75C46 /* NewDayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewDayCell.xib; sourceTree = "<group>"; };
 		745D592824F5A6CF00B75C46 /* DownloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadService.swift; sourceTree = "<group>"; };
 		745D592A24F6750B00B75C46 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -213,7 +211,6 @@
 				74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */,
 				74A53E4D24EEAFF800D27942 /* AppConstants.swift */,
 				74653DBC251B807E00550A1C /* ColorSchemes.swift */,
-				74591B962521F2BB00AA9158 /* SchemeClasses.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -320,7 +317,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7457BB6424ED3CE1004693A5 /* NetworkService.swift in Sources */,
-				74591B972521F2BB00AA9158 /* SchemeClasses.swift in Sources */,
 				74A53E5624F005D800D27942 /* ImageDownloader.swift in Sources */,
 				744F49F42502232100B051D6 /* Constraints.swift in Sources */,
 				74B2FD8E24FD30B6005BA215 /* WeekWeather.xcdatamodeld in Sources */,

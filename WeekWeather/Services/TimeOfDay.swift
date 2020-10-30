@@ -35,6 +35,21 @@ enum TimeOfDay {
         return .day
     }
     
+    static func timeOfDayFromSun(sunrise: Double, sunset: Double) -> TimeOfDay {
+        let time = Date().timeIntervalSince1970
+        
+        if (time < sunrise){
+            return .night
+        }
+        else if (time > sunrise) && (time < sunset) {
+            return .day
+        }
+        else if (time > sunset) {
+            return .night
+        }
+        return .day
+    }
+    
     static func getCurrentTemp(temp: Temp?) -> Double {
         guard let temp = temp else { return 0 }
         //print("timeOfDay: ", timeOfDay)

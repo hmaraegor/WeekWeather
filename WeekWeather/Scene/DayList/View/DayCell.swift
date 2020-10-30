@@ -95,6 +95,7 @@ class DayCell: UITableViewCell {
     func configure(with dayForecast: DayForecast?){
         guard let dayForecast = dayForecast else { return }
         self.backgroundColor = #colorLiteral(red: 0.8765466371, green: 0.8765466371, blue: 0.8765466371, alpha: 0)
+        currentTempLabel.font = currentTempLabel.font.withSize(60)
         //self.backgroundColor = #colorLiteral(red: 0.9327142923, green: 0.9359927306, blue: 0.9458280457, alpha: 0)
         
         currentTempLabel.text = String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
@@ -118,7 +119,7 @@ class DayCell: UITableViewCell {
         guard let dayForecast = weekForecast.daily.first else { return }
         let currentWeather = weekForecast.current
         self.backgroundColor = #colorLiteral(red: 0.9327142923, green: 0.9359927306, blue: 0.9458280457, alpha: 0)
-        currentTempLabel.font = currentTempLabel.font.withSize(65)
+        currentTempLabel.font = currentTempLabel.font.withSize(70)
         
         //self.backgroundColor = #colorLiteral(red: 0.9394798801, green: 0.9772186925, blue: 1, alpha: 1)
         //self.layer.contents = UIImage(named: "clouds.png")?.cgImage//#imageLiteral(resourceName: "clouds")

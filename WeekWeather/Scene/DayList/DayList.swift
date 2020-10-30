@@ -175,6 +175,7 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
     var newIconsArray = [String : UIImage]()
     var useNewIcons = true
     
+    @IBOutlet var backgroundImg: UIImageView!
     @IBOutlet var tableView: UITableView!
     private var weekForecastService = WeekForecastService()
     private var daylyForecast: WeekForecast?
@@ -187,7 +188,9 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
         super.viewDidLoad()
         
         setColorScheme()
+        setUIFromColorSheme()
         setNavigationBar()
+        
         tableView.register(DayCell.getNib(), forCellReuseIdentifier: DayCell.cell)
         loadWeatherFromCoreData()
         setNewIcons()
@@ -207,6 +210,7 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
         if let index = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: index, animated: true)
         }
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colorScheme.color.listTitleColor]
     }
     
     private func setColorScheme() {
@@ -218,6 +222,11 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
         default:
             colorScheme = ColorSchemes.Day()
         }
+    }
+    
+    private func setUIFromColorSheme() {
+        backgroundImg.image = colorScheme.image.backgroundListImg
+        backgroundImg.layer.opacity = colorScheme.opasity.backgroundListImg
     }
     
     private func setNavigationBar() {
@@ -455,7 +464,7 @@ extension DayList: CLLocationManagerDelegate {
             if error == nil {
                 if let firstLocation = placemarks?[0],
                     let cityName = firstLocation.locality { // get the city name
-                    self?.locationManager.stopUpdatingLocation()
+                    //self?.locationManager.stopUpdatingLocation()
                     self?.title = cityName
                     print(cityName)
                 }
@@ -519,9 +528,9 @@ extension DayList: UITableViewDataSource {
             cell.configure(with: dayForecast)
         }
         
-        cell.separatorInset = .zero
+        //cell.separatorInset = .zero
+        //cell.selectionStyle = .blue
         
-        cell.selectionStyle = .blue
         //cell.selectionStyle = .none
         //cell.isUserInteractionEnabled = false
         return cell
@@ -531,12 +540,16 @@ extension DayList: UITableViewDataSource {
         let currentTemp: Double?
         var image: UIImage?
         var imageName: String = ""
+        var timeOfDayFromSun = TimeOfDay.day
         
+        print("index: ", index)
         if index == 0 {
             currentTemp = daylyForecast?.current.temp
             if let currentW = daylyForecast?.current, let weather = currentW.weather.first {
                 image = imageArray[weather.icon/*weather.description*/]
+//                self.delegate?.newIconsArray[weather.first!.icon]
                 imageName = weather.icon
+                timeOfDayFromSun = TimeOfDay.timeOfDayFromSun(sunrise: currentW.sunrise, sunset: currentW.sunset)
             }
         }
         else {
@@ -555,7 +568,12 @@ extension DayList: UITableViewDataSource {
         vc.dayForecast = dayForecast
         vc.currentTemp = currentTemp
         vc.imageKey = imageName
-        vc.colorScheme = colorScheme
+        if index == 0 && timeOfDayFromSun == .night {
+            vc.colorScheme = ColorSchemes.Night()
+        } else {
+            vc.colorScheme = ColorSchemes.Day()
+        }
+        //vc.colorScheme = colorScheme
         vc.delegate = self
         
         if useNewIcons, let weather = dayForecast?.weather.first  {
@@ -568,13 +586,14 @@ extension DayList: UITableViewDataSource {
         
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
+        backItem.tintColor = vc.colorScheme.color.backItem
         navigationItem.backBarButtonItem = backItem
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colorScheme.color.extendInfoTitleColor]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: vc.colorScheme.color.extendInfoTitleColor]
         //self.navigationController?.navigationBar.tintColor = .red -- backBarButton
         
         navigationController?.pushViewController(vc, animated: true)
@@ -594,6 +613,7 @@ extension DayList: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("indexPath.row: ", indexPath.row)
         presentWeatherController(with: daylyForecast?.daily[indexPath.row], index: indexPath.row)
     }
     

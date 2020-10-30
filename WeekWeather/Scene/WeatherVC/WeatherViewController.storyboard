@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22°C" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="NQf-Mp-Ult" userLabel="tempC">
-                                <rect key="frame" x="237" y="88" width="167" height="92"/>
+                                <rect key="frame" x="237.5" y="88" width="166.5" height="92"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="77"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -64,7 +66,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZS-D2-GW8" userLabel="discr">
-                                <rect key="frame" x="359" y="180" width="45" height="24"/>
+                                <rect key="frame" x="358.5" y="180" width="45.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -89,7 +91,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="62.5" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rge-g4-Qj2" userLabel="mor°C">
-                                                <rect key="frame" x="13" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="12.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921568627452" green="0.47450980392156861" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -114,7 +116,7 @@
                                         <rect key="frame" x="85.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFs-0F-xGz" userLabel="day°C">
-                                                <rect key="frame" x="10.5" y="0.0" width="39" height="20.5"/>
+                                                <rect key="frame" x="10" y="0.0" width="39.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921568627452" green="0.36078431372549019" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -139,7 +141,7 @@
                                         <rect key="frame" x="168.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMe-S4-9Q5" userLabel="eve°C">
-                                                <rect key="frame" x="11.5" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="11.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921568627452" green="0.12156862745098039" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -164,7 +166,7 @@
                                         <rect key="frame" x="251.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNM-xW-aYa" userLabel="night°C">
-                                                <rect key="frame" x="12" y="0.0" width="35.5" height="20.5"/>
+                                                <rect key="frame" x="12" y="0.0" width="36" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.23529411764705882" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -178,7 +180,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PH8-BM-y6N">
-                                                <rect key="frame" x="11" y="90.5" width="38" height="20.5"/>
+                                                <rect key="frame" x="10.5" y="90.5" width="38.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -197,7 +199,7 @@
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gauge" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aAk-ts-f5f" userLabel="preasure">
                                 <rect key="frame" x="81" y="110.5" width="35" height="34"/>
-                                <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="Dwe-wu-tv5"/>
                                     <constraint firstAttribute="width" secondItem="aAk-ts-f5f" secondAttribute="height" id="hXo-ch-PXC"/>
@@ -210,7 +212,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xn0-qy-JYr" userLabel="sunsetTime">
-                                <rect key="frame" x="344.5" y="638.5" width="39.5" height="20.5"/>
+                                <rect key="frame" x="344.5" y="638.5" width="39" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="0.22352941176470587" green="0.098039215686274508" blue="0.0039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -222,13 +224,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="77%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yk7-S8-gPf" userLabel="humidity">
-                                <rect key="frame" x="14" y="152" width="32.5" height="20.5"/>
+                                <rect key="frame" x="13.5" y="152" width="33.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Oa4-pd-495"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="0aV-tq-omS" firstAttribute="top" secondItem="aAk-ts-f5f" secondAttribute="bottom" constant="7" id="8IK-1l-EsR"/>
                             <constraint firstItem="Oa4-pd-495" firstAttribute="bottom" secondItem="2qs-ec-A3E" secondAttribute="bottom" multiplier="4/3" id="8sN-OJ-3es"/>
@@ -259,7 +262,6 @@
                             <constraint firstItem="vrE-aj-cdo" firstAttribute="top" secondItem="2qs-ec-A3E" secondAttribute="bottom" constant="-8" id="spC-15-7PF"/>
                             <constraint firstItem="Oa4-pd-495" firstAttribute="leading" secondItem="1SF-vi-cLJ" secondAttribute="leading" constant="10" id="xZ4-RF-ZOk"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Oa4-pd-495"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="0.0"/>
@@ -302,7 +304,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22°C" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="QRP-GP-Yn7" userLabel="tempC">
-                                <rect key="frame" x="237" y="44" width="167" height="92"/>
+                                <rect key="frame" x="237.5" y="44" width="166.5" height="92"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="77"/>
                                 <color key="textColor" red="0.93333333333333335" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -347,7 +349,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="adM-eW-EvL" userLabel="discr">
-                                <rect key="frame" x="359" y="136" width="45" height="24"/>
+                                <rect key="frame" x="358.5" y="136" width="45.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -372,7 +374,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="62.5" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ul-nH-sLr" userLabel="mor°C">
-                                                <rect key="frame" x="13" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="12.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.94509803921568625" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -397,7 +399,7 @@
                                         <rect key="frame" x="85.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Kh-NS-BNT" userLabel="day°C">
-                                                <rect key="frame" x="10.5" y="0.0" width="39" height="20.5"/>
+                                                <rect key="frame" x="10" y="0.0" width="39.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.98774488771292135" blue="0.76428533874311144" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -422,7 +424,7 @@
                                         <rect key="frame" x="168.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wip-KS-grX" userLabel="eve°C">
-                                                <rect key="frame" x="11.5" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="11.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.90345397831085339" blue="0.90370997234422257" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -447,7 +449,7 @@
                                         <rect key="frame" x="251.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="way-f9-bZE" userLabel="night°C">
-                                                <rect key="frame" x="12" y="0.0" width="35.5" height="20.5"/>
+                                                <rect key="frame" x="12" y="0.0" width="36" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.90357802386394559" green="0.93916893576170146" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -461,7 +463,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvI-3L-Qll">
-                                                <rect key="frame" x="11" y="90.5" width="38" height="20.5"/>
+                                                <rect key="frame" x="10.5" y="90.5" width="38.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.93271429230000003" green="0.93599273059999999" blue="0.94582804570000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -480,7 +482,7 @@
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gauge" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WLo-P1-FA5" userLabel="preasure">
                                 <rect key="frame" x="81" y="66.5" width="35" height="34"/>
-                                <color key="tintColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="WLo-P1-FA5" secondAttribute="height" id="Wbd-cL-VkI"/>
                                     <constraint firstAttribute="width" constant="35" id="o1B-6l-ZJo"/>
@@ -493,7 +495,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ZW-3r-WAx" userLabel="sunsetTime">
-                                <rect key="frame" x="344.5" y="638.5" width="39.5" height="20.5"/>
+                                <rect key="frame" x="344.5" y="638.5" width="39" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.90980392156862744" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -505,12 +507,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="77%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RUm-g5-Wrg" userLabel="humidity">
-                                <rect key="frame" x="14" y="108" width="32.5" height="20.5"/>
+                                <rect key="frame" x="13.5" y="108" width="33.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="0.93333333333333335" green="0.93725490196078431" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="yiQ-xM-xnx"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fyJ-HD-a3x" firstAttribute="centerX" secondItem="UOg-YL-xWE" secondAttribute="centerX" id="48E-sM-vqa"/>
@@ -542,7 +545,6 @@
                             <constraint firstItem="WLo-P1-FA5" firstAttribute="top" secondItem="yiQ-xM-xnx" secondAttribute="top" constant="22" id="y6t-7b-A04"/>
                             <constraint firstItem="5jy-eR-1Sx" firstAttribute="leading" secondItem="yiQ-xM-xnx" secondAttribute="leading" id="zRo-Qu-IqC"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="yiQ-xM-xnx"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="0.0"/>
@@ -567,7 +569,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22°C" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="n12-Ft-iJQ" userLabel="tempC">
-                                <rect key="frame" x="237" y="44" width="167" height="92"/>
+                                <rect key="frame" x="237.5" y="44" width="166.5" height="92"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="77"/>
                                 <color key="textColor" red="0.93333333330000001" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -634,7 +636,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qh-g0-NEQ" userLabel="discr">
-                                <rect key="frame" x="359" y="136" width="45" height="24"/>
+                                <rect key="frame" x="358.5" y="136" width="45.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -645,7 +647,7 @@
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="40"/>
                                 </variation>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.85000002384185791" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="moonLighter" translatesAutoresizingMaskIntoConstraints="NO" id="7VP-v2-f7l" userLabel="icon">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.85000002384185791" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightningCloud" translatesAutoresizingMaskIntoConstraints="NO" id="7VP-v2-f7l" userLabel="icon">
                                 <rect key="frame" x="107" y="298" width="200" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="PNA-fX-q3z"/>
@@ -668,7 +670,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="62.5" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e7K-Ol-UFr" userLabel="mor°C">
-                                                <rect key="frame" x="13" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="12.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.94509803920000002" blue="0.78039215689999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -693,7 +695,7 @@
                                         <rect key="frame" x="85.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfU-Sz-Jge" userLabel="day°C">
-                                                <rect key="frame" x="10.5" y="0.0" width="39" height="20.5"/>
+                                                <rect key="frame" x="10" y="0.0" width="39.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.98774488770000002" blue="0.76428533870000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -718,7 +720,7 @@
                                         <rect key="frame" x="168.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SHf-gN-GrW" userLabel="eve°C">
-                                                <rect key="frame" x="11.5" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="11.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="1" green="0.90345397829999996" blue="0.90370997230000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -743,7 +745,7 @@
                                         <rect key="frame" x="251.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXg-Wl-zgN" userLabel="night°C">
-                                                <rect key="frame" x="12" y="0.0" width="35.5" height="20.5"/>
+                                                <rect key="frame" x="12" y="0.0" width="36" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.90357802389999997" green="0.93916893580000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -757,7 +759,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQY-0P-fa2">
-                                                <rect key="frame" x="11" y="90.5" width="38" height="20.5"/>
+                                                <rect key="frame" x="10.5" y="90.5" width="38.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.93271429230000003" green="0.93599273059999999" blue="0.94582804570000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -789,7 +791,7 @@
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gauge" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="GXu-D5-qWy" userLabel="preasure">
                                 <rect key="frame" x="81" y="66.5" width="35" height="34"/>
-                                <color key="tintColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="GXu-D5-qWy" secondAttribute="height" id="9T0-R5-zvE"/>
                                     <constraint firstAttribute="width" constant="35" id="AXf-8Z-cx9"/>
@@ -802,7 +804,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSf-V0-uWP" userLabel="sunsetTime">
-                                <rect key="frame" x="344.5" y="638.5" width="39.5" height="20.5"/>
+                                <rect key="frame" x="344.5" y="638.5" width="39" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.90980392160000001" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -814,12 +816,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="77%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lub-oc-O8N" userLabel="humidity">
-                                <rect key="frame" x="14" y="108" width="32.5" height="20.5"/>
+                                <rect key="frame" x="13.5" y="108" width="33.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="0.93333333330000001" green="0.93725490199999995" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="JeR-rU-9zS"/>
                         <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="rSf-V0-uWP" firstAttribute="top" secondItem="Mvw-4g-vUh" secondAttribute="bottom" constant="-8" id="3oD-E8-aVy"/>
@@ -867,7 +870,6 @@
                             <constraint firstItem="F9q-Ev-sOF" firstAttribute="bottom" secondItem="Mvw-4g-vUh" secondAttribute="bottom" constant="18" id="xVC-EO-ZcA"/>
                             <constraint firstItem="b3E-tK-IS6" firstAttribute="top" secondItem="GXu-D5-qWy" secondAttribute="top" constant="-10" id="yb7-5L-Ad3"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="JeR-rU-9zS"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="0.0"/>
@@ -892,7 +894,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22°C" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="4dd-kG-aMz" userLabel="tempC">
-                                <rect key="frame" x="237" y="44" width="167" height="92"/>
+                                <rect key="frame" x="237.5" y="44" width="166.5" height="92"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="77"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -957,7 +959,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZoH-ah-ETo" userLabel="discr">
-                                <rect key="frame" x="359" y="136" width="45" height="24"/>
+                                <rect key="frame" x="358.5" y="136" width="45.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -982,7 +984,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="62.5" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywG-Ly-oga" userLabel="mor°C">
-                                                <rect key="frame" x="13" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="12.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921569999998" green="0.47450980390000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1021,7 +1023,7 @@
                                         <rect key="frame" x="85.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SM8-da-tse" userLabel="day°C">
-                                                <rect key="frame" x="10.5" y="0.0" width="39" height="20.5"/>
+                                                <rect key="frame" x="10" y="0.0" width="39.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921569999998" green="0.36078431370000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1046,7 +1048,7 @@
                                         <rect key="frame" x="168.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lgd-ec-iyv" userLabel="eve°C">
-                                                <rect key="frame" x="11.5" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="11.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921569999998" green="0.1215686275" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1071,7 +1073,7 @@
                                         <rect key="frame" x="251.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WRt-gX-lrd" userLabel="night°C">
-                                                <rect key="frame" x="12" y="0.0" width="35.5" height="20.5"/>
+                                                <rect key="frame" x="12" y="0.0" width="36" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.23529411759999999" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1085,7 +1087,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U0Y-42-YS3">
-                                                <rect key="frame" x="11" y="90.5" width="38" height="20.5"/>
+                                                <rect key="frame" x="10.5" y="90.5" width="38.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1104,7 +1106,7 @@
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gauge" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="cCG-gZ-Fx3" userLabel="preasure">
                                 <rect key="frame" x="81" y="66.5" width="35" height="34"/>
-                                <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="cCG-gZ-Fx3" secondAttribute="height" id="1Xg-id-F4z"/>
                                     <constraint firstAttribute="width" constant="35" id="tWi-TA-bpL"/>
@@ -1117,7 +1119,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ES-iV-hbx" userLabel="sunsetTime">
-                                <rect key="frame" x="344.5" y="638.5" width="39.5" height="20.5"/>
+                                <rect key="frame" x="344.5" y="638.5" width="39" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="0.22352941179999999" green="0.098039215690000001" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1129,12 +1131,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="77%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMM-Me-tDN" userLabel="humidity">
-                                <rect key="frame" x="14" y="108" width="32.5" height="20.5"/>
+                                <rect key="frame" x="13.5" y="108" width="33.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="3qr-IP-xJR"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="obD-py-SWt" firstAttribute="leading" secondItem="3qr-IP-xJR" secondAttribute="leading" constant="20" id="2Cl-WW-14Y"/>
@@ -1166,7 +1169,6 @@
                             <constraint firstItem="3qr-IP-xJR" firstAttribute="bottom" secondItem="Z7B-hh-fau" secondAttribute="bottom" multiplier="4/3" id="wrR-1e-shI"/>
                             <constraint firstItem="nep-pR-zym" firstAttribute="trailing" secondItem="3qr-IP-xJR" secondAttribute="trailing" id="zIm-pI-Wn6"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="3qr-IP-xJR"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="0.0"/>
@@ -1191,7 +1193,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22°C" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="Qap-ZI-O6h" userLabel="tempC">
-                                <rect key="frame" x="237" y="44" width="167" height="92"/>
+                                <rect key="frame" x="237.5" y="44" width="166.5" height="92"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="77"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1256,7 +1258,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1T-6P-Ae1" userLabel="discr">
-                                <rect key="frame" x="359" y="136" width="45" height="24"/>
+                                <rect key="frame" x="358.5" y="136" width="45.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1281,7 +1283,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="62.5" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Gc-pF-T6F" userLabel="mor°C">
-                                                <rect key="frame" x="13" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="12.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921569999998" green="0.47450980390000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1320,7 +1322,7 @@
                                         <rect key="frame" x="85.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTK-si-VdW" userLabel="day°C">
-                                                <rect key="frame" x="10.5" y="0.0" width="39" height="20.5"/>
+                                                <rect key="frame" x="10" y="0.0" width="39.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921569999998" green="0.36078431370000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1345,7 +1347,7 @@
                                         <rect key="frame" x="168.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QyM-O0-4Ci" userLabel="eve°C">
-                                                <rect key="frame" x="11.5" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="11.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921569999998" green="0.1215686275" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1370,7 +1372,7 @@
                                         <rect key="frame" x="251.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3x0-aj-eG7" userLabel="night°C">
-                                                <rect key="frame" x="12" y="0.0" width="35.5" height="20.5"/>
+                                                <rect key="frame" x="12" y="0.0" width="36" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.23529411759999999" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1384,7 +1386,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F16-1s-y17">
-                                                <rect key="frame" x="11" y="90.5" width="38" height="20.5"/>
+                                                <rect key="frame" x="10.5" y="90.5" width="38.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1403,7 +1405,7 @@
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gauge" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6DP-y0-drp" userLabel="preasure">
                                 <rect key="frame" x="81" y="66.5" width="35" height="34"/>
-                                <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="6DP-y0-drp" secondAttribute="height" id="6bv-5t-3nv"/>
                                     <constraint firstAttribute="width" constant="35" id="kwR-sf-Et1"/>
@@ -1416,7 +1418,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3N0-ps-GBd" userLabel="sunsetTime">
-                                <rect key="frame" x="344.5" y="638.5" width="39.5" height="20.5"/>
+                                <rect key="frame" x="344.5" y="638.5" width="39" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="0.22352941179999999" green="0.098039215690000001" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1428,12 +1430,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="77%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wjh-aw-NQ5" userLabel="humidity">
-                                <rect key="frame" x="14" y="108" width="32.5" height="20.5"/>
+                                <rect key="frame" x="13.5" y="108" width="33.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="2R3-cp-ZsE"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2R3-cp-ZsE" firstAttribute="leading" secondItem="Gti-qW-lij" secondAttribute="leading" constant="10" id="1bI-vN-ezq"/>
@@ -1465,7 +1468,6 @@
                             <constraint firstItem="SKE-1a-Q9x" firstAttribute="centerX" secondItem="6DP-y0-drp" secondAttribute="centerX" id="pu3-5j-0fy"/>
                             <constraint firstItem="2R3-cp-ZsE" firstAttribute="bottom" secondItem="qBb-X6-pZS" secondAttribute="bottom" multiplier="4/3" id="vJv-YB-AfL"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="2R3-cp-ZsE"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="0.0"/>
@@ -1490,7 +1492,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22°C" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="74L-ZH-gLe" userLabel="tempC">
-                                <rect key="frame" x="237" y="44" width="167" height="92"/>
+                                <rect key="frame" x="237.5" y="44" width="166.5" height="92"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="77"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1525,14 +1527,14 @@
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sunrise" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="XSq-A6-Q9B" userLabel="sunrise" customClass="DesignableImage" customModule="WeekWeather" customModuleProvider="target">
                                 <rect key="frame" x="20" y="585" width="60" height="59.5"/>
-                                <color key="tintColor" red="1" green="0.79075172434651797" blue="0.33079887263740992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.792156862745098" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="XSq-A6-Q9B" secondAttribute="height" id="JlB-fO-ZxD"/>
                                     <constraint firstAttribute="width" constant="60" id="ZKK-ZW-Xel"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o2c-9l-9bR" userLabel="discr">
-                                <rect key="frame" x="359" y="136" width="45" height="24"/>
+                                <rect key="frame" x="358.5" y="136" width="45.5" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1543,7 +1545,7 @@
                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="40"/>
                                 </variation>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.85000002384185791" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun" translatesAutoresizingMaskIntoConstraints="NO" id="alr-PK-hea" userLabel="icon">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.85000002384185791" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lightningCloud" translatesAutoresizingMaskIntoConstraints="NO" id="alr-PK-hea" userLabel="icon">
                                 <rect key="frame" x="107" y="298" width="200" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="1bT-ho-JlO"/>
@@ -1572,14 +1574,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="62.5" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="18°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tL7-Lb-dOX" userLabel="mor°C">
-                                                <rect key="frame" x="13" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="12.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921569999998" green="0.47450980390000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun.haze" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9zr-xs-7xr" userLabel="morn">
                                                 <rect key="frame" x="1" y="25" width="60" height="62"/>
-                                                <color key="tintColor" red="1" green="0.82414840230391062" blue="0.21207440876418726" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="tintColor" red="1" green="0.82352941176470584" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="26b-8n-COg"/>
                                                     <constraint firstAttribute="width" constant="60" id="ZIT-J2-cVz"/>
@@ -1597,7 +1599,7 @@
                                         <rect key="frame" x="85.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qnk-Ge-hNg" userLabel="day°C">
-                                                <rect key="frame" x="10.5" y="0.0" width="39" height="20.5"/>
+                                                <rect key="frame" x="10" y="0.0" width="39.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921569999998" green="0.36078431370000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1636,7 +1638,7 @@
                                         <rect key="frame" x="168.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KqK-fJ-Ywt" userLabel="eve°C">
-                                                <rect key="frame" x="11.5" y="0.0" width="36.5" height="20.5"/>
+                                                <rect key="frame" x="11.5" y="0.0" width="37" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.49803921569999998" green="0.1215686275" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1661,7 +1663,7 @@
                                         <rect key="frame" x="251.5" y="0.0" width="60" height="111"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17°C" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BtK-Ag-UEX" userLabel="night°C">
-                                                <rect key="frame" x="12" y="0.0" width="35.5" height="20.5"/>
+                                                <rect key="frame" x="12" y="0.0" width="36" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" red="0.0" green="0.23529411759999999" blue="0.49803921569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1675,7 +1677,7 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUI-eo-ISx">
-                                                <rect key="frame" x="11" y="90.5" width="38" height="20.5"/>
+                                                <rect key="frame" x="10.5" y="90.5" width="38.5" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
@@ -1705,7 +1707,7 @@
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sunset" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ka8-RD-Zvs" userLabel="sunset">
                                 <rect key="frame" x="334" y="585" width="60" height="59.5"/>
-                                <color key="tintColor" red="1" green="0.64087224359859196" blue="0.41906017222653291" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="0.63921568627450975" blue="0.41960784313725491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ka8-RD-Zvs" secondAttribute="height" id="SRx-CU-0hI"/>
                                     <constraint firstAttribute="width" constant="60" id="uxe-cg-D4Z"/>
@@ -1750,7 +1752,7 @@
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gauge" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="QD9-BJ-tva" userLabel="preasure">
                                 <rect key="frame" x="81" y="66.5" width="35" height="34"/>
-                                <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" systemColor="systemGrayColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="gNJ-Im-H2k"/>
                                     <constraint firstAttribute="width" secondItem="QD9-BJ-tva" secondAttribute="height" id="jax-FV-6Nw"/>
@@ -1763,7 +1765,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19:15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gtb-jY-Pnj" userLabel="sunsetTime">
-                                <rect key="frame" x="344.5" y="638.5" width="39.5" height="20.5"/>
+                                <rect key="frame" x="344.5" y="638.5" width="39" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="0.22352941179999999" green="0.098039215690000001" blue="0.0039215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1775,13 +1777,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="77%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VlP-bm-Rvs" userLabel="humidity">
-                                <rect key="frame" x="14.5" y="106" width="31" height="19.5"/>
+                                <rect key="frame" x="14" y="106" width="32" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="vyT-uZ-ROf"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="o2c-9l-9bR" firstAttribute="trailing" secondItem="74L-ZH-gLe" secondAttribute="trailing" id="0b6-Uv-tA0"/>
                             <constraint firstItem="vyT-uZ-ROf" firstAttribute="trailing" secondItem="ka8-RD-Zvs" secondAttribute="trailing" constant="20" id="0mK-se-kLo"/>
@@ -1828,7 +1831,6 @@
                             <constraint firstItem="GIF-Ra-yQj" firstAttribute="top" secondItem="XSq-A6-Q9B" secondAttribute="top" constant="-2" id="xYg-E7-lms"/>
                             <constraint firstItem="VlP-bm-Rvs" firstAttribute="top" secondItem="asy-KL-ZT0" secondAttribute="bottom" constant="-13" id="zGY-BG-kkt"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="vyT-uZ-ROf"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                 <real key="value" value="0.0"/>
@@ -1842,21 +1844,69 @@
             <point key="canvasLocation" x="982.60869565217399" y="772.76785714285711"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="1SF-vi-cLJ">
+            <size key="intrinsicContentSize" width="20.5" height="20"/>
+        </designable>
+        <designable name="AkN-iT-Fzc">
+            <size key="intrinsicContentSize" width="21" height="20"/>
+        </designable>
+        <designable name="G8d-k3-4ay">
+            <size key="intrinsicContentSize" width="23.5" height="20"/>
+        </designable>
+        <designable name="Gti-qW-lij">
+            <size key="intrinsicContentSize" width="20.5" height="20"/>
+        </designable>
+        <designable name="LvD-JD-ao9">
+            <size key="intrinsicContentSize" width="20.5" height="20"/>
+        </designable>
+        <designable name="XSq-A6-Q9B">
+            <size key="intrinsicContentSize" width="25.5" height="20"/>
+        </designable>
+        <designable name="asy-KL-ZT0">
+            <size key="intrinsicContentSize" width="20.5" height="20"/>
+        </designable>
+        <designable name="cBM-35-EQh">
+            <size key="intrinsicContentSize" width="20.5" height="20"/>
+        </designable>
+        <designable name="hS9-xV-zkz">
+            <size key="intrinsicContentSize" width="23.5" height="20"/>
+        </designable>
+        <designable name="obD-py-SWt">
+            <size key="intrinsicContentSize" width="25.5" height="20"/>
+        </designable>
+        <designable name="qBb-X6-pZS">
+            <size key="intrinsicContentSize" width="25.5" height="20"/>
+        </designable>
+        <designable name="vkO-y1-z7i">
+            <size key="intrinsicContentSize" width="20.5" height="20"/>
+        </designable>
+    </designables>
     <resources>
         <image name="clouds" width="2000" height="2000"/>
         <image name="cloudsEvening" width="1000" height="1000"/>
         <image name="cloudsMorning" width="1000" height="1000"/>
         <image name="cloudsStarsNight" width="1000" height="1000"/>
-        <image name="drop.triangle" catalog="system" width="64" height="56"/>
-        <image name="gauge" catalog="system" width="64" height="60"/>
+        <image name="drop.triangle" catalog="system" width="128" height="112"/>
+        <image name="gauge" catalog="system" width="128" height="121"/>
         <image name="happyCloud" width="285" height="300"/>
-        <image name="moon" catalog="system" width="64" height="60"/>
+        <image name="lightningCloud" width="285" height="365"/>
+        <image name="moon" catalog="system" width="128" height="121"/>
         <image name="moonLighter" width="245" height="290"/>
         <image name="sun" width="285" height="320"/>
-        <image name="sun.haze" catalog="system" width="64" height="58"/>
-        <image name="sun.haze.fill" catalog="system" width="64" height="58"/>
-        <image name="sun.max" catalog="system" width="64" height="62"/>
-        <image name="sunrise" catalog="system" width="64" height="48"/>
-        <image name="sunset" catalog="system" width="64" height="48"/>
+        <image name="sun.haze" catalog="system" width="128" height="119"/>
+        <image name="sun.haze.fill" catalog="system" width="128" height="119"/>
+        <image name="sun.max" catalog="system" width="128" height="124"/>
+        <image name="sunrise" catalog="system" width="128" height="97"/>
+        <image name="sunset" catalog="system" width="128" height="97"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

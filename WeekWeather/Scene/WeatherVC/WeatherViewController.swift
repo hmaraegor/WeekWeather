@@ -36,6 +36,8 @@ class WeatherViewController: UIViewController {
     }()
     
     func setBackgroundImage() {
+        backgroundImageView.image = colorScheme.image.backgroundExtInfoImg
+        backgroundImageView.layer.opacity = colorScheme.opasity.backgroundImg
         view.addSubview(backgroundImageView)
         view.sendSubviewToBack(backgroundImageView)
         backgroundImageView.layer.opacity = colorScheme.opasity.backgroundImg
@@ -48,9 +50,9 @@ class WeatherViewController: UIViewController {
     }
     
     let weatherImageView: UIImageView = {
-           let imageView = UIImageView(iconName: nil, tintColor: nil, image: nil, size: CGSize(width: 200, height: 150))
+           let imageView = UIImageView(iconName: nil, tintColor: nil, image: nil, size: CGSize(width: 240, height: 180))
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.bounds.size = CGSize(width: 200, height: 150)
+            imageView.bounds.size = CGSize(width: 240, height: 180)
             imageView.contentMode = .scaleAspectFit
     //        imageView.backgroundColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
             return imageView
@@ -100,35 +102,36 @@ class WeatherViewController: UIViewController {
             let condition = {() -> (Bool) in return self.weatherImageView.image != nil }
             timerForSettingImage(interval: 0.1, rerun: true, closure: closure, condition: condition)
         }
+        weatherImageView.layer.opacity = colorScheme.opasity.weatherIcon
     }
     
     func createMainBottomStackView() -> UIStackView {
         guard let dayForecast = dayForecast else { return UIStackView() }
         
-        let mornTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.morn) + AppConstants.celsius, color: #colorLiteral(red: 0.4980392157, green: 0.4745098039, blue: 0, alpha: 1))
-        let mornImageView = UIImageView(iconName: "sun.haze", tintColor:  #colorLiteral(red: 1, green: 0.8156862745, blue: 0, alpha: 0.5), image: nil)
-        let mornDescrLabel = UILabel(text: "morning", color: #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
+        let mornTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.morn) + AppConstants.celsius, color: colorScheme.color.mornTemp)// #colorLiteral(red: 0.4980392157, green: 0.4745098039, blue: 0, alpha: 1))
+        let mornImageView = UIImageView(iconName: "sun.haze", tintColor: colorScheme.color.mornIcon /* #colorLiteral(red: 1, green: 0.8156862745, blue: 0, alpha: 0.5) */, image: nil)
+        let mornDescrLabel = UILabel(text: "morning", color: colorScheme.color.mornDescr)// #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
         let morningStackView = UIStackView(spacing: 5, axis: .vertical,
                                            distribution: .equalSpacing, alignment: .center,
                                            views: [mornTempLabel, mornImageView, mornDescrLabel])
         
-        let dayTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius, color: #colorLiteral(red: 0.4980392157, green: 0.3607843137, blue: 0, alpha: 1))
-        let dayImageView = UIImageView(iconName: "sun.max", tintColor:  #colorLiteral(red: 1, green: 0.8156862745, blue: 0, alpha: 0.7441673801), image: nil)
-        let dayDescrLabel = UILabel(text: "day", color: #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
+        let dayTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius, color: colorScheme.color.dayTemp) // #colorLiteral(red: 0.4980392157, green: 0.3607843137, blue: 0, alpha: 1))
+        let dayImageView = UIImageView(iconName: "sun.max", tintColor: colorScheme.color.dayIcon /* #colorLiteral(red: 1, green: 0.8156862745, blue: 0, alpha: 0.7441673801) */, image: nil)
+        let dayDescrLabel = UILabel(text: "day", color: colorScheme.color.dayDescr) // #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
         let dayStackView = UIStackView(spacing: 5, axis: .vertical,
                                            distribution: .equalSpacing, alignment: .center,
                                            views: [dayTempLabel, dayImageView, dayDescrLabel])
         
-        let eveTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.eve) + AppConstants.celsius, color: #colorLiteral(red: 0.4980392157, green: 0.1215686275, blue: 0, alpha: 1))
-        let eveImageView = UIImageView(iconName: "sun.haze.fill", tintColor:  #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 0.5241063784), image: nil)
-        let eveDescrLabel = UILabel(text: "evening", color: #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
+        let eveTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.eve) + AppConstants.celsius, color: colorScheme.color.eveTemp) // #colorLiteral(red: 0.4980392157, green: 0.1215686275, blue: 0, alpha: 1))
+        let eveImageView = UIImageView(iconName: "sun.haze.fill", tintColor: colorScheme.color.eveIcon /* #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 0.5241063784) */, image: nil)
+        let eveDescrLabel = UILabel(text: "evening", color: colorScheme.color.eveDescr) // #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
         let eveningStackView = UIStackView(spacing: 5, axis: .vertical,
                                        distribution: .equalSpacing, alignment: .center,
                                        views: [eveTempLabel, eveImageView, eveDescrLabel])
         
-        let nightTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius, color: #colorLiteral(red: 0, green: 0.2352941176, blue: 0.4980392157, alpha: 1))
-        let nightImageView = UIImageView(iconName: "moon", tintColor:  #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.5), image: nil)
-        let nightDescrLabel = UILabel(text: "night", color: #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
+        let nightTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius, color: colorScheme.color.nightTemp) // #colorLiteral(red: 0, green: 0.2352941176, blue: 0.4980392157, alpha: 1))
+        let nightImageView = UIImageView(iconName: "moon", tintColor: colorScheme.color.nightIcon /*  #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.5) */, image: nil)
+        let nightDescrLabel = UILabel(text: "night", color: colorScheme.color.nightDescr) // #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
         let nightStackView = UIStackView(spacing: 5, axis: .vertical,
                                            distribution: .equalSpacing, alignment: .center,
                                            views: [nightTempLabel, nightImageView, nightDescrLabel])
@@ -151,7 +154,7 @@ class WeatherViewController: UIViewController {
     
     func createTempLabel() -> UILabel {
         let label = UILabel(text: String(format: "%.0f", currentTemp) + AppConstants.celsius,
-                            color: .darkGray,
+                            color: colorScheme.color.tempLabel /*.darkGray*/,
                             height: 92, size: 77)
         
         view.addSubview(label)
@@ -170,7 +173,7 @@ class WeatherViewController: UIViewController {
     func createDescrLabel(view: UIView) -> UILabel {
         guard let dayForecast = dayForecast, let weather = dayForecast.weather.first else { return UILabel() }
         let label = UILabel(text: weather.description,
-                            color: .darkGray,
+                            color: colorScheme.color.descrLabel /*.darkGray*/,
                             height: 24, size: 20)
         
         view.addSubview(label)
@@ -216,15 +219,15 @@ class WeatherViewController: UIViewController {
     func createSunPhases() -> (sunriseImg: UIImageView, sunsetImg: UIImageView) {
         guard let dayForecast = dayForecast else { return (UIImageView(), UIImageView()) }
         //let sunriseImageView = UIImageView(iconName: "sunrise", tintColor:  #colorLiteral(red: 1, green: 0.8431372549, blue: 0, alpha: 1), image: nil)
-        let sunriseImageView = UIImageView(iconName: "sunrise", tintColor:  #colorLiteral(red: 1, green: 0.7834197891, blue: 0, alpha: 0.6987639127), image: nil)
-        let sunriseLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunrise, dateFormat: "HH:mm"), color: #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
+        let sunriseImageView = UIImageView(iconName: "sunrise", tintColor: colorScheme.color.sunriseIcon /* #colorLiteral(red: 1, green: 0.7834197891, blue: 0, alpha: 0.6987639127) */, image: nil)
+        let sunriseLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunrise, dateFormat: "HH:mm"), color: colorScheme.color.sunriseLabel ) // #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
         view.addSubview(sunriseImageView)
         view.addSubview(sunriseLabel)
         
         
         //let sunsetImageView = UIImageView(iconName: "sunset", tintColor:  #colorLiteral(red: 1, green: 0.4352941176, blue: 0, alpha: 1), image: nil)
-        let sunsetImageView = UIImageView(iconName: "sunset", tintColor:  #colorLiteral(red: 1, green: 0.4352941176, blue: 0, alpha: 0.6951519692), image: nil)
-        let sunsetLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunset, dateFormat: "HH:mm"), color: #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
+        let sunsetImageView = UIImageView(iconName: "sunset", tintColor: colorScheme.color.sunsetIcon /* #colorLiteral(red: 1, green: 0.4352941176, blue: 0, alpha: 0.6951519692) */, image: nil)
+        let sunsetLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunset, dateFormat: "HH:mm"), color: colorScheme.color.sunsetLabel ) // #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1))
         view.addSubview(sunsetImageView)
         view.addSubview(sunsetLabel)
         
@@ -266,14 +269,14 @@ class WeatherViewController: UIViewController {
     
     func createPreasureAndHumidity() -> (humidityImg: UIImageView, preasureImg: UIImageView) {
         guard let dayForecast = dayForecast else { return (UIImageView(), UIImageView()) }
-        let humidityImageView = UIImageView(iconName: "drop.triangle", tintColor: #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.5), image: nil, size: CGSize(width: 80, height: 80))
-        let humidityLabel = UILabel(text: "\(Int(dayForecast.humidity))" + "%", color: .darkGray, size: 16)
+        let humidityImageView = UIImageView(iconName: "drop.triangle", tintColor: colorScheme.color.humidityIcon /* #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.5) */, image: nil, size: CGSize(width: 80, height: 80))
+        let humidityLabel = UILabel(text: "\(Int(dayForecast.humidity))" + "%", color: colorScheme.color.humidityLabel /*.darkGray*/, size: 16)
         view.addSubview(humidityImageView)
         view.addSubview(humidityLabel)
         
         
-        let preasureImageView = UIImageView(iconName: "gauge", tintColor: .gray, image: nil, size: CGSize(width: 35, height: 35))
-        let preasureLabel = UILabel(text: String(format: "%.0f", dayForecast.pressure * 0.750062) + "mm", color: .darkGray, size: 16)
+        let preasureImageView = UIImageView(iconName: "gauge", tintColor: colorScheme.color.preasureIcon /*.gray*/, image: nil, size: CGSize(width: 35, height: 35))
+        let preasureLabel = UILabel(text: String(format: "%.0f", dayForecast.pressure * 0.750062) + "mm", color: colorScheme.color.preasureLabel /*.darkGray*/, size: 16)
         view.addSubview(preasureImageView)
         view.addSubview(preasureLabel)
         
@@ -319,7 +322,7 @@ class WeatherViewController: UIViewController {
     }
     
     func createPreasureHumidityBackground(imagePreasure: UIImageView) {
-        let backgroundView = UIView(color: #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.4980201199), size: nil, cornerRadius: 40, corners: (leftTop: false, rightTop: true, leftBottom: false, rightBottom: true))
+        let backgroundView = UIView(color: colorScheme.color.preasureHumidityBg /* #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.4980201199)*/, size: nil, cornerRadius: 40, corners: (leftTop: false, rightTop: true, leftBottom: false, rightBottom: true))
         
         view.addSubview(backgroundView)
         view.sendSubviewToBack(backgroundView)
@@ -337,7 +340,7 @@ class WeatherViewController: UIViewController {
     }
     
     func createSunriseSunsetBackground(suriseImg: UIImageView, susetImg: UIImageView) {
-        let suriseBackgroundView = UIView(color: #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.4980201199), size: nil, cornerRadius: 40, corners: (leftTop: false, rightTop: true, leftBottom: false, rightBottom: true))
+        let suriseBackgroundView = UIView(color: colorScheme.color.sunriseSunsetBg, size: nil, cornerRadius: 40, corners: (leftTop: false, rightTop: true, leftBottom: false, rightBottom: true))
         
         view.addSubview(suriseBackgroundView)
         view.sendSubviewToBack(suriseBackgroundView)
@@ -353,7 +356,7 @@ class WeatherViewController: UIViewController {
                     size: .zero)
         
         
-        let susetBackgroundView = UIView(color: #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.4980201199), size: nil, cornerRadius: 40, corners: (leftTop: true, rightTop: false, leftBottom: true, rightBottom: false))
+        let susetBackgroundView = UIView(color: colorScheme.color.sunriseSunsetBg, size: nil, cornerRadius: 40, corners: (leftTop: true, rightTop: false, leftBottom: true, rightBottom: false))
         
         view.addSubview(susetBackgroundView)
         view.sendSubviewToBack(susetBackgroundView)
@@ -371,7 +374,7 @@ class WeatherViewController: UIViewController {
     }
     
     func createBottomStackViewBackground(stackView: UIStackView) -> UIView {
-        let stackViewBackgroundView = UIView(color: #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.4980201199), size: nil, cornerRadius: 30, corners: (leftTop: true, rightTop: true, leftBottom: true, rightBottom: true))
+        let stackViewBackgroundView = UIView(color: colorScheme.color.bottomStackBg, size: nil, cornerRadius: 30, corners: (leftTop: true, rightTop: true, leftBottom: true, rightBottom: true))
         
         view.addSubview(stackViewBackgroundView)
         view.sendSubviewToBack(stackViewBackgroundView)
@@ -430,7 +433,7 @@ class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.view.backgroundColor = colorScheme.color.viewColor // #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.title = DateService.getDate(unixTime: dayForecast.dt, dateFormat: "EEEE, dd MMM")
         
         
@@ -452,13 +455,13 @@ class WeatherViewController: UIViewController {
         
         setBackgroundImage()
         
-        //makeGradient(view: labelPreas)
+        //makeGradient(view: preasureHumidity.preasureImg)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        createGradientLayer()
+        //createGradientLayer()
     }
     
 }

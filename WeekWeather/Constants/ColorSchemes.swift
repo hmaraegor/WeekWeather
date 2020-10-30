@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 protocol SchemeOpacityProtocol {
+    var backgroundListImg: Float { get }
     var backgroundImg: Float { get }
     var weatherIcon: Float { get }
 }
@@ -26,6 +27,11 @@ protocol SchemeProtocol {
 }
 
 protocol SchemeColorProtocol {
+    var commonSubstrate: UIColor { get }
+    var bottomStackBg: UIColor { get }
+    var preasureHumidityBg: UIColor { get }
+    var sunriseSunsetBg: UIColor { get }
+    var backItem: UIColor  { get }
     var firstCellBgColor: UIColor { get }
     var cellBgColor: UIColor { get }
     var listTitleColor: UIColor { get }
@@ -77,6 +83,11 @@ struct ColorSchemes {
         }
         
         struct Color: SchemeColorProtocol {
+            let commonSubstrate: UIColor = #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.5003210616)
+            let bottomStackBg: UIColor = #colorLiteral(red: 0.6823529412, green: 0.8078431373, blue: 0.9764705882, alpha: 0.2386290668)
+            let preasureHumidityBg: UIColor = #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.5)
+            let sunriseSunsetBg: UIColor = #colorLiteral(red: 0.6823529412, green: 0.8078431373, blue: 0.9764705882, alpha: 0.2379869434)
+            let backItem: UIColor = .systemBlue
             let firstCellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             let cellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             let listTitleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
@@ -88,18 +99,18 @@ struct ColorSchemes {
             let humidityLabel: UIColor = .darkGray
             let preasureIcon: UIColor = .gray
             let preasureLabel: UIColor = .darkGray
-            let sunriseIcon: UIColor = #colorLiteral(red: 1, green: 0.7834197891, blue: 0, alpha: 0.6987639127)
+            let sunriseIcon: UIColor = #colorLiteral(red: 1, green: 0.7921568627, blue: 0.3294117647, alpha: 1)
             let sunriseLabel: UIColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1)
-            let sunsetIcon: UIColor = #colorLiteral(red: 1, green: 0.4352941176, blue: 0, alpha: 0.6951519692)
+            let sunsetIcon: UIColor = #colorLiteral(red: 1, green: 0.6392156863, blue: 0.4196078431, alpha: 1)
             let sunsetLabel: UIColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1)
             let mornTemp: UIColor = #colorLiteral(red: 0.4980392157, green: 0.4745098039, blue: 0, alpha: 1)
-            let mornIcon: UIColor = #colorLiteral(red: 1, green: 0.8156862745, blue: 0, alpha: 0.5)
+            let mornIcon: UIColor = #colorLiteral(red: 1, green: 0.7921568627, blue: 0.3294117647, alpha: 1)
             let mornDescr: UIColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1)
             let dayTemp: UIColor = #colorLiteral(red: 0.4980392157, green: 0.3607843137, blue: 0, alpha: 1)
             let dayIcon: UIColor = #colorLiteral(red: 1, green: 0.8156862745, blue: 0, alpha: 0.7441673801)
             let dayDescr: UIColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1)
             let eveTemp: UIColor = #colorLiteral(red: 0.4980392157, green: 0.1215686275, blue: 0, alpha: 1)
-            let eveIcon: UIColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 0.5241063784)
+            let eveIcon: UIColor = #colorLiteral(red: 1, green: 0.6039215686, blue: 0.5843137255, alpha: 1)
             let eveDescr: UIColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 1)
             let nightTemp: UIColor = #colorLiteral(red: 0, green: 0.2352941176, blue: 0.4980392157, alpha: 1)
             let nightIcon: UIColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 0.5)
@@ -107,6 +118,7 @@ struct ColorSchemes {
         }
         
         struct Opacity: SchemeOpacityProtocol {
+            let backgroundListImg: Float = 0.05
             let backgroundImg: Float = 0.3
             let weatherIcon: Float = 0.95
         }
@@ -179,6 +191,11 @@ struct ColorSchemes {
         }
         
         struct Color: SchemeColorProtocol {
+            let commonSubstrate: UIColor = #colorLiteral(red: 0.2274509804, green: 0.2274509804, blue: 0.2274509804, alpha: 0.2444884417)
+            let bottomStackBg: UIColor = #colorLiteral(red: 0.2274509804, green: 0.2274509804, blue: 0.2274509804, alpha: 0.2444884417)
+            let preasureHumidityBg: UIColor = #colorLiteral(red: 0.2274509804, green: 0.2274509804, blue: 0.2274509804, alpha: 0.2444884417)
+            let sunriseSunsetBg: UIColor = #colorLiteral(red: 0.2274509804, green: 0.2274509804, blue: 0.2274509804, alpha: 0.2444884417)
+            let backItem: UIColor = .white
             let firstCellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             let cellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             let listTitleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
@@ -190,7 +207,7 @@ struct ColorSchemes {
             let humidityLabel: UIColor = .white
             let preasureIcon: UIColor = .opaqueSeparator
             let preasureLabel: UIColor = .white
-            let sunriseIcon: UIColor = #colorLiteral(red: 1, green: 0.537254902, blue: 0.2039215686, alpha: 0.9052868151)
+            let sunriseIcon: UIColor = #colorLiteral(red: 1, green: 0.8235294118, blue: 0.1843137255, alpha: 0.8000856165)
             let sunriseLabel: UIColor = #colorLiteral(red: 1, green: 0.968627451, blue: 0.7764705882, alpha: 1)
             let sunsetIcon: UIColor = #colorLiteral(red: 1, green: 0.537254902, blue: 0.2039215686, alpha: 0.9040560788)
             let sunsetLabel: UIColor = #colorLiteral(red: 1, green: 0.9098039216, blue: 0.9254901961, alpha: 1)
@@ -204,11 +221,12 @@ struct ColorSchemes {
             let eveIcon: UIColor = #colorLiteral(red: 1, green: 0.231372549, blue: 0.1882352941, alpha: 0.5971746576)
             let eveDescr: UIColor = #colorLiteral(red: 0.9327142923, green: 0.9359927306, blue: 0.9458280457, alpha: 1)
             let nightTemp: UIColor = #colorLiteral(red: 0.9035780239, green: 0.9391689358, blue: 1, alpha: 1)
-            let nightIcon: UIColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 0)
+            let nightIcon: UIColor = #colorLiteral(red: 0.5960784314, green: 0.7882352941, blue: 1, alpha: 1)
             let nightDescr: UIColor = #colorLiteral(red: 0.9327142923, green: 0.9359927306, blue: 0.9458280457, alpha: 1)
         }
         
         struct Opacity: SchemeOpacityProtocol {
+            let backgroundListImg: Float = 0.05
             let backgroundImg: Float = 0.9
             let weatherIcon: Float = 0.85
         }
