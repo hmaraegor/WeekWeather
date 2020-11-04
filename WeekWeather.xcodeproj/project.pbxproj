@@ -32,6 +32,8 @@
 		745D592D24F675C700B75C46 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 745D592F24F675C700B75C46 /* Localizable.strings */; };
 		745D593324F6D76A00B75C46 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 745D593524F6D76A00B75C46 /* Localizable.strings */; };
 		74653DBD251B807E00550A1C /* ColorSchemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74653DBC251B807E00550A1C /* ColorSchemes.swift */; };
+		746BFD82255173380051DCBF /* ThirdDayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 746BFD81255173380051DCBF /* ThirdDayCell.xib */; };
+		746BFD85255187FB0051DCBF /* ThirdCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746BFD84255187FB0051DCBF /* ThirdCell.swift */; };
 		74A53E4C24EEAC7F00D27942 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */; };
 		74A53E4E24EEAFF800D27942 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E4D24EEAFF800D27942 /* AppConstants.swift */; };
 		74A53E5224EFBD6100D27942 /* LocationErrorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74A53E5124EFBD6100D27942 /* LocationErrorService.swift */; };
@@ -77,6 +79,8 @@
 		745D593024F6D73F00B75C46 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/DayList.strings; sourceTree = "<group>"; };
 		745D593424F6D76A00B75C46 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74653DBC251B807E00550A1C /* ColorSchemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
+		746BFD81255173380051DCBF /* ThirdDayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThirdDayCell.xib; sourceTree = "<group>"; };
+		746BFD84255187FB0051DCBF /* ThirdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdCell.swift; sourceTree = "<group>"; };
 		74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		74A53E4D24EEAFF800D27942 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		74A53E5124EFBD6100D27942 /* LocationErrorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationErrorService.swift; sourceTree = "<group>"; };
@@ -162,8 +166,10 @@
 			isa = PBXGroup;
 			children = (
 				7457BB5B24EC5596004693A5 /* DayCell.swift */,
+				746BFD84255187FB0051DCBF /* ThirdCell.swift */,
 				7457BB5C24EC5596004693A5 /* DayCell.xib */,
 				745D592624F5531C00B75C46 /* NewDayCell.xib */,
+				746BFD81255173380051DCBF /* ThirdDayCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -297,6 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				746BFD82255173380051DCBF /* ThirdDayCell.xib in Resources */,
 				74383C6F24F0289B00F29908 /* Localizable.strings in Resources */,
 				7457BB5424EC52D6004693A5 /* LaunchScreen.storyboard in Resources */,
 				7457BB5124EC52D6004693A5 /* Assets.xcassets in Resources */,
@@ -331,6 +338,7 @@
 				74B2FD8924FD3008005BA215 /* WeatherMO+CoreDataClass.swift in Sources */,
 				7457BB6A24ED42D7004693A5 /* ErrorAlertService.swift in Sources */,
 				7457BB6D24ED4FA2004693A5 /* WeekForecast.swift in Sources */,
+				746BFD85255187FB0051DCBF /* ThirdCell.swift in Sources */,
 				7457BB6824ED428E004693A5 /* DecodeService.swift in Sources */,
 				74B2FD8B24FD302F005BA215 /* WeatherMO+CoreDataProperties.swift in Sources */,
 				74653DBD251B807E00550A1C /* ColorSchemes.swift in Sources */,
@@ -447,7 +455,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -502,7 +510,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -526,7 +534,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = hmaraegor.WeekWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -544,7 +552,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = hmaraegor.WeekWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

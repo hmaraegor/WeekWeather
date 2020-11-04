@@ -13,6 +13,7 @@ protocol SchemeOpacityProtocol {
     var backgroundListImg: Float { get }
     var backgroundImg: Float { get }
     var weatherIcon: Float { get }
+    var cellIcon: Float { get }
 }
 
 protocol SchemeImagesProtocol {
@@ -27,6 +28,7 @@ protocol SchemeProtocol {
 }
 
 protocol SchemeColorProtocol {
+    var cellTitlesColor: UIColor { get }
     var commonSubstrate: UIColor { get }
     var bottomStackBg: UIColor { get }
     var preasureHumidityBg: UIColor { get }
@@ -36,6 +38,8 @@ protocol SchemeColorProtocol {
     var cellBgColor: UIColor { get }
     var listTitleColor: UIColor { get }
     var extendInfoTitleColor: UIColor { get }
+    var cellImageTintColor: UIColor { get }
+    var listViewColor: UIColor { get }
     var viewColor: UIColor { get }
     var tempLabel: UIColor { get }
     var descrLabel: UIColor { get }
@@ -83,6 +87,7 @@ struct ColorSchemes {
         }
         
         struct Color: SchemeColorProtocol {
+            let cellTitlesColor: UIColor = .darkGray
             let commonSubstrate: UIColor = #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.5003210616)
             let bottomStackBg: UIColor = #colorLiteral(red: 0.6823529412, green: 0.8078431373, blue: 0.9764705882, alpha: 0.2386290668)
             let preasureHumidityBg: UIColor = #colorLiteral(red: 0.768627451, green: 0.8509803922, blue: 0.9764705882, alpha: 0.5)
@@ -92,6 +97,8 @@ struct ColorSchemes {
             let cellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             let listTitleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
             let extendInfoTitleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            let cellImageTintColor = #colorLiteral(red: 0.5803921569, green: 0.7921568627, blue: 1, alpha: 1)
+            let listViewColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             let viewColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             let tempLabel: UIColor = .darkGray
             let descrLabel: UIColor = .darkGray
@@ -121,6 +128,7 @@ struct ColorSchemes {
             let backgroundListImg: Float = 0.05
             let backgroundImg: Float = 0.3
             let weatherIcon: Float = 0.95
+            let cellIcon: Float = 1.0
         }
         
     }
@@ -185,12 +193,13 @@ struct ColorSchemes {
         }
         
         struct Image: SchemeImagesProtocol {
-            let backgroundListImg = UIImage(imageLiteralResourceName: "clouds")
+            let backgroundListImg = UIImage(imageLiteralResourceName: "cloudsStarsNight")
             let backgroundExtInfoImg = UIImage(imageLiteralResourceName: "cloudsStarsNight")
             //let backgroundImg2 = UIImage(imageLiteralResourceName: "stars")
         }
         
         struct Color: SchemeColorProtocol {
+            let cellTitlesColor: UIColor = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.9450980392, alpha: 1)
             let commonSubstrate: UIColor = #colorLiteral(red: 0.2274509804, green: 0.2274509804, blue: 0.2274509804, alpha: 0.2444884417)
             let bottomStackBg: UIColor = #colorLiteral(red: 0.2274509804, green: 0.2274509804, blue: 0.2274509804, alpha: 0.2444884417)
             let preasureHumidityBg: UIColor = #colorLiteral(red: 0.2274509804, green: 0.2274509804, blue: 0.2274509804, alpha: 0.2444884417)
@@ -198,8 +207,10 @@ struct ColorSchemes {
             let backItem: UIColor = .white
             let firstCellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             let cellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
-            let listTitleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+            let listTitleColor = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.9450980392, alpha: 1)
             let extendInfoTitleColor = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.9450980392, alpha: 1)
+            let cellImageTintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.8470588235)
+            let listViewColor: UIColor = #colorLiteral(red: 0.3215601488, green: 0.3463254821, blue: 0.4152522208, alpha: 1)
             let viewColor: UIColor = .darkGray
             let tempLabel: UIColor = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.9450980392, alpha: 1)
             let descrLabel: UIColor = .white
@@ -226,9 +237,10 @@ struct ColorSchemes {
         }
         
         struct Opacity: SchemeOpacityProtocol {
-            let backgroundListImg: Float = 0.05
+            let backgroundListImg: Float = 0.15
             let backgroundImg: Float = 0.9
             let weatherIcon: Float = 0.85
+            let cellIcon: Float = 0.8
         }
     }
 }

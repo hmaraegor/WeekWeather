@@ -1,8 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -11,15 +14,62 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clouds" translatesAutoresizingMaskIntoConstraints="NO" id="mSN-7X-dV3">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.20000000000000001" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Egry black small" translatesAutoresizingMaskIntoConstraints="NO" id="TP9-he-utA">
+                                <rect key="frame" x="334" y="816" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="TP9-he-utA" secondAttribute="height" id="b18-XZ-u1S"/>
+                                    <constraint firstAttribute="width" constant="50" id="lbC-dr-LOt"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.29999999999999999" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ägri" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W5G-R7-LJE">
+                                <rect key="frame" x="345.33333333333331" y="827" width="27.666666666666686" height="24"/>
+                                <fontDescription key="fontDescription" name="SnellRoundhand" family="Snell Roundhand" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="kite2" translatesAutoresizingMaskIntoConstraints="NO" id="JZF-vg-2Ii">
+                                <rect key="frame" x="130.66666666666666" y="326.66666666666669" width="152.99999999999997" height="243.00000000000006"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="153" id="Lih-8d-bzm"/>
+                                    <constraint firstAttribute="height" constant="243" id="dHt-De-sbc"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="mSN-7X-dV3" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="4bQ-mG-FIl"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TP9-he-utA" secondAttribute="trailing" constant="30" id="Adj-EB-leE"/>
+                            <constraint firstItem="mSN-7X-dV3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DOA-a2-TQN"/>
+                            <constraint firstItem="JZF-vg-2Ii" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Mr3-qY-Lys"/>
+                            <constraint firstItem="JZF-vg-2Ii" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Onn-DY-NQ4"/>
+                            <constraint firstAttribute="bottom" secondItem="mSN-7X-dV3" secondAttribute="bottom" id="QS2-yl-SaF"/>
+                            <constraint firstAttribute="bottom" secondItem="TP9-he-utA" secondAttribute="bottom" constant="30" id="ULB-ZC-X6u"/>
+                            <constraint firstItem="W5G-R7-LJE" firstAttribute="centerX" secondItem="TP9-he-utA" secondAttribute="centerX" id="Uo9-sV-lTL"/>
+                            <constraint firstItem="mSN-7X-dV3" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="cTK-vx-wrn"/>
+                            <constraint firstItem="JZF-vg-2Ii" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="czB-KN-XQI"/>
+                            <constraint firstItem="W5G-R7-LJE" firstAttribute="top" secondItem="TP9-he-utA" secondAttribute="top" constant="11" id="iDb-fR-Tmk"/>
+                            <constraint firstItem="JZF-vg-2Ii" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="pv6-9N-sCG"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Egry black small" width="90" height="110"/>
+        <image name="clouds" width="2000" height="2000"/>
+        <image name="kite2" width="910" height="1423"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

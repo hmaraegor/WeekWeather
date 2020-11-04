@@ -1,22 +1,14 @@
 //
-//  DayCell.swift
+//  ThirdCell.swift
 //  WeekWeather
 //
-//  Created by Egor on 18/08/2020.
+//  Created by Egor on 03.11.2020.
 //  Copyright © 2020 Egor. All rights reserved.
 //
 
 import UIKit
 
-protocol DayCellDelegate {
-    var imageArray: [String : UIImage] { get set }
-    var newIconsArray: [String : UIImage]  { get set }
-    var useNewIcons: Bool { get set }
-    var oldIconsUrlWasPassed: Bool { get set }
-    var useSystemIcons: Bool { get set }
-}
-
-extension DayCell {
+extension ThirdCell {
     private func setNewIcons(weather: [Weather]) {
         DispatchQueue.main.async {
             self.weatherIconImage.image = self.delegate?.newIconsArray[weather.first!.icon]
@@ -57,7 +49,7 @@ extension DayCell {
     
 }
 
-class DayCell: UITableViewCell {
+class ThirdCell: UITableViewCell {
     
     @IBOutlet var currentTempLabel: UILabel!
     @IBOutlet var dayNightTempLabel: UILabel!
@@ -95,13 +87,21 @@ class DayCell: UITableViewCell {
     }
     
     func setSystemIcon(strIcon: String) {
-        let sysIcon = ["sun.max.fill", "cloud.sun", "cloud",
+        let sysIcon2 = ["sun.max.fill", "cloud.sun", "cloud",
                        "cloud.fill", "cloud.rain", "cloud.sun.rain",
                        "cloud.bolt", "snow", "cloud.fog",
                        
                        "moon.stars", "cloud.moon", "cloud",
                        "cloud.fill", "cloud.rain.fill", "cloud.moon.rain.fill",
                        "cloud.moon.bolt.fill", "snow", "cloud.fog"]
+        
+        let sysIcon = ["sun.max", "cloud.sun", "cloud",
+                       "cloud", "cloud.rain", "cloud.sun.rain",
+                       "cloud.bolt", "snow", "cloud.fog",
+                       
+                       "moon.stars", "cloud.moon", "cloud",
+                       "cloud", "cloud.rain", "cloud.moon.rain",
+                       "cloud.moon.bolt", "snow", "cloud.fog"]
         
         let weatherIcon = ["01d", "02d", "03d",
                            "04d", "09d", "10d",
@@ -113,7 +113,9 @@ class DayCell: UITableViewCell {
         
         for i in 0...weatherIcon.count - 1 {
             guard weatherIcon[i] == strIcon else { continue }
-            weatherIconImage.image = UIImage(systemName: sysIcon[i])
+            DispatchQueue.main.async {
+                self.weatherIconImage.image = UIImage(systemName: sysIcon[i])
+            }
         }
     }
     
@@ -134,7 +136,11 @@ class DayCell: UITableViewCell {
         let time12oclock = dayForecast.dt - AppConstants.twelveHoursInSeconds
         weekDay.text = DateService.getDate(unixTime: time12oclock, dateFormat: "EEEE, dd MMM")
         
-        setImage(weather: dayForecast.weather)
+        if delegate.useSystemIcons {
+            setSystemIcon(strIcon: dayForecast.weather.first?.icon ?? "")
+        } else {
+            setImage(weather: dayForecast.weather)
+        }
     }
     
     
@@ -159,23 +165,27 @@ class DayCell: UITableViewCell {
         
         weekDay.text = DateService.getDate(unixTime: currentWeather.dt, dateFormat: "EEEE, dd MMM")
         
-        setImage(weather: currentWeather.weather) //setImage(weather: dayForecast.weather)
+        if delegate.useSystemIcons {
+            setSystemIcon(strIcon: currentWeather.weather.first?.icon ?? "")
+        } else {
+            setImage(weather: currentWeather.weather) //setImage(weather: dayForecast.weather)
+        }
     }
     
 //    private func setImage(weather: [Weather]) {
-//        
-//        
+//
+//
 //        if let weather = weather.first, let image = delegate?.imageArray[weather.description] {
 //            DispatchQueue.main.async {
 //                self.weatherIconImage.image = image
 //            }
 //            return
 //        }
-//        
+//
 //        guard let ico = weather.first?.icon else { return }
 //        let stringURL = "https://openweathermap.org/img/wn/" + ico + "@2x.png"
 //        ImageDownloader.downloadImage(stringURL: stringURL) { (imageData) in
-//            
+//
 //            DispatchQueue.main.async {
 //                let image = UIImage(data: imageData)// ?? UIImage()
 //                if let weather = weather.first {
@@ -183,7 +193,7 @@ class DayCell: UITableViewCell {
 //                }
 //                self.weatherIconImage.image = image
 //            }
-//            
+//
 //        }
 //    }
     

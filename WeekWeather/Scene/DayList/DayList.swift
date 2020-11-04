@@ -174,6 +174,7 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
     var imageArray = [String : UIImage]()
     var newIconsArray = [String : UIImage]()
     var useNewIcons = true
+    var useSystemIcons = false
     
     @IBOutlet var backgroundImg: UIImageView!
     @IBOutlet var tableView: UITableView!
@@ -195,6 +196,10 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
         loadWeatherFromCoreData()
         setNewIcons()
         location()
+        
+        setColorSchemeFromSun()
+        setUIFromColorSheme()
+        setNavigationBar()
     }
     
 //    override func viewDidLoad() {
@@ -213,6 +218,20 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colorScheme.color.listTitleColor]
     }
     
+    private func setColorSchemeFromSun() {
+        guard let weekForecast = daylyForecast else { return }
+        let sunrise = weekForecast.current.sunrise
+        let sunset = weekForecast.current.sunset
+        switch TimeOfDay.timeOfDayFromSun(sunrise: sunrise, sunset: sunset) {
+        case .day:
+            colorScheme = ColorSchemes.Day()
+        case .night:
+            colorScheme = ColorSchemes.Night()
+        default:
+            colorScheme = ColorSchemes.Day()
+        }
+    }
+    
     private func setColorScheme() {
         switch TimeOfDay.timeOfDay {
         case .day:
@@ -227,6 +246,8 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
     private func setUIFromColorSheme() {
         backgroundImg.image = colorScheme.image.backgroundListImg
         backgroundImg.layer.opacity = colorScheme.opasity.backgroundListImg
+        self.view.backgroundColor = colorScheme.color.listViewColor
+        self.tableView.separatorColor = .lightGray
     }
     
     private func setNavigationBar() {
@@ -513,8 +534,23 @@ extension DayList: UITableViewDataSource {
         return daylyForecast?.daily.count ?? 0
     }
     
+    func setColorShemeForCell(cell: /*DayCell*/ ThirdCell) {
+        cell.currentTempLabel.textColor = colorScheme.color.cellTitlesColor
+        cell.dayNightTempLabel.textColor = colorScheme.color.cellTitlesColor
+        cell.feelsTempLabel.textColor = colorScheme.color.cellTitlesColor
+        cell.weatherDescriptLabel.textColor = colorScheme.color.cellTitlesColor
+        cell.windLabel.textColor = colorScheme.color.cellTitlesColor
+        cell.weekDay.textColor = colorScheme.color.cellTitlesColor
+        guard let weatherImage = cell.weatherIconImage else { return }
+        //weatherImage.tintColor = colorScheme.color.cellTitlesColor
+        weatherImage.tintColor = colorScheme.color.cellImageTintColor
+        weatherImage.layer.opacity = colorScheme.opasity.cellIcon
+        //let replaced = cell.windLabel.text?.replacingOccurrences(of: "🚩", with: "🏳️")
+        //cell.windLabel.text = replaced
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: DayCell.cell, for: indexPath) as? DayCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DayCell.cell, for: indexPath) as? /*DayCell*/ ThirdCell else {
             return UITableViewCell()
         }
         
@@ -533,6 +569,10 @@ extension DayList: UITableViewDataSource {
         
         //cell.selectionStyle = .none
         //cell.isUserInteractionEnabled = false
+        
+        setColorShemeForCell(cell: cell)
+        guard let forecast = daylyForecast, let weather = forecast.daily[indexPath.row].weather.first else { return cell }
+        cell.setSystemIcon(strIcon: weather.icon)
         return cell
     }
     
