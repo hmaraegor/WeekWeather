@@ -15,6 +15,11 @@
 "day " = "Tag ";
 "night " = "Nacht ";
 
+"morning" = "Morgen";
+"day" = "Tag";
+"evening" = "Abend";
+"night" = "Nacht";
+
 "The current location cannot be displayed" = "Der aktuelle Standort kann nicht angezeigt werden";
 "Allow Location Access" = "Standortzugriff zulassen";
 "WeekWeather needs access to your location. Turn on Location Services in your device settings." = "WeekWeather benötigt Zugriff auf Ihren Standort. Aktivieren Sie die Standortdienste in Ihren Geräteeinstellungen.";

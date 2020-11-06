@@ -30,4 +30,11 @@ struct LocString {
     struct Title {
         static let undefined_localion = NSLocalizedString("Undefine Place", comment: "Undefine Place")
     }
+    
+    struct WeatherInfo {
+        static let morning = NSLocalizedString("morning", comment: "morning")
+        static let day = NSLocalizedString("day", comment: "day")
+        static let evening = NSLocalizedString("evening", comment: "evening")
+        static let night = NSLocalizedString("night", comment: "night")
+    }
 }

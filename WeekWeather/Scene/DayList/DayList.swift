@@ -174,13 +174,14 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
     var imageArray = [String : UIImage]()
     var newIconsArray = [String : UIImage]()
     var useNewIcons = true
-    var useSystemIcons = false
+    var useSystemIcons = true
     
     @IBOutlet var backgroundImg: UIImageView!
     @IBOutlet var tableView: UITableView!
     private var weekForecastService = WeekForecastService()
     private var daylyForecast: WeekForecast?
     private let locationManager = CLLocationManager()
+    var alreadyUpdatedLocation = false
     
     
     //MARK: For use custon icons
@@ -472,25 +473,31 @@ extension DayList: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
         print("locations = \(locValue.latitude) \(locValue.longitude)")
-        getWeatherForecast(params: ["lat":locValue.latitude, "lon":locValue.longitude])
+        
+        if !alreadyUpdatedLocation {
+            getWeatherForecast(params: ["lat":locValue.latitude, "lon":locValue.longitude])
+            alreadyUpdatedLocation = true
+        }
         
         guard let lastLocation = locations.last else {
             self.title = LocString.Title.undefined_localion
             return
         }
-        
         let geocoder = CLGeocoder()
+        
         
         geocoder.reverseGeocodeLocation(lastLocation) { [weak self] (placemarks, error) in
             if error == nil {
                 if let firstLocation = placemarks?[0],
                     let cityName = firstLocation.locality { // get the city name
-                    //self?.locationManager.stopUpdatingLocation()
+                    self?.locationManager.stopUpdatingLocation()
+                    self?.locationManager.stopMonitoringSignificantLocationChanges()
                     self?.title = cityName
                     print(cityName)
                 }
                 else {
                     self?.title = LocString.Title.undefined_localion
+                    print(LocString.Title.undefined_localion)
                 }
             }
         }
@@ -545,8 +552,8 @@ extension DayList: UITableViewDataSource {
         //weatherImage.tintColor = colorScheme.color.cellTitlesColor
         weatherImage.tintColor = colorScheme.color.cellImageTintColor
         weatherImage.layer.opacity = colorScheme.opasity.cellIcon
-        //let replaced = cell.windLabel.text?.replacingOccurrences(of: "🚩", with: "🏳️")
-        //cell.windLabel.text = replaced
+        let replaced = cell.windLabel.text?.replacingOccurrences(of: "🚩", with: colorScheme.text.flag)
+        cell.windLabel.text = replaced
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -572,7 +579,7 @@ extension DayList: UITableViewDataSource {
         
         setColorShemeForCell(cell: cell)
         guard let forecast = daylyForecast, let weather = forecast.daily[indexPath.row].weather.first else { return cell }
-        cell.setSystemIcon(strIcon: weather.icon)
+        //cell.setSystemIcon(strIcon: weather.icon)
         return cell
     }
     

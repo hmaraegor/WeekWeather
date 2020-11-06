@@ -21,10 +21,15 @@ protocol SchemeImagesProtocol {
     var backgroundExtInfoImg: UIImage { get }
 }
 
+protocol SchemeTextProtocol {
+    var flag: String { get }
+}
+
 protocol SchemeProtocol {
     var image: SchemeImagesProtocol { get }
     var opasity: SchemeOpacityProtocol { get }
     var color: SchemeColorProtocol { get }
+    var text: SchemeTextProtocol { get }
 }
 
 protocol SchemeColorProtocol {
@@ -69,6 +74,10 @@ struct ColorSchemes {
     
     struct Day: SchemeProtocol {
         
+        var text: SchemeTextProtocol {
+            return Text()
+        }
+        
         var color: SchemeColorProtocol {
             return Color()
         }
@@ -79,6 +88,10 @@ struct ColorSchemes {
         
         var opasity: SchemeOpacityProtocol {
             return Opacity()
+        }
+        
+        struct Text: SchemeTextProtocol {
+            var flag: String = "🚩"
         }
         
         struct Image: SchemeImagesProtocol {
@@ -97,7 +110,7 @@ struct ColorSchemes {
             let cellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             let listTitleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
             let extendInfoTitleColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
-            let cellImageTintColor = #colorLiteral(red: 0.5803921569, green: 0.7921568627, blue: 1, alpha: 1)
+            let cellImageTintColor = #colorLiteral(red: 0.3226352284, green: 0.3511146763, blue: 0.3945949351, alpha: 1)
             let listViewColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             let viewColor: UIColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
             let tempLabel: UIColor = .darkGray
@@ -180,6 +193,10 @@ struct ColorSchemes {
     
     struct Night: SchemeProtocol {
         
+        var text: SchemeTextProtocol {
+            return Text()
+        }
+        
         var color: SchemeColorProtocol {
             return Color()
         }
@@ -190,6 +207,10 @@ struct ColorSchemes {
         
         var opasity: SchemeOpacityProtocol {
             return Opacity()
+        }
+        
+        struct Text: SchemeTextProtocol {
+            var flag: String = "↗" //"⤳" //"🌬" //"☴" //"⳽" //"🏳️" //"→" // "↗" //"➠" // "➾"
         }
         
         struct Image: SchemeImagesProtocol {
@@ -209,7 +230,7 @@ struct ColorSchemes {
             let cellBgColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 0)
             let listTitleColor = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.9450980392, alpha: 1)
             let extendInfoTitleColor = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.9450980392, alpha: 1)
-            let cellImageTintColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.8470588235)
+            let cellImageTintColor = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.9450980392, alpha: 1)
             let listViewColor: UIColor = #colorLiteral(red: 0.3215601488, green: 0.3463254821, blue: 0.4152522208, alpha: 1)
             let viewColor: UIColor = .darkGray
             let tempLabel: UIColor = #colorLiteral(red: 0.9333333333, green: 0.937254902, blue: 0.9450980392, alpha: 1)

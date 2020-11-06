@@ -21,12 +21,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="129"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Clear" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AZl-6V-EoJ" userLabel="discr">
-                        <rect key="frame" x="249.5" y="97" width="45.5" height="25"/>
+                        <rect key="frame" x="263.5" y="97" width="31.5" height="25"/>
                         <color key="backgroundColor" red="1" green="0.0" blue="0.92293074870000003" alpha="0.14412992290000001" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="25" id="1NW-6D-XPl"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                         <variation key="heightClass=compact-widthClass=regular">
