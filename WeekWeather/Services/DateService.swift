@@ -25,6 +25,42 @@ class DateService {
         
         return localDate
     }
+    
+    static func currentHours() -> Int  {
+        let date = Date()
+        let calendar = Calendar.current
+        let hours = calendar.component(.hour, from: date)
+        return hours
+    }
+    
+    static func currentMinutes() -> Int  {
+        let date = Date()
+        let calendar = Calendar.current
+        let minutes = calendar.component(.minute, from: date)
+        return minutes
+    }
+    
+    static func hours(fromUnix unixTime: Double) -> Int  {
+        let calendar = Calendar.current
+        let hours = calendar.component(.hour, from: date(fromUnix: unixTime))
+        return hours
+    }
+    
+    static func minutes(fromUnix unixTime: Double) -> Int {
+        let calendar = Calendar.current
+        let minutes = calendar.component(.minute, from: date(fromUnix: unixTime))
+        return minutes
+    }
+    
+    static func date(fromUnix unixTime: Double) -> Date {
+        let date = Date(timeIntervalSince1970: unixTime)
+        return date
+    }
+    
+    static func unix(fromDate date: Date) -> Double {
+        let unixTime = date.timeIntervalSince1970
+        return unixTime
+    }
 }
 
 

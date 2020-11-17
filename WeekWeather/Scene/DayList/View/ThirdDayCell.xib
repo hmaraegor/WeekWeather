@@ -78,8 +78,8 @@
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="108"/>
                         </variation>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud" translatesAutoresizingMaskIntoConstraints="NO" id="yZK-c7-440">
-                        <rect key="frame" x="230" y="30" width="65" height="50"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="yZK-c7-440">
+                        <rect key="frame" x="230" y="32.5" width="65" height="45"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="f24-0i-YqW"/>
                             <constraint firstAttribute="width" secondItem="yZK-c7-440" secondAttribute="height" multiplier="1.3:1" id="mEF-ge-nNF"/>
@@ -151,6 +151,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="cloud" width="128" height="128"/>
+        <image name="cloud" catalog="system" width="128" height="87"/>
     </resources>
 </document>

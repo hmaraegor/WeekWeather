@@ -125,11 +125,11 @@ class ThirdCell: UITableViewCell {
         currentTempLabel.font = currentTempLabel.font.withSize(60)
         //self.backgroundColor = #colorLiteral(red: 0.9327142923, green: 0.9359927306, blue: 0.9458280457, alpha: 0)
         
-        currentTempLabel.text = String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
-        let dayTemp = LocString.Cell.day + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
-        let nigthTemp = LocString.Cell.night + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
+        currentTempLabel.text = tempToString(temp: dayForecast.temp.day)
+        let dayTemp = LocString.Cell.day + tempToString(temp: dayForecast.temp.day)
+        let nigthTemp = LocString.Cell.night + tempToString(temp: dayForecast.temp.night)
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
-        feelsTempLabel.text = LocString.Cell.feels_like + String(format: "%.0f", dayForecast.feelsLike.day) + AppConstants.celsius
+        feelsTempLabel.text = LocString.Cell.feels_like + tempToString(temp: dayForecast.feelsLike.day)
         weatherDescriptLabel.text = dayForecast.weather.first?.description
         windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", dayForecast.windSpeed) + LocString.Cell.meters_in_sec
         
@@ -155,11 +155,11 @@ class ThirdCell: UITableViewCell {
         //self.backgroundColor = #colorLiteral(red: 0.9394798801, green: 0.9772186925, blue: 1, alpha: 1)
         //self.layer.contents = UIImage(named: "clouds.png")?.cgImage//#imageLiteral(resourceName: "clouds")
         
-        currentTempLabel.text = String(format: "%.0f", currentWeather.temp) + AppConstants.celsius
-        let dayTemp = LocString.Cell.today + String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius
-        let nigthTemp = LocString.Cell.tonight + String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius
+        currentTempLabel.text = tempToString(temp: currentWeather.temp)
+        let dayTemp = LocString.Cell.today + tempToString(temp: dayForecast.temp.day)
+        let nigthTemp = LocString.Cell.tonight + tempToString(temp: dayForecast.temp.night)
         dayNightTempLabel.text = dayTemp + AppConstants.dot + nigthTemp
-        feelsTempLabel.text = LocString.Cell.feels_like + String(format: "%.0f", currentWeather.feelsLike) + AppConstants.celsius
+        feelsTempLabel.text = LocString.Cell.feels_like + tempToString(temp: currentWeather.feelsLike)
         weatherDescriptLabel.text = currentWeather.weather.first?.description //dayForecast.weather.first?.description
         windLabel.text = "🚩 " /*LocString.Cell.wind*/ + String(format: "%.1f", currentWeather.windSpeed) + LocString.Cell.meters_in_sec
         
@@ -170,6 +170,12 @@ class ThirdCell: UITableViewCell {
         } else {
             setImage(weather: currentWeather.weather) //setImage(weather: dayForecast.weather)
         }
+    }
+    
+    func tempToString(temp: Double) -> String {
+        var tempStr = String(format: "%.0f", temp)
+        if tempStr == "-0" { tempStr = "0" }
+        return tempStr + AppConstants.celsius
     }
     
 //    private func setImage(weather: [Weather]) {

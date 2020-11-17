@@ -23,6 +23,7 @@ class WeatherViewController: UIViewController {
     var dayForecast: DayForecast!
     var icon: UIImage!
     var currentTemp: Double!
+    var useLocalIcons: Bool!
     var delegate: WeatherVCDelegate!
     
     var  colorScheme: SchemeProtocol!
@@ -96,6 +97,8 @@ class WeatherViewController: UIViewController {
         
         if let currentImage = delegate.imageArray[imageKey] { //delegate.newIconsArray[imageKey] {
             weatherImageView.image = currentImage
+            //TODO:
+            //weatherImageView.image = LocalImages.getImage(by: "01n")
         }
         else {
             let closure = {() -> () in self.weatherImageView.image = self.delegate.imageArray[self.imageKey] } //self.delegate.newIconsArray[self.imageKey] }
@@ -108,28 +111,28 @@ class WeatherViewController: UIViewController {
     func createMainBottomStackView() -> UIStackView {
         guard let dayForecast = dayForecast else { return UIStackView() }
         
-        let mornTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.morn) + AppConstants.celsius, color: colorScheme.color.mornTemp)
+        let mornTempLabel = UILabel(text: tempToString(temp: dayForecast.temp.morn), color: colorScheme.color.mornTemp)
         let mornImageView = UIImageView(iconName: "sun.haze", tintColor: colorScheme.color.mornIcon , image: nil)
         let mornDescrLabel = UILabel(text: LocString.WeatherInfo.morning, color: colorScheme.color.mornDescr)
         let morningStackView = UIStackView(spacing: 5, axis: .vertical,
                                            distribution: .equalSpacing, alignment: .center,
                                            views: [mornTempLabel, mornImageView, mornDescrLabel])
         
-        let dayTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.day) + AppConstants.celsius, color: colorScheme.color.dayTemp)
+        let dayTempLabel = UILabel(text: tempToString(temp: dayForecast.temp.day), color: colorScheme.color.dayTemp)
         let dayImageView = UIImageView(iconName: "sun.max", tintColor: colorScheme.color.dayIcon, image: nil)
         let dayDescrLabel = UILabel(text: LocString.WeatherInfo.day, color: colorScheme.color.dayDescr)
         let dayStackView = UIStackView(spacing: 5, axis: .vertical,
                                            distribution: .equalSpacing, alignment: .center,
                                            views: [dayTempLabel, dayImageView, dayDescrLabel])
         
-        let eveTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.eve) + AppConstants.celsius, color: colorScheme.color.eveTemp)
+        let eveTempLabel = UILabel(text: tempToString(temp: dayForecast.temp.eve), color: colorScheme.color.eveTemp)
         let eveImageView = UIImageView(iconName: "sun.haze.fill", tintColor: colorScheme.color.eveIcon, image: nil)
         let eveDescrLabel = UILabel(text: LocString.WeatherInfo.evening, color: colorScheme.color.eveDescr)
         let eveningStackView = UIStackView(spacing: 5, axis: .vertical,
                                        distribution: .equalSpacing, alignment: .center,
                                        views: [eveTempLabel, eveImageView, eveDescrLabel])
         
-        let nightTempLabel = UILabel(text: String(format: "%.0f", dayForecast.temp.night) + AppConstants.celsius, color: colorScheme.color.nightTemp)
+        let nightTempLabel = UILabel(text: tempToString(temp: dayForecast.temp.night), color: colorScheme.color.nightTemp)
         let nightImageView = UIImageView(iconName: "moon", tintColor: colorScheme.color.nightIcon, image: nil)
         let nightDescrLabel = UILabel(text: LocString.WeatherInfo.night, color: colorScheme.color.nightDescr)
         let nightStackView = UIStackView(spacing: 5, axis: .vertical,
@@ -153,7 +156,7 @@ class WeatherViewController: UIViewController {
     }
     
     func createTempLabel() -> UILabel {
-        let label = UILabel(text: String(format: "%.0f", currentTemp) + AppConstants.celsius,
+        let label = UILabel(text: tempToString(temp: currentTemp),
                             color: colorScheme.color.tempLabel /*.darkGray*/,
                             height: 92, size: 77)
         
@@ -220,6 +223,7 @@ class WeatherViewController: UIViewController {
         guard let dayForecast = dayForecast else { return (UIImageView(), UIImageView()) }
         let sunriseImageView = UIImageView(iconName: "sunrise", tintColor: colorScheme.color.sunriseIcon, image: nil)
         let sunriseLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunrise, dateFormat: "HH:mm"), color: colorScheme.color.sunriseLabel )
+        let sunriseLabel2 = UILabel(text: "7:42", color: colorScheme.color.sunriseLabel )
         view.addSubview(sunriseImageView)
         view.addSubview(sunriseLabel)
         
@@ -227,6 +231,7 @@ class WeatherViewController: UIViewController {
         
         let sunsetImageView = UIImageView(iconName: "sunset", tintColor: colorScheme.color.sunsetIcon , image: nil)
         let sunsetLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunset, dateFormat: "HH:mm"), color: colorScheme.color.sunsetLabel )
+        let sunsetLabel2 = UILabel(text: "16:38", color: colorScheme.color.sunsetLabel )
         view.addSubview(sunsetImageView)
         view.addSubview(sunsetLabel)
         
@@ -430,6 +435,24 @@ class WeatherViewController: UIViewController {
         self.view.layer.addSublayer(gradientLayer)
     }
     
+    func tempToString(temp: Double) -> String {
+        var tempStr = String(format: "%.0f", temp)
+        if tempStr == "-0" { tempStr = "0" }
+        return tempStr + AppConstants.celsius
+    }
+    
+    func useLocalIcon() {
+        view.addSubview(weatherImageView)
+        
+        weatherImageView.centerAnchor(centerX: view.centerXAnchor,
+                                      centerY: view.safeAreaLayoutGuide.centerYAnchor,
+                                      constantX: 0,
+                                      constantY: -weatherImageView.bounds.height/2)
+        
+        let iconName = dayForecast.weather.first?.icon ?? ""
+        weatherImageView.image = LocalImages.getImage(by: iconName)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = colorScheme.color.viewColor // #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
@@ -438,7 +461,10 @@ class WeatherViewController: UIViewController {
         
         let tempLabel = createTempLabel()
         createDescrLabel(view: tempLabel)
-        setWeatherImage()
+        
+        if useLocalIcons { useLocalIcon() }
+        else  { setWeatherImage() }
+        
         let bottomStackView = createMainBottomStackView()
         //createSunPhasesIfNeeded() //-> 👇
         let suns = createSunPhases()
@@ -448,8 +474,6 @@ class WeatherViewController: UIViewController {
         createPreasureHumidityBackground(imagePreasure: preasureHumidity.preasureImg)
         createSunriseSunsetBackground(suriseImg: suns.sunriseImg, susetImg: suns.sunsetImg)
         createBottomStackViewBackground(stackView: bottomStackView)
-        
-        
         
         
         setBackgroundImage()

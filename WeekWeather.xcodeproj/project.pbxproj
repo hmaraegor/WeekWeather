@@ -47,6 +47,8 @@
 		74B2FD8B24FD302F005BA215 /* WeatherMO+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B2FD8A24FD302F005BA215 /* WeatherMO+CoreDataProperties.swift */; };
 		74B2FD8E24FD30B6005BA215 /* WeekWeather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 74B2FD8C24FD30B6005BA215 /* WeekWeather.xcdatamodeld */; };
 		74B2FDB9250135A8005BA215 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B2FDB8250135A8005BA215 /* WeatherViewController.swift */; };
+		74CC851425629F6A0020D96D /* LocalImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CC851325629F6A0020D96D /* LocalImages.swift */; };
+		74EE4CEC2563B6AD007E7284 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 74EE4CEE2563B6AD007E7284 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +80,8 @@
 		745D592E24F675C700B75C46 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		745D593024F6D73F00B75C46 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/DayList.strings; sourceTree = "<group>"; };
 		745D593424F6D76A00B75C46 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		745D837A255A9AC1007A3CE3 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/DayList.strings; sourceTree = "<group>"; };
+		745D837B255A9ACE007A3CE3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/DayList.strings; sourceTree = "<group>"; };
 		74653DBC251B807E00550A1C /* ColorSchemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSchemes.swift; sourceTree = "<group>"; };
 		746BFD81255173380051DCBF /* ThirdDayCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ThirdDayCell.xib; sourceTree = "<group>"; };
 		746BFD84255187FB0051DCBF /* ThirdCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdCell.swift; sourceTree = "<group>"; };
@@ -94,6 +98,8 @@
 		74B2FD8A24FD302F005BA215 /* WeatherMO+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WeatherMO+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		74B2FD8D24FD30B6005BA215 /* WeekWeather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeekWeather.xcdatamodel; sourceTree = "<group>"; };
 		74B2FDB8250135A8005BA215 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		74CC851325629F6A0020D96D /* LocalImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalImages.swift; sourceTree = "<group>"; };
+		74EE4CED2563B6AD007E7284 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				74B2FD8C24FD30B6005BA215 /* WeekWeather.xcdatamodeld */,
+				74EE4CEE2563B6AD007E7284 /* Localizable.strings */,
 				745D593524F6D76A00B75C46 /* Localizable.strings */,
 				74383C7124F0289B00F29908 /* Localizable.strings */,
 				745D592F24F675C700B75C46 /* Localizable.strings */,
@@ -217,6 +224,7 @@
 				74A53E4B24EEAC7F00D27942 /* LocalizedStrings.swift */,
 				74A53E4D24EEAFF800D27942 /* AppConstants.swift */,
 				74653DBC251B807E00550A1C /* ColorSchemes.swift */,
+				74CC851325629F6A0020D96D /* LocalImages.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -287,6 +295,8 @@
 				Base,
 				ru,
 				de,
+				es,
+				fr,
 			);
 			mainGroup = 7457BB3B24EC52D3004693A5;
 			productRefGroup = 7457BB4524EC52D3004693A5 /* Products */;
@@ -305,6 +315,7 @@
 			files = (
 				746BFD82255173380051DCBF /* ThirdDayCell.xib in Resources */,
 				74383C6F24F0289B00F29908 /* Localizable.strings in Resources */,
+				74EE4CEC2563B6AD007E7284 /* Localizable.strings in Resources */,
 				7457BB5424EC52D6004693A5 /* LaunchScreen.storyboard in Resources */,
 				7457BB5124EC52D6004693A5 /* Assets.xcassets in Resources */,
 				745D592D24F675C700B75C46 /* Localizable.strings in Resources */,
@@ -345,6 +356,7 @@
 				74B2FD8724FD2FA8005BA215 /* TempMO+CoreDataProperties.swift in Sources */,
 				7457BB6F24ED5C00004693A5 /* WeekForecastService.swift in Sources */,
 				741918D2250FA16F002C09BA /* DateService.swift in Sources */,
+				74CC851425629F6A0020D96D /* LocalImages.swift in Sources */,
 				74A53E4C24EEAC7F00D27942 /* LocalizedStrings.swift in Sources */,
 				7457BB4A24EC52D3004693A5 /* SceneDelegate.swift in Sources */,
 				74B2FD8524FD2F81005BA215 /* TempMO+CoreDataClass.swift in Sources */,
@@ -373,6 +385,8 @@
 				7457BB4E24EC52D3004693A5 /* Base */,
 				74383C6C24F0281000F29908 /* ru */,
 				745D593024F6D73F00B75C46 /* de */,
+				745D837A255A9AC1007A3CE3 /* es */,
+				745D837B255A9ACE007A3CE3 /* fr */,
 			);
 			name = DayList.storyboard;
 			sourceTree = "<group>";
@@ -397,6 +411,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				745D593424F6D76A00B75C46 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		74EE4CEE2563B6AD007E7284 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				74EE4CED2563B6AD007E7284 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -534,7 +556,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = hmaraegor.weekweather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = WeekWeatherStoreIOSProfile03;
@@ -555,7 +577,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = hmaraegor.weekweather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = WeekWeatherStoreIOSProfile03;

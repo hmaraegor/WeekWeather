@@ -1,0 +1,28 @@
+/* 
+  Localizable.strings
+  WeekWeather
+
+  Created by Egor on 17.11.2020.
+  Copyright © 2020 Egor. All rights reserved.
+*/
+
+"today " = "aujourd'hui ";
+"tonight " = "ce soir ";
+"wind: " = "le vent: ";
+"m/s" = "m/s";
+"feels like " = "t. ressentie ";
+ 
+"day " = "jour ";
+"night " = "nuit ";
+ 
+"morning" = "matin";
+"day" = "après-midi";
+"evening" = "soir";
+"night" = "nuit";
+ 
+"The current location cannot be displayed" = "L'emplacement actuel ne peut pas être affiché";
+"Allow Location Access" = "Autoriser l'accès à l'emplacement";
+"WeekWeather needs access to your location. Turn on Location Services in your device settings." = "WeekWeather a besoin d'accéder à votre emplacement. Activez les services de localisation dans les paramètres de votre appareil";
+"settings" = "les paramètres";
+ 
+"Undefine Place" = "Le lieu non identifié";

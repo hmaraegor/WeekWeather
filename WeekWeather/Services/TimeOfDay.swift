@@ -15,10 +15,8 @@ enum TimeOfDay {
     case night
     
     static var timeOfDay: TimeOfDay {
-        let date = Date()
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        //print("Hour: ", hour)
+        let hour = DateService.currentHours()
+//        print("Hour: ", hour)
         
         if (6..<12).contains(hour){
             return .morning
@@ -36,7 +34,10 @@ enum TimeOfDay {
     }
     
     static func timeOfDayFromSun(sunrise: Double, sunset: Double) -> TimeOfDay {
-        let time = Date().timeIntervalSince1970
+        //let time = Date().timeIntervalSince1970
+        let time = DateService.currentHours() * 60 + DateService.currentMinutes()
+        let sunrise /*sunriseInMinutes*/ = DateService.hours(fromUnix: sunrise) * 60 + DateService.minutes(fromUnix: sunrise)
+        let sunset /*sunsetInMinutes*/ = DateService.hours(fromUnix: sunset) * 60 + DateService.minutes(fromUnix: sunset)
         
         if (time < sunrise){
             return .night
