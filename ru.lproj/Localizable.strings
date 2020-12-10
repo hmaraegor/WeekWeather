@@ -19,6 +19,7 @@
 "day" = "день";
 "evening" = "вечер";
 "night" = "ночь";
+"mm" = "мм";
 
 "The current location cannot be displayed" = "Текущее местоположение не может быть отображено";
 "Allow Location Access" = "Разрешение доступа к местоположению";

@@ -19,6 +19,7 @@
 "day" = "Tag";
 "evening" = "Abend";
 "night" = "Nacht";
+"mm" = "mm";
 
 "The current location cannot be displayed" = "Der aktuelle Standort kann nicht angezeigt werden";
 "Allow Location Access" = "Standortzugriff zulassen";

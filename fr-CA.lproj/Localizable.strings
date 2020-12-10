@@ -19,7 +19,6 @@
 "day" = "après-midi";
 "evening" = "soir";
 "night" = "nuit";
-"mm" = "mm";
  
 "The current location cannot be displayed" = "L'emplacement actuel ne peut pas être affiché";
 "Allow Location Access" = "Autoriser l'accès à l'emplacement";

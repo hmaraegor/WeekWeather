@@ -1,0 +1,29 @@
+/* 
+  Localizable.strings
+  WeekWeather
+
+  Created by Egor on 17.11.2020.
+  Copyright © 2020 Egor. All rights reserved.
+*/
+
+"today " = "今日 ";
+"tonight " = "今晚 ";
+"wind: " = "风速: ";
+"m/s" = "米 / 秒";
+"feels like " = "体感温度 ";
+
+"day " = "下午 ";
+"night " = "夜间 ";
+
+"morning" = "上午";
+"day" = "下午";
+"evening" = "晚上";
+"night" = "夜间";
+"mm" = "毫米";
+
+"The current location cannot be displayed" = "無法顯示當前位置";
+"Allow Location Access" = "允許位置訪問";
+"WeekWeather needs access to your location. Turn on Location Services in your device settings." = "WeekWeather需要訪問您的位置。在設備設置中打開位置服務。";
+"settings" = "設置";
+
+"Undefine Place" = "未定義的地方";

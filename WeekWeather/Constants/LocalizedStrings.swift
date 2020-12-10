@@ -36,5 +36,6 @@ struct LocString {
         static let day = NSLocalizedString("day", comment: "day")
         static let evening = NSLocalizedString("evening", comment: "evening")
         static let night = NSLocalizedString("night", comment: "night")
+        static let mm = NSLocalizedString("mm", comment: "mm")
     }
 }

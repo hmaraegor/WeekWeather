@@ -36,16 +36,26 @@ enum TimeOfDay {
     static func timeOfDayFromSun(sunrise: Double, sunset: Double) -> TimeOfDay {
         //let time = Date().timeIntervalSince1970
         let time = DateService.currentHours() * 60 + DateService.currentMinutes()
-        let sunrise /*sunriseInMinutes*/ = DateService.hours(fromUnix: sunrise) * 60 + DateService.minutes(fromUnix: sunrise)
-        let sunset /*sunsetInMinutes*/ = DateService.hours(fromUnix: sunset) * 60 + DateService.minutes(fromUnix: sunset)
         
+        //print("sunrise:", DateService.hours(fromUnix: sunrise), ":", DateService.minutes(fromUnix: sunrise))
+        let sunrise /*sunriseInMinutes*/ = DateService.hours(fromUnix: sunrise) * 60 + DateService.minutes(fromUnix: sunrise)
+        
+        //print("sunset:", DateService.hours(fromUnix: sunset), ":", DateService.minutes(fromUnix: sunset))
+        var newSunset: Int
+        if DateService.hours(fromUnix: sunset) != 0 {
+            newSunset /*sunriseInMinutes*/ = DateService.hours(fromUnix: sunset) * 60 + DateService.minutes(fromUnix: sunset)
+        } else {
+            newSunset = 24 * 60 + DateService.minutes(fromUnix: sunset)
+        }
+        //let sunset /*sunsetInMinutes*/ = DateService.hours(fromUnix: sunset) * 60 + DateService.minutes(fromUnix: sunset)
+        //print("Time:", DateService.currentHours(), ":", DateService.currentMinutes())
         if (time < sunrise){
             return .night
         }
-        else if (time > sunrise) && (time < sunset) {
+        else if (time > sunrise) && (time < newSunset) {
             return .day
         }
-        else if (time > sunset) {
+        else if (time > newSunset) {
             return .night
         }
         return .day

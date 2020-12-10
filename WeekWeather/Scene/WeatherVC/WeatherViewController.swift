@@ -223,7 +223,7 @@ class WeatherViewController: UIViewController {
         guard let dayForecast = dayForecast else { return (UIImageView(), UIImageView()) }
         let sunriseImageView = UIImageView(iconName: "sunrise", tintColor: colorScheme.color.sunriseIcon, image: nil)
         let sunriseLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunrise, dateFormat: "HH:mm"), color: colorScheme.color.sunriseLabel )
-        let sunriseLabel2 = UILabel(text: "7:42", color: colorScheme.color.sunriseLabel )
+        let sunriseLabel2 = UILabel(text: "7:02", color: colorScheme.color.sunriseLabel )
         view.addSubview(sunriseImageView)
         view.addSubview(sunriseLabel)
         
@@ -231,7 +231,7 @@ class WeatherViewController: UIViewController {
         
         let sunsetImageView = UIImageView(iconName: "sunset", tintColor: colorScheme.color.sunsetIcon , image: nil)
         let sunsetLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunset, dateFormat: "HH:mm"), color: colorScheme.color.sunsetLabel )
-        let sunsetLabel2 = UILabel(text: "16:38", color: colorScheme.color.sunsetLabel )
+        let sunsetLabel2 = UILabel(text: "16:55", color: colorScheme.color.sunsetLabel )
         view.addSubview(sunsetImageView)
         view.addSubview(sunsetLabel)
         
@@ -280,7 +280,7 @@ class WeatherViewController: UIViewController {
         
         
         let preasureImageView = UIImageView(iconName: "gauge", tintColor: colorScheme.color.preasureIcon /*.gray*/, image: nil, size: CGSize(width: 35, height: 35))
-        let preasureLabel = UILabel(text: String(format: "%.0f", dayForecast.pressure * 0.750062) + "mm", color: colorScheme.color.preasureLabel /*.darkGray*/, size: 16)
+        let preasureLabel = UILabel(text: String(format: "%.0f", dayForecast.pressure * 0.750062) + LocString.WeatherInfo.mm, color: colorScheme.color.preasureLabel /*.darkGray*/, size: 16)
         view.addSubview(preasureImageView)
         view.addSubview(preasureLabel)
         

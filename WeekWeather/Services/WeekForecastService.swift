@@ -13,11 +13,15 @@ class WeekForecastService {
     private let networkService = NetworkService()
     private let randomAPIKey: String = {
         let hmaraegorGmailAPIKey = "2ff71b60a20dc621c22b68a665801ccf"
-        let keys = ["2dada6d9a4edbea43b4c7314745eecc9",
+        let keys = [hmaraegorGmailAPIKey,
+                    "2dada6d9a4edbea43b4c7314745eecc9",
                     "a5750de424686a7bb81577c2b86bad06",
                     "81ccd4695d3e4a171cfca1712cd80d7b",
                     "3aaa1e8cdce117db886aed7f857b271b",
-                    "07b9dd6370e792debbd5547cb6ab4cfd"]
+                    "07b9dd6370e792debbd5547cb6ab4cfd",
+                    "45d54668338cd8e7afb04055eae0325f",
+  /*hmaraegor06:*/  "d1b47f48df555886907192f7ec0106d3",
+                    "cabebcb85dea75851e7cd54cd8b0561f"]
         let randomIndex = Int.random(in: 0..<keys.count)
         return keys[randomIndex]
     }()
