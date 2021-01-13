@@ -23,6 +23,7 @@ class WeatherViewController: UIViewController {
     var dayForecast: DayForecast!
     var icon: UIImage!
     var currentTemp: Double!
+    var feelsLikeTemp: Double!
     var useLocalIcons: Bool!
     var delegate: WeatherVCDelegate!
     
@@ -155,6 +156,24 @@ class WeatherViewController: UIViewController {
         return mainBottomStackView
     }
     
+    func createFeelsLikeLabel(tempLabel: UILabel) -> UILabel {
+        let label = UILabel(text: LocString.Cell.feels_like + tempToString(temp: feelsLikeTemp),
+                            color: colorScheme.color.tempLabel,
+                            height: 20, size: 16)
+        
+        view.addSubview(label)
+        
+        label.anchor(top: tempLabel.bottomAnchor,
+                     leading: nil,
+                     bottom: nil,
+                     trailing: tempLabel.trailingAnchor,
+                     padding: UIEdgeInsets(top: -10, left: 777,
+                                           bottom: 777, right: 0),
+                     size: CGSize(width: label.bounds.size.width, height: 24))
+        
+        return label
+    }
+    
     func createTempLabel() -> UILabel {
         let label = UILabel(text: tempToString(temp: currentTemp),
                             color: colorScheme.color.tempLabel /*.darkGray*/,
@@ -185,7 +204,7 @@ class WeatherViewController: UIViewController {
                      leading: nil,
                      bottom: nil,
                      trailing: view.trailingAnchor,
-                     padding: UIEdgeInsets(top: 0, left: 777,
+                     padding: UIEdgeInsets(top: 10, left: 777,
                                            bottom: 777, right: 0),
                      size: CGSize(width: label.bounds.size.width, height: 24))
         return label
@@ -460,7 +479,8 @@ class WeatherViewController: UIViewController {
         
         
         let tempLabel = createTempLabel()
-        createDescrLabel(view: tempLabel)
+        let feelsLikeLabel = createFeelsLikeLabel(tempLabel: tempLabel)
+        createDescrLabel(view: feelsLikeLabel)
         
         if useLocalIcons { useLocalIcon() }
         else  { setWeatherImage() }
@@ -474,7 +494,6 @@ class WeatherViewController: UIViewController {
         createPreasureHumidityBackground(imagePreasure: preasureHumidity.preasureImg)
         createSunriseSunsetBackground(suriseImg: suns.sunriseImg, susetImg: suns.sunsetImg)
         createBottomStackViewBackground(stackView: bottomStackView)
-        
         
         setBackgroundImage()
         

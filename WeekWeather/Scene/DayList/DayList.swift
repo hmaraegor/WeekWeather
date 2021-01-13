@@ -543,6 +543,7 @@ extension DayList: UITableViewDataSource {
     
     private func presentWeatherController(with dayForecast: DayForecast?, index: Int) {
         let currentTemp: Double?
+        let feelsLikeTemp: Double?
         var image: UIImage?
         var imageName: String = ""
         var timeOfDayFromSun = TimeOfDay.day
@@ -550,6 +551,7 @@ extension DayList: UITableViewDataSource {
         print("index: ", index)
         if index == 0 {
             currentTemp = daylyForecast?.current.temp
+            feelsLikeTemp = daylyForecast?.current.feelsLike
             if let currentW = daylyForecast?.current, let weather = currentW.weather.first {
                 image = imageArray[weather.icon/*weather.description*/]
 //                self.delegate?.newIconsArray[weather.first!.icon]
@@ -559,6 +561,7 @@ extension DayList: UITableViewDataSource {
         }
         else {
             currentTemp = dayForecast?.temp.day
+            feelsLikeTemp = dayForecast?.feelsLike.day
             if let weather = dayForecast?.weather.first {
                 image = imageArray[weather.icon/*weather.description*/]
                 imageName = weather.icon
@@ -572,6 +575,7 @@ extension DayList: UITableViewDataSource {
         let vc = WeatherViewController()
         vc.dayForecast = dayForecast
         vc.currentTemp = currentTemp
+        vc.feelsLikeTemp = feelsLikeTemp
         vc.imageKey = imageName
         if index == 0 && timeOfDayFromSun == .night {
             vc.colorScheme = ColorSchemes.Night()
