@@ -8,6 +8,28 @@
 
 import UIKit
 
+extension UIScreen{
+    static var width: Double {
+        get {
+            print("width", Double(UIScreen.main.bounds.size.width))
+            return Double(main.bounds.size.width)
+        }
+    }
+    static var height: Double {
+        get {
+            print("height", Double(UIScreen.main.bounds.size.height))
+            return Double(main.bounds.size.height)
+        }
+    }
+    static var scalee: Double {
+        get {
+            return Double(main.scale)
+        }
+    }
+    
+    static let size = UIScreen.main.bounds.size
+}
+
 protocol WeatherVCDelegate {
     var newIconsArray: [String : UIImage] { get set }
     var imageArray: [String : UIImage] { get set }
@@ -91,10 +113,13 @@ class WeatherViewController: UIViewController {
     func setWeatherImage() {
         view.addSubview(weatherImageView)
         
+        var offset: CGFloat = 0
+        if UIScreen.width == 320 || (UIScreen.width == 375 && UIScreen.scalee == 2) { offset = 30 }
+        
         weatherImageView.centerAnchor(centerX: view.centerXAnchor,
                                       centerY: view.safeAreaLayoutGuide.centerYAnchor,
                                       constantX: 0,
-                                      constantY: -weatherImageView.bounds.height/2)
+                                      constantY: (-weatherImageView.bounds.height/2) + offset)
         
         if let currentImage = delegate.imageArray[imageKey] { //delegate.newIconsArray[imageKey] {
             weatherImageView.image = currentImage
@@ -192,20 +217,29 @@ class WeatherViewController: UIViewController {
         return label
     }
     
-    func createDescrLabel(view: UIView) -> UILabel {
+    func createDescrLabel(feelsView: UIView, tempView: UIView) -> UILabel {
         guard let dayForecast = dayForecast, let weather = dayForecast.weather.first else { return UILabel() }
         let label = UILabel(text: weather.description,
                             color: colorScheme.color.descrLabel /*.darkGray*/,
                             height: 24, size: 20)
         
-        view.addSubview(label)
+        feelsView.addSubview(label)
         
-        label.anchor(top: view.bottomAnchor,
-                     leading: nil,
-                     bottom: nil,
-                     trailing: view.trailingAnchor,
-                     padding: UIEdgeInsets(top: 10, left: 777,
-                                           bottom: 777, right: 0),
+        var anch: (top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom:  NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?) = (top: feelsView.bottomAnchor, leading: nil, bottom: nil, trailing: feelsView.trailingAnchor)
+        var padd: (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) = (top: 10, left: 777,
+                                                                                    bottom: 777, right: 0)
+        
+        if UIScreen.width == 320 {
+            anch = (top: nil, leading: nil, bottom: tempView.topAnchor, trailing: tempView.trailingAnchor)
+            padd = (top: 777, left: 777, bottom: -15, right: 0)
+        }
+            
+        label.anchor(top: anch.top,
+                     leading: anch.leading,
+                     bottom: anch.bottom,
+                     trailing: anch.trailing,
+                     padding: UIEdgeInsets(top: padd.top, left: padd.left,
+                                           bottom: padd.bottom, right: padd.right),
                      size: CGSize(width: label.bounds.size.width, height: 24))
         return label
     }
@@ -246,7 +280,8 @@ class WeatherViewController: UIViewController {
         view.addSubview(sunriseImageView)
         view.addSubview(sunriseLabel)
         
-        
+        var offset: CGFloat = 0
+        if UIScreen.width == 320 { offset = 20 }
         
         let sunsetImageView = UIImageView(iconName: "sunset", tintColor: colorScheme.color.sunsetIcon , image: nil)
         let sunsetLabel = UILabel(text: DateService.getDate(unixTime: dayForecast.sunset, dateFormat: "HH:mm"), color: colorScheme.color.sunsetLabel )
@@ -262,7 +297,7 @@ class WeatherViewController: UIViewController {
                                 trailing: nil,
                                 padding: UIEdgeInsets(top: 777,
                                                       left: 20,
-                                                      bottom: (view.bounds.height * 1/4),
+                                                      bottom: (view.bounds.height * 1/4) + offset,
                                                       right: 777),
                                 size: .zero)
         
@@ -279,7 +314,7 @@ class WeatherViewController: UIViewController {
                                trailing: view.safeAreaLayoutGuide.trailingAnchor,
                                padding: UIEdgeInsets(top: 777,
                                                      left: 777,
-                                                     bottom: view.bounds.height * 1/4 /*(view.center.y * 3/2) - sunriseImageView.bounds.height*/,
+                                                     bottom: view.bounds.height * 1/4  + offset /*(view.center.y * 3/2) - sunriseImageView.bounds.height*/,
                                                      right: 20),
                                size: .zero)
         
@@ -480,7 +515,7 @@ class WeatherViewController: UIViewController {
         
         let tempLabel = createTempLabel()
         let feelsLikeLabel = createFeelsLikeLabel(tempLabel: tempLabel)
-        createDescrLabel(view: feelsLikeLabel)
+        createDescrLabel(feelsView: feelsLikeLabel, tempView: tempLabel)
         
         if useLocalIcons { useLocalIcon() }
         else  { setWeatherImage() }
