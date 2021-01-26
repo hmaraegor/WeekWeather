@@ -26,3 +26,5 @@
 "settings" = "les paramètres";
  
 "Undefine Place" = "Le lieu non identifié";
+"Unable to receive data, please check your internet connection." = "Impossible de recevoir des données, veuillez vérifier votre connexion Internet.";
+"Failed to get data." = "Échec de l'obtention des données.";

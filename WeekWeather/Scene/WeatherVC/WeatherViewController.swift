@@ -38,7 +38,10 @@ protocol WeatherVCDelegate {
 }
 
 class WeatherViewController: UIViewController {
+    
+    // MARK: - Properties
 
+    var nextNavigation: NextNavigation!
     var showPreasureHumidity: Bool!
     var showSunPhases: Bool!
     var imageKey: String!
@@ -48,6 +51,8 @@ class WeatherViewController: UIViewController {
     var feelsLikeTemp: Double!
     var useLocalIcons: Bool!
     var delegate: WeatherVCDelegate!
+    var isCalledHandlePan = false
+    var blockNavigation: Navigation!
     
     var  colorScheme: SchemeProtocol!
     
@@ -58,6 +63,17 @@ class WeatherViewController: UIViewController {
         //imageView.layer.opacity = 0.3
         return imageView
     }()
+    
+    let weatherImageView: UIImageView = {
+        let imageView = UIImageView(iconName: nil, tintColor: nil, image: nil, size: CGSize(width: 240, height: 180))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.bounds.size = CGSize(width: 240, height: 180)
+        imageView.contentMode = .scaleAspectFit
+        //        imageView.backgroundColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
+        return imageView
+    }()
+    
+    // MARK: Setup Methods
     
     func setBackgroundImage() {
         backgroundImageView.image = colorScheme.image.backgroundExtInfoImg
@@ -72,15 +88,6 @@ class WeatherViewController: UIViewController {
         
         backgroundImageView.layer.mask = shapeLayer
     }
-    
-    let weatherImageView: UIImageView = {
-           let imageView = UIImageView(iconName: nil, tintColor: nil, image: nil, size: CGSize(width: 240, height: 180))
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.bounds.size = CGSize(width: 240, height: 180)
-            imageView.contentMode = .scaleAspectFit
-    //        imageView.backgroundColor = #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1)
-            return imageView
-        }()
     
     func timerForSettingImage(interval: Double, rerun: Bool, closure: @escaping () -> (), condition: @escaping () -> (Bool)) {
         
@@ -137,28 +144,28 @@ class WeatherViewController: UIViewController {
     func createMainBottomStackView() -> UIStackView {
         guard let dayForecast = dayForecast else { return UIStackView() }
         
-        let mornTempLabel = UILabel(text: tempToString(temp: dayForecast.temp.morn), color: colorScheme.color.mornTemp)
+        let mornTempLabel = UILabel(text: TempS.tempToString(temp: dayForecast.temp.morn), color: colorScheme.color.mornTemp)
         let mornImageView = UIImageView(iconName: "sun.haze", tintColor: colorScheme.color.mornIcon , image: nil)
         let mornDescrLabel = UILabel(text: LocString.WeatherInfo.morning, color: colorScheme.color.mornDescr)
         let morningStackView = UIStackView(spacing: 5, axis: .vertical,
                                            distribution: .equalSpacing, alignment: .center,
                                            views: [mornTempLabel, mornImageView, mornDescrLabel])
         
-        let dayTempLabel = UILabel(text: tempToString(temp: dayForecast.temp.day), color: colorScheme.color.dayTemp)
+        let dayTempLabel = UILabel(text: TempS.tempToString(temp: dayForecast.temp.day), color: colorScheme.color.dayTemp)
         let dayImageView = UIImageView(iconName: "sun.max", tintColor: colorScheme.color.dayIcon, image: nil)
         let dayDescrLabel = UILabel(text: LocString.WeatherInfo.day, color: colorScheme.color.dayDescr)
         let dayStackView = UIStackView(spacing: 5, axis: .vertical,
                                            distribution: .equalSpacing, alignment: .center,
                                            views: [dayTempLabel, dayImageView, dayDescrLabel])
         
-        let eveTempLabel = UILabel(text: tempToString(temp: dayForecast.temp.eve), color: colorScheme.color.eveTemp)
+        let eveTempLabel = UILabel(text: TempS.tempToString(temp: dayForecast.temp.eve), color: colorScheme.color.eveTemp)
         let eveImageView = UIImageView(iconName: "sun.haze.fill", tintColor: colorScheme.color.eveIcon, image: nil)
         let eveDescrLabel = UILabel(text: LocString.WeatherInfo.evening, color: colorScheme.color.eveDescr)
         let eveningStackView = UIStackView(spacing: 5, axis: .vertical,
                                        distribution: .equalSpacing, alignment: .center,
                                        views: [eveTempLabel, eveImageView, eveDescrLabel])
         
-        let nightTempLabel = UILabel(text: tempToString(temp: dayForecast.temp.night), color: colorScheme.color.nightTemp)
+        let nightTempLabel = UILabel(text: TempS.tempToString(temp: dayForecast.temp.night), color: colorScheme.color.nightTemp)
         let nightImageView = UIImageView(iconName: "moon", tintColor: colorScheme.color.nightIcon, image: nil)
         let nightDescrLabel = UILabel(text: LocString.WeatherInfo.night, color: colorScheme.color.nightDescr)
         let nightStackView = UIStackView(spacing: 5, axis: .vertical,
@@ -182,7 +189,7 @@ class WeatherViewController: UIViewController {
     }
     
     func createFeelsLikeLabel(tempLabel: UILabel) -> UILabel {
-        let label = UILabel(text: LocString.Cell.feels_like + tempToString(temp: feelsLikeTemp),
+        let label = UILabel(text: LocString.Cell.feels_like + TempS.tempToString(temp: feelsLikeTemp),
                             color: colorScheme.color.tempLabel,
                             height: 20, size: 16)
         
@@ -200,7 +207,7 @@ class WeatherViewController: UIViewController {
     }
     
     func createTempLabel() -> UILabel {
-        let label = UILabel(text: tempToString(temp: currentTemp),
+        let label = UILabel(text: TempS.tempToString(temp: currentTemp),
                             color: colorScheme.color.tempLabel /*.darkGray*/,
                             height: 92, size: 77)
         
@@ -226,7 +233,7 @@ class WeatherViewController: UIViewController {
         feelsView.addSubview(label)
         
         var anch: (top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom:  NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?) = (top: feelsView.bottomAnchor, leading: nil, bottom: nil, trailing: feelsView.trailingAnchor)
-        var padd: (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) = (top: 10, left: 777,
+        var padd: (top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) = (top: 5, left: 777,
                                                                                     bottom: 777, right: 0)
         
         if UIScreen.width == 320 {
@@ -489,12 +496,6 @@ class WeatherViewController: UIViewController {
         self.view.layer.addSublayer(gradientLayer)
     }
     
-    func tempToString(temp: Double) -> String {
-        var tempStr = String(format: "%.0f", temp)
-        if tempStr == "-0" { tempStr = "0" }
-        return tempStr + AppConstants.celsius
-    }
-    
     func useLocalIcon() {
         view.addSubview(weatherImageView)
         
@@ -506,6 +507,8 @@ class WeatherViewController: UIViewController {
         let iconName = dayForecast.weather.first?.icon ?? ""
         weatherImageView.image = LocalImages.getImage(by: iconName)
     }
+    
+    // MARK: - Lifecicle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -532,6 +535,8 @@ class WeatherViewController: UIViewController {
         
         setBackgroundImage()
         
+        setupGestureRecognizers()
+        
         //makeGradient(view: preasureHumidity.preasureImg)
     }
     
@@ -539,6 +544,64 @@ class WeatherViewController: UIViewController {
         super.viewDidAppear(animated)
         
         //createGradientLayer()
+    }
+    
+    // MARK: - GestureRecognizer
+    
+    private func setupGestureRecognizers() {
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
+        view.addGestureRecognizer(panRecognizer)
+    }
+    
+    @objc private func handlePan(_ sender: UIPanGestureRecognizer) {
+        guard isCalledHandlePan == false else { return }
+        var direction: Navigation
+        let translation = sender.translation(in: view)
+        let x = translation.x
+        if x < 0 {
+            direction = .forward
+        } else {
+            direction = .back
+        }
+        guard abs(x) > 50 else { return }
+        guard blockNavigation != direction else { return }
+        
+        
+        guard let navigationController = self.navigationController else { return }
+        guard navigationController.viewControllers.count > 1 else { return }
+        let navArrayCount = navigationController.viewControllers.count
+        
+//        self.navigationController?.popViewController(animated: false)
+        
+        opacityAnimation()
+        positionAnimation(direction: direction)
+        
+        nextNavigation.navigation(inDirection: direction)
+        var navigationArray = navigationController.viewControllers
+        navigationArray.remove(at: navigationArray.count - 2)
+        self.navigationController?.viewControllers = navigationArray
+        
+        isCalledHandlePan = true
+    }
+    
+    // MARK: - Animations
+    
+    func opacityAnimation() {
+        let opacityAnimation = CABasicAnimation(keyPath: "opacity")
+        opacityAnimation.fromValue = 1.0
+        opacityAnimation.toValue = 0.0
+        opacityAnimation.duration = 0.8
+        view.layer.add(opacityAnimation, forKey: "opacity")
+    }
+    
+    func positionAnimation(direction: Navigation) {
+        let toXValue = (direction == .forward) ? -view.layer.position.x : (view.layer.position.x * 2)
+        let screenSize: CGRect = UIScreen.main.bounds
+        let theAnimation = CABasicAnimation(keyPath: "position")
+        theAnimation.fromValue = CGPoint(x: view.layer.position.x, y: view.layer.position.y)
+        theAnimation.toValue = CGPoint(x: toXValue, y: view.layer.position.y)
+        theAnimation.duration = 1.1 //0.6
+        view.layer.add(theAnimation, forKey: "position")
     }
     
 }

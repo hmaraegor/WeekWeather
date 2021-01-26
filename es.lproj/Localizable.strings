@@ -26,3 +26,5 @@
 "settings" = "ajustes";
  
 "Undefine Place" = "Undefinir lugar";
+"Unable to receive data, please check your internet connection." = "No se pueden obtener datos. Por favor revise su conexion a internet.";
+"Failed to get data." = "No se pudieron obtener los datos.";

@@ -10,108 +10,6 @@ import UIKit
 import CoreLocation
 import CoreData
 
-//MARK: ________________________ Json model ________________________
-
-class Icons: Codable {
-    var useNewIcons: Bool!
-    var folder: String!
-    var dayIcons: [String : String]!
-    var nightIcons: [String : String]!
-    var showPreasureHumidity: Bool!
-    var showSunPhases: Bool!
-    
-    init(useNewIcons: Bool, folder: String, dayIcons: [String : String], nightIcons: [String : String],
-         showPreasureHumidity: Bool = true, showSunPhases: Bool = true) {
-        self.useNewIcons = useNewIcons
-        self.folder = folder
-        self.dayIcons = dayIcons
-        self.nightIcons = nightIcons
-        self.showPreasureHumidity = showPreasureHumidity
-        self.showSunPhases = showSunPhases
-    }
-}
-
-//MARK: ________________________ For NewIcons downloading ________________________
-
-extension DayList {
-    private func setNewIcons() {
-        guard useNewIcons else { return }
-        downloadJSON(url: "https://hmaraegor.ml/Swift/WeekWeather/")
-    }
-    
-    private func downloadJSON(url: String) {
-        DownloadService().getForecast(url: url + "icons.json", params: nil) { (result: Icons?, error) in
-            
-            if let result = result {
-                var json: Icons = result
-                //json.useNewIcons = false
-                if json.useNewIcons {
-                    self.useNewIcons = json.useNewIcons
-                    self.showSunPhases = json.showSunPhases
-                    self.showPreasureHumidity = json.showPreasureHumidity
-                    self.downloadIcons(url: url, icons: json)
-                }
-            }
-            else if let error = error {
-                DispatchQueue.main.async {
-                    if (error as! NetworkServiceError) == .noResponse {
-                        self.useLocalIconsForNoResponse = true
-                    }
-                    ErrorAlertService.showErrorAlert(error: error as! NetworkServiceError, viewController: self)
-                }
-            }
-        }
-    }
-    
-    private func downloadIcons(url: String, icons: Icons) {
-        let url = url + icons.folder
-        
-        
-        let iconsList = makeIconsList()
-        
-        for (key, value) in icons.dayIcons {
-            guard iconsList.contains(key) else { continue }
-            ImageDownloader.downloadImage(stringURL: url + "/" + value + ".png") { (imageData) in
-                DispatchQueue.main.async {
-                    let image = UIImage(data: imageData)
-                    self.newIconsArray[key] = image
-                    self.imageArray = self.newIconsArray
-                    //print("for \(key) image downloaded")
-                    self.tableView.reloadData()
-                }
-            }
-        }
-        
-        for (key, value) in icons.nightIcons {
-            guard iconsList.contains(key) else { continue }
-            ImageDownloader.downloadImage(stringURL: url + "/" + value + ".png") { (imageData) in
-                DispatchQueue.main.async {
-                    let image = UIImage(data: imageData)
-                    self.newIconsArray[key] = image
-                    self.imageArray = self.newIconsArray
-                    //print("for \(key) image downloaded")
-                    self.tableView.reloadData()
-                }
-            }
-        }
-    }
-    
-    private func makeIconsList() -> [String] {
-        var iconsNames = [String]()
-        guard let currentIcon = daylyForecast?.current.weather.first?.icon else { return [] }
-        iconsNames.append(currentIcon)
-        guard let days = daylyForecast?.daily else { return [] }
-         
-        for day in days {
-            if let icon = day.weather.first?.icon {
-                iconsNames.append(icon)
-            }
-        }
-        
-        return iconsNames
-    }
-}
-
 //MARK: ________________________ TableViewController ________________________
 
 class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
@@ -134,6 +32,12 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
     private var daylyForecast: WeekForecast?
     private let locationManager = CLLocationManager()
     var alreadyUpdatedLocation = false
+    var weatherFromCoreDataLoaded = false
+    var networkErrorShawed = false
+    var errorView: NetworkErrorView!
+    var indexOpenedCell: Int!
+    
+    let simpleOver = SimpleOver()
     
     override var title: String? {
         get {
@@ -149,6 +53,7 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.delegate = self
         
         setColorScheme()
         setUIFromColorSheme()
@@ -156,7 +61,7 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
         
         tableView.register(DayCell.getNib(), forCellReuseIdentifier: DayCell.cell)
         loadWeatherFromCoreData()
-        loadCityLocation()
+        loadCityName()
         setNewIcons()
         location()
         
@@ -225,7 +130,7 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
     
     //MARK: ________________________ Loacate methods ________________________
     
-    private func location() {
+    func location() {
         guard CLLocationManager.locationServicesEnabled() else {
             print("Location services are not enabled")
             return
@@ -290,6 +195,7 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
                     self.daylyForecast = result
                     if self.oldIconsUrlWasPassed == false { self.oldIconsUrlWasPassed = true }
                     self.setNewIcons()
+                    self.hideErrorView()
                     self.tableView.reloadData()
                     group.leave()
                 }
@@ -300,16 +206,63 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
                 }
             }
             else if let error = error {
+                print((error as! NetworkServiceError))
+                guard self.networkErrorShawed == false else {
+                    guard self.weatherFromCoreDataLoaded == false else { return }
+                        DispatchQueue.main.async {
+                            if self.errorView == nil {
+                                if self.title == nil { self.title = LocString.Title.undefined_localion }
+                                self.showErrorView()
+                            }
+                            self.retryGetWeatherForecast(params: params)
+                        }
+                    
+                    return
+                }
+                
                 DispatchQueue.main.async {
                     if (error as! NetworkServiceError) == .noResponse {
                         self.useLocalIconsForNoResponse = true
                     }
                     ErrorAlertService.showErrorAlert(error: error as! NetworkServiceError, viewController: self)
+                    self.networkErrorShawed = true
+                    self.retryGetWeatherForecast(params: params)
                 }
             }
             
         }
         
+    }
+    
+    private func retryGetWeatherForecast(params: [String : Any]) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.getWeatherForecast(params: params)
+        }
+    }
+    
+    //MARK: ________________________ Error View ________________________
+    
+    private func showErrorView() {
+        DispatchQueue.main.async {
+            self.errorView = NetworkErrorView.instanceFromNib()
+            self.errorView.initView(message: LocString.Alert.network_ErrorMessage)
+            self.view.addSubview(self.errorView)
+            self.errorView.fillSuperview()
+            UIView.animate(withDuration: 0.3) {
+                self.errorView.layoutIfNeeded()
+            }
+        }
+    }
+    
+    private func hideErrorView() {
+        DispatchQueue.main.async {
+            if self.errorView != nil {
+                self.errorView.removeFromSuperview()
+            }
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
+            }
+        }
     }
     
     //MARK: ________________________ Save/Load ( Core Data ) ________________________
@@ -346,6 +299,7 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
             }
             
         }
+        if dayForecastArray.isEmpty == false { weatherFromCoreDataLoaded = true }
         tableView.reloadData()
     }
     
@@ -413,7 +367,7 @@ class DayList: UIViewController, DayCellDelegate, WeatherVCDelegate {
         return false
     }
     
-    func loadCityLocation() {
+    func loadCityName() {
         guard let cityName = UserDefaults.standard.string(forKey: AppConstants.cityNameKey) else { return }
         self.title = cityName
     }
@@ -435,6 +389,10 @@ extension DayList: CLLocationManagerDelegate {
         if !alreadyUpdatedLocation {
             getWeatherForecast(params: ["lat":locValue.latitude, "lon":locValue.longitude])
             alreadyUpdatedLocation = true
+        } else {
+//            locationManager.stopUpdatingLocation()
+//            locationManager.stopMonitoringSignificantLocationChanges()
+            return
         }
         
         guard let lastLocation = locations.last else {
@@ -448,9 +406,9 @@ extension DayList: CLLocationManagerDelegate {
             if error == nil {
                 if let firstLocation = placemarks?[0],
                     let cityName = firstLocation.locality { // get the city name
+                    self?.title = cityName
                     self?.locationManager.stopUpdatingLocation()
                     self?.locationManager.stopMonitoringSignificantLocationChanges()
-                    self?.title = cityName
                     print(cityName)
                 }
                 else {
@@ -595,6 +553,13 @@ extension DayList: UITableViewDataSource {
         
         vc.useLocalIcons = useLocalIconsForNoResponse
         
+        if index == 0 {
+            vc.blockNavigation = .back
+        } else if index == tableView.numberOfRows(inSection: 0) - 1 {
+            vc.blockNavigation = .forward
+        }
+            
+        
         let backItem = UIBarButtonItem()
         backItem.title = "Back"
         backItem.tintColor = vc.colorScheme.color.backItem
@@ -606,10 +571,201 @@ extension DayList: UITableViewDataSource {
         self.navigationController?.view.backgroundColor = .clear
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: vc.colorScheme.color.extendInfoTitleColor]
         //self.navigationController?.navigationBar.tintColor = .red -- backBarButton
+        indexOpenedCell = index
+        vc.nextNavigation = self
         
-        navigationController?.pushViewController(vc, animated: true)
+        
+        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
     
+    
+    
+}
+
+class SimpleOver: NSObject, UIViewControllerAnimatedTransitioning {
+    var forward: Bool = true
+    var popStyle: Bool = false
+    
+    func transitionDuration(
+        using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
+        return 0.20
+    }
+    
+    func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        
+        if popStyle {
+            animatePop(using: transitionContext)
+            forward = true
+            return
+        }
+        
+        if forward {
+            rightToLeftAnimation(using: transitionContext)
+            return
+        } else {
+            leftToRightAnimation2(using: transitionContext)
+            return
+        }
+        
+        let fz = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+        let tz = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        
+        let f = transitionContext.finalFrame(for: tz)
+        
+        let fOff = f.offsetBy(dx: f.width, dy: 0) //55
+        tz.view.frame = fOff
+        
+        transitionContext.containerView.insertSubview(tz.view, aboveSubview: fz.view)
+        
+        
+        UIView.animate(
+            withDuration: transitionDuration(using: transitionContext),
+            animations: {
+                tz.view.frame = f
+            }, completion: {_ in
+                transitionContext.completeTransition(true)
+            })
+    }
+    
+    func animatePop(using transitionContext: UIViewControllerContextTransitioning) {
+        
+        let fz = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+        let tz = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        
+        let f = transitionContext.initialFrame(for: fz)
+        let fOffPop = f.offsetBy(dx: f.width, dy: 0) // 55
+        
+        transitionContext.containerView.insertSubview(tz.view, belowSubview: fz.view)
+        
+        UIView.animate(
+            withDuration: transitionDuration(using: transitionContext),
+            animations: {
+                fz.view.frame = fOffPop
+            }, completion: {_ in
+                transitionContext.completeTransition(true)
+            })
+    }
+    
+    func leftToRightAnimation2(using transitionContext: UIViewControllerContextTransitioning) {
+        let fz = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+        let tz = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        
+        let f = transitionContext.finalFrame(for: tz) //tz
+        
+        let fOff = f.offsetBy(dx: -f.width, dy: 0) //55
+        tz.view.frame = fOff
+        
+        transitionContext.containerView.insertSubview(tz.view, aboveSubview: fz.view)
+        
+        
+        UIView.animate(
+            withDuration: transitionDuration(using: transitionContext),
+            animations: {
+                tz.view.frame = f
+            }, completion: {_ in
+                transitionContext.completeTransition(true)
+            })
+    }
+    
+    
+    func leftToRightAnimation(using transitionContext: UIViewControllerContextTransitioning) {
+        let fz = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+        let tz = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        
+        let f = transitionContext.initialFrame(for: fz)
+        let fOffPop = f.offsetBy(dx: f.width, dy: 0) // 55
+        
+        transitionContext.containerView.insertSubview(tz.view, belowSubview: fz.view)
+        
+        UIView.animate(
+            withDuration: transitionDuration(using: transitionContext),
+            animations: {
+                fz.view.frame = fOffPop
+            }, completion: {_ in
+                transitionContext.completeTransition(true)
+            })
+    }
+    
+    func rightToLeftAnimation(using transitionContext: UIViewControllerContextTransitioning) {
+        if popStyle {
+            
+            animatePop(using: transitionContext)
+            return
+        }
+        
+        let fz = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from)!
+        let tz = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.to)!
+        
+        //let from = forward ? tz : fz
+        
+        let f = transitionContext.finalFrame(for: tz) //tz
+        
+        let fOff = f.offsetBy(dx: f.width, dy: 0) //55
+        tz.view.frame = fOff
+        
+        transitionContext.containerView.insertSubview(tz.view, aboveSubview: fz.view)
+        
+        
+        UIView.animate(
+            withDuration: transitionDuration(using: transitionContext),
+            animations: {
+                tz.view.frame = f
+            }, completion: {_ in
+                transitionContext.completeTransition(true)
+            })
+    }
+}
+
+extension DayList : UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
+    
+    func navigationController(
+        _ navigationController: UINavigationController,
+        animationControllerFor operation: UINavigationController.Operation,
+        from fromVC: UIViewController,
+        to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        
+        simpleOver.popStyle = (operation == .pop)
+        return simpleOver
+    }
+}
+
+
+protocol NextNavigation {
+    func navigation(inDirection: Navigation)
+}
+
+enum Navigation {
+    case back, forward
+}
+
+extension DayList: NextNavigation {
+    
+    func navigation(inDirection: Navigation) {
+        guard let index = getIndexForNavigation(navigation: inDirection) else { return }
+        setAnimationDirection(inDirection: inDirection)
+        presentWeatherController(with: daylyForecast?.daily[index], index: index)
+    }
+    
+    func setAnimationDirection(inDirection: Navigation) {
+        simpleOver.forward = (inDirection == .forward)
+    }
+    
+    func getIndexForNavigation(navigation: Navigation) -> Int? {
+        switch navigation {
+        case .back:
+            if indexOpenedCell > 0 {
+                return indexOpenedCell - 1
+            } else {
+                return nil
+            }
+        case .forward:
+            if indexOpenedCell < tableView.numberOfRows(inSection: 0) - 1 {
+                return indexOpenedCell + 1
+            } else { return nil }
+        }
+        return 0
+    }
 }
 
 // MARK: ________________________ - Table view delegate ________________________
@@ -638,6 +794,87 @@ extension DayList: UITableViewDelegate {
 //}
 
 //restaurantImageView.image = UIImage(data: restaurant.image as! Data)
+
+//MARK: ________________________ For NewIcons downloading ________________________
+
+extension DayList {
+    private func setNewIcons() {
+        guard useNewIcons else { return }
+        downloadJSON(url: "https://hmaraegor.ml/Swift/WeekWeather/")
+    }
+    
+    private func downloadJSON(url: String) {
+        DownloadService().getForecast(url: url + "icons.json", params: nil) { (result: Icons?, error) in
+            
+            if let result = result {
+                var json: Icons = result
+                //json.useNewIcons = false
+                if json.useNewIcons {
+                    self.useNewIcons = json.useNewIcons
+                    self.showSunPhases = json.showSunPhases
+                    self.showPreasureHumidity = json.showPreasureHumidity
+                    self.downloadIcons(url: url, icons: json)
+                }
+            }
+            else if let error = error {
+                DispatchQueue.main.async {
+                    if (error as! NetworkServiceError) == .noResponse {
+                        self.useLocalIconsForNoResponse = true
+                    }
+                    ErrorAlertService.showErrorAlert(error: error as! NetworkServiceError, viewController: self)
+                }
+            }
+        }
+    }
+    
+    private func downloadIcons(url: String, icons: Icons) {
+        let url = url + icons.folder
+        
+        
+        let iconsList = makeIconsList()
+        
+        for (key, value) in icons.dayIcons {
+            guard iconsList.contains(key) else { continue }
+            ImageDownloader.downloadImage(stringURL: url + "/" + value + ".png") { (imageData) in
+                DispatchQueue.main.async {
+                    let image = UIImage(data: imageData)
+                    self.newIconsArray[key] = image
+                    self.imageArray = self.newIconsArray
+                    //print("for \(key) image downloaded")
+                    self.tableView.reloadData()
+                }
+            }
+        }
+        
+        for (key, value) in icons.nightIcons {
+            guard iconsList.contains(key) else { continue }
+            ImageDownloader.downloadImage(stringURL: url + "/" + value + ".png") { (imageData) in
+                DispatchQueue.main.async {
+                    let image = UIImage(data: imageData)
+                    self.newIconsArray[key] = image
+                    self.imageArray = self.newIconsArray
+                    //print("for \(key) image downloaded")
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    private func makeIconsList() -> [String] {
+        var iconsNames = [String]()
+        guard let currentIcon = daylyForecast?.current.weather.first?.icon else { return [] }
+        iconsNames.append(currentIcon)
+        guard let days = daylyForecast?.daily else { return [] }
+         
+        for day in days {
+            if let icon = day.weather.first?.icon {
+                iconsNames.append(icon)
+            }
+        }
+        
+        return iconsNames
+    }
+}
 
 //MARK: ________________________ Debug methods ________________________
 

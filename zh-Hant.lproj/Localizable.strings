@@ -27,3 +27,5 @@
 "settings" = "設置";
 
 "Undefine Place" = "未定義的地方";
+"Unable to receive data, please check your internet connection." = "無法獲取數據。 請檢查您的互聯網連接。";
+"Failed to get data." = "無法獲取數據。";

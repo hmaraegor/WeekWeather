@@ -27,3 +27,5 @@
 "settings" = "настройки";
 
 "Undefine Place" = "Неизвестное место";
+"Unable to receive data, please check your internet connection." = "Невозможно получить данные, пожалуйста, проверьте подключение к интернету.";
+"Failed to get data." = "Не удалось получить данные.";

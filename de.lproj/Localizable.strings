@@ -27,3 +27,5 @@
 "settings" = "Geräteeinstellungen";
 
 "Undefine Place" = "Undefinierter Ort";
+"Unable to receive data, please check your internet connection." = "Daten können nicht empfangen werden. Bitte überprüfen Sie Ihre Internetverbindung.";
+"Failed to get data." = "Daten konnten nicht abgerufen werden.";

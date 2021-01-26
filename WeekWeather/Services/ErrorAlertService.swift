@@ -18,7 +18,7 @@ class ErrorAlertService {
         case .badURL:
             errorMessage = "URL has incorrect format"
         case .noResponse:
-            errorMessage = "Response was not received"
+            errorMessage = LocString.Alert.network_responseDidntReceive //"Response was not received"
         case .noData:
             errorMessage = "Data was not received"
         case .jsonDecoding:

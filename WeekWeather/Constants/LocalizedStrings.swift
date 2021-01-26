@@ -25,6 +25,8 @@ struct LocString {
         static let location_access_title = NSLocalizedString("Allow Location Access", comment: "Location error")
         static let location_access_message = NSLocalizedString("WeekWeather needs access to your location. Turn on Location Services in your device settings.", comment: "Needs access")
         static let settings = NSLocalizedString("settings", comment: "settings")
+        static let network_ErrorMessage = NSLocalizedString("Unable to receive data, please check your internet connection.", comment: "internet connection")
+        static let network_responseDidntReceive = NSLocalizedString("Failed to get data.", comment: "Response Didnt Receive")
     }
     
     struct Title {
